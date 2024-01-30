@@ -1,0 +1,340 @@
+"parachute disabled" 1
+"fires milk bolt" 1
+"force distribute currency on death" 1
+"melee cleave attack" 1
+"extra damage on hit penalty" 1
+"extra damage on hit" 1
+"mod teleporter speed boost" 1
+"set turn to ice" 1
+"can breathe under water" 1
+"cannot swim" 1
+"swimming mastery" 1
+"ability doubletap teleport" 1
+"mod ignore resists absorbs" 1
+"scoreboard minigame" 1
+"wet immunity" 1
+"ability master sniper" 2
+"last shot crits" 1
+"keep disguise on attack" 1
+"add give health to teammate on hit" 75
+"mod minigun can holster while spinning" 1
+"sapper deploy time" 1
+"kill combo fire rate boost" 0.1
+"mult dispenser rate" 2
+"mvm sentry ammo" 2
+"build small sentries" 1
+"mult teleporter recharge rate" 1
+"disguise as dispenser on crouch" 1
+"ubercharge transfer" 34
+"ubercharge ammo" 10
+"teleport instead of die" 0.5
+"mod projectile heat seek power" 360
+"mod projectile heat aim error" 90
+"mult dmg vs same class" 2
+"uber on damage taken" 1
+"mult dmgtaken from melee" 0.3
+"mult crit when health is below percent" 0.5
+"penetration damage penalty" 0.5
+"firing forward pull" 1000
+"mod soldier buff range" 1.7
+"mult rocketjump deploy time" 0.4
+"mul nonrocketjump attackrate" 0.5
+"aoe heal chance" 80
+"crits on damage" 80
+"stun on damage" 80
+"aoe blast on damage" 80
+"mult dmg with reduced health" 2
+"mult airblast primary refire time" 4
+"mod flamethrower spinup time" 2.4
+"mult airblast cone scale" 1.8
+"airblast functionality flags" 9
+"reverse airblast" 1
+"airblast dashes" 1
+"mult sniper charge per sec with enemy under crosshair" 2
+"sniper beep with enemy under crosshair" 1
+"disable buildings on hit" 4
+"regenerate stickbomb" 1
+"mult smack time" 4
+"medic machinery beam" 1
+"arrow mastery" 1
+"custom item model" "model.mdl"
+"custom weapon fire sound" "sound.wav"
+"explosive bullets" 100
+"mult projectile scale" 2
+"mult projectile count" 4
+"projectile trail particle" "~pyrovision_flaregun_trail_crit_red"
+"explosion particle" "merasmus_bomb_explosion"
+"radius sleeper" 1
+"cannot be sapped" 1
+"item color rgb" 223424
+"is invisible" 1
+"cannot taunt" 1
+"projectile acceleration" 500
+"is miniboss" 1
+"model scale" 1
+"cannot upgrade" 1
+"min respawn time" 4
+"always crit" 1
+"mult firerocket rate" 1
+"building max level" 1
+"sentry rapid fire" 1
+"dont count damage towards crit rate" 1
+"reduced damage rampup" 1
+"no reduced damage rampup" 1
+"force damage falloff" 1
+"no damage falloff" 1
+"can headshot" 1
+"building color rgb" 23424
+"building scale" 1.54
+"mult stun resistance" 0
+"allow friendly fire" 1
+"receive friendly fire" 1
+"cannot headshot" 1
+"mult crit dmg" 1.54
+"cannot be headshot" 1
+"attachment name" "head"
+"attachment offset" "4 2 44"
+"attachment angles" "25 25 0"
+"attachment scale" 1.5
+"mod projectile heat aim time" 1.75
+"projectile gravity" 600
+"projectile acceleration time" 2.55
+"grenade explode on impact" 1
+"projectile lifetime" 52
+"not solid to players" 1
+"is suicide counter" 1
+"always allow taunt" 1
+"mult reflect velocity" 1
+"custom kill icon" "armageddon"
+"mod projectile heat follow crosshair" 1
+"cannot be upgraded" 1
+"projectile no deflect" 1
+"projectile acceleration start time" 1
+"player gravity ballon head" 12
+"mult dmg vs giants" 2.5
+"mult dmg vs tanks" 2.5
+"mult dmg vs npc" 2.5
+"custom hit sound" "fdfdf"
+"custom impact sound" "fdfdf"
+"custom weapon reload sound" "fdfdf"
+"no explosion particles" 1
+"override projectile type extra" "mechanicalarmorb"
+"dmg current health" 0.34
+"dmg max health" 0.34
+"dmg missing health" 0.34
+"cannot be teleported" 1
+"mult medigun range" 1.5
+"projectile penetration limit" 3
+"max aoe targets" 4
+"add cond on hit" 56
+"add cond on hit duration" 4
+"remove cond on hit" 57
+"add damage type" 1
+"remove damage type" 1
+"special damage type" 1
+"dmg taken mult from special damage type 1" 4
+"dmg taken mult from special damage type 2" 4
+"dmg taken mult from special damage type 3" 4
+"mult effect duration" 3
+"effect cond override" 24
+"self add cond on hit" 54
+"self add cond on hit duration" 3
+"add cond on kill" 57
+"add cond on kill duration" 10
+"special item description" "item description"
+"mult flag carrier move speed" 0.66
+"overheal from heal on kill" 1
+"fire input on hit" "!self^SetHealth^0"
+"fire input on hit name restrict" "player"
+"grenade bounce speed" 0.8
+"grenade bounce damage" 0.3
+"projectile gravity native" 0.4
+"grenade no drag" 1
+"stickybomb stick to enemies" 1
+"stickybomb no stick" 1
+"collect currency on kill" 1
+"stomp player force" 270
+"stomp player damage" 100
+"reflect keep team" 1
+"custom wind up sound" "sound.wave"
+"custom wind down sound" "sound.wave"
+"reflect magnet" 1
+"stay after regenerate" 1
+"custom minigun spin sound" "sound.wav"
+"stomp player time" 0.1
+"arrow hit kill time" 0.3
+"custom projectile size" 30
+"mod sentry cost" 1.25
+"mod dispenser cost" 1.25
+"penetrate teammates" 1
+"add cond when active" 11
+"mult step height" 10
+"ignore player clip" 1
+"allow bunny hop" 1
+"fire input on kill" "!self^SetHealth^0"
+"fire input on kill name restrict" "player"
+"fire full clip at once" 1
+"reload full clip at once" 1
+"add cond when active" 56
+"mult debuff duration" 2
+"stomp building damage" 125
+"projectile sound" "sound.wav"
+"burst fire count" 3
+"burst fire rate mult" 2
+"continous accuracy mult" 3
+"continous accuracy time" 1
+"duck accuracy mult" 0.5
+"move accuracy mult" 2
+"force fire full clip" 1
+"special item description 2" "desc"
+"special item description 3" "desc"
+"special item description 4" "desc"
+"allowed build types" 4
+"max bullet range" 10
+"effect add attributes" "move speed bonus|2|fire rate bonus|0.1"
+"medigun passive attributes" "move speed bonus|2|fire rate bonus|0.1"
+"medigun passive attributes owner" "move speed bonus|2|fire rate bonus|0.1"
+"mod projectile heat no predict target speed" 1
+"mult dmg vs airborne" 3
+"revive rate" 10
+"taunt attack after end" 1
+"taunt attack time mult" 2
+"damage returns as health" 0.5
+"no resupply" 1
+"no damage view flinch" 1
+"mult dmg friendly fire" 0.4
+"disable wrangler shield" 1
+"parachute redeploy" 1
+"mult duck speed" 3
+"particle color rgb" 765776
+"particle color rainbow" 100
+"ignored by enemy sentries" 1
+"melee airblast" 1
+"passive reload" 1
+"kb fall min velocity" 300
+"kb fall radius" 230
+"kb fall stun time" 5
+"kb fall force" 300
+"kb fall damage" 50
+"melee grants protection" 0.6
+"arrow snap to next target radius" 1000
+"mult credit collect range" 2
+"health from credits" 50
+"mult bleeding delay" 2
+"mult bleeding dmg" 2
+"grenade bounce speed xy" 2
+"not solid" 1
+"dmg taken from self reduced" 0.5
+"ignored by bots" 1
+"add attributes on hit" "move speed bonus|0.3|2|head scale|3|2"
+"self add attributes on hit" "move speed bonus|0.3|2|head scale|3|2"
+"add attributes on kill" "move speed bonus|0.3|2|head scale|3|2"
+"mod projectile heat aim start time" 3
+"move speed as health decreases" 2
+"Cannot ignite or cause bleeding to the wielder"
+"no self effect" 1
+"reset arrow hits on bounce" 1
+"arrow target bounce speed" 1
+"cannot pickup spells" 1
+"mult max health" 2
+"add spread" 1
+"projectile spread angle mult" 3
+"always allow disguise" 1
+"always allow cloak" 1
+"always allow teleport" 1
+"destroy buildings on death" 1
+"sentry bullet weapon" "TF_WEAPON_ROCKETLAUNCHER"
+"sentry rocket weapon" "TF_WEAPON_ROCKETLAUNCHER"
+"custom sentry model" "models/buildables/sentry"
+"custom dispenser model" "models/buildables/dispenser"
+"custom teleporter model" "models/buildables/teleporter"
+"mult sentry rocket ammo" 3
+"midair accuracy mult" 2
+"add damage per target" 0.5
+"projectile detonate time" 0.5
+"mult afterburn delay" 2
+"custom view model" "models/model.mdl"
+"mult dmg while midair" "0.5"
+"hidden string attribute 1" "abc"
+"hidden string attribute 2" "abc"
+"hidden string attribute 3" "abc"
+"hidden string attribute 4" "abc"
+"medigun keep charged effect" 1
+"ignores other projectiles" 1
+"weapon always gib" 1
+"weapon never gib" 1
+"always gib" 1
+"never gib" 1
+"sapper sap allies" 1
+"custom sapper model" "models/buildables/sd_sapper"
+"custom sapper sound" "Weapon_Sapper.Timer"
+"no clip" 1
+"arrow ignite" 1
+"use original class weapon animations" 1
+"mult dmg before distance" 2
+"mult dmg before distance specify" 1000
+"minigun full movement" 1
+"use original class player animations" 1
+"mult sentry rocket projectile speed" 2
+"crit on cond" 13|16
+"minicrit on cond" 13|16
+"add attributes when active" "move speed bonus|2|damage bonus|2"
+"radial cond" 400
+"mult explosion radius direct hit" 2
+"buildings cannot be sapped" 1
+"mult dmg direct hit" 2
+"explosion particle on direct hit" "particle"
+"cannot upgrade bomb" "1"
+"sentry toolbox model" "models/weapons/c_models/c_toolbox/c_toolbox.mdl"
+"dispenser toolbox model" "models/weapons/c_models/c_toolbox/c_toolbox.mdl"
+"teleporter toolbox model" "models/weapons/c_models/c_toolbox/c_toolbox.mdl"
+"medigun attack enemy" 1.1
+"medigun self drain" 0.6
+"fire input on attack" "!activator^SetHealth^0"
+"stun on hit" "4"
+"stun on hit no giants" 1
+"stun on hit type" "movement"
+"stun on hit slow" 0.4
+"medigun attack enemy heal mult" 3
+"medigun particle" "passtime_beam"
+"medigun particle enemy" "~dxhr_arm_muzzleflash2"
+"medigun particle release" "~dxhr_arm_muzzleflash2"
+"medigun particle spark" "medicgun_invulnstatus_fullcharge"
+"effect immunity" 1
+"use robot voice" 1
+"use human voice" 1
+"alt fire attack" 1
+"alt fire attributes" "fire rate bonus|2|damage bonus|2"
+"no revive" 1
+"fire input on effect" "!activator^SetHealth^0"
+"additional step sound" "MVM.BotStep"
+"fov override" "33"
+"hud overlay" "effects/jarate_overlay"
+"fire input on taunt" "!activator^SetHealth^0"
+"displace touched enemies" 1
+"addcond immunity" "1|3"
+"attribute immunity" "move speed bonus|damage bonus"
+"hold fire until full reload" "1"
+"projectile hit radius" 100
+"noclip projectiles" 1
+"projectile health" 100
+"projectile take damage type" 1
+"projectile take damage time" 0.25
+"projectile explode on destroy" 1
+"projectile explode time" 1.0
+"shoot view punch angle" "-3 0 0"
+"shoot view punch angle random" "3 0 0"
+"custom item model attachment" "models/weapons/c_models/c_overhealer/c_overhealer.mdl,,33 55 99|models/weapons/c_models/c_claymore/c_claymore.mdl,effect_hand_R,,4 2 0,0 270 90,1.5"
+"custom item model attachment 2" "models/weapons/c_models/c_claymore/c_claymore.mdl,none,255 255 0,0 0 100,0 0 0,1.5"
+"custom item model attachment 3" ""
+"custom item model attachment viewmodel" "models/weapons/c_models/c_overhealer/c_overhealer.mdl|models/weapons/c_models/c_claymore/c_claymore.mdl,4 2 0,0 270 90,1.5"
+"custom item model attachment viewmodel 2" "models/weapons/c_models/c_claymore/c_claymore.mdl,0 0 100,0 0 0,1.5"
+"custom item model attachment viewmodel 3" ""
+"custom weapon deploy sound" "sound.wav"
+"spread angle pattern" "10 0 0|0 0 0|-10 0 0"
+"spread offset pattern" "0 10 0|0 0 0|0 -10 0"
+"proj attribute pattern" "projectile speed increased|2|damage bonus|0.5&projectile speed decreased|0.5"
+"shoot pattern reset time" 1
+"shoot pattern no rollback" 1
+"custom damage type override" 47
+"flare no crit burning" 1
