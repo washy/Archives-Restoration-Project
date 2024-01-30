@@ -1,0 +1,495 @@
+#base dover2_custom.pop
+#base dover2_bot_logic.pop
+WaveSchedule
+{
+	FixSetCustomModelInput 1	[$SIGSEGV]
+	PrecacheModel "models/props_mvm/mvm_comically_small_player_shield.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/demo/red_sentry_buster.mdl"	[$SIGSEGV]
+	PrecacheModel "models/rcat/rcat_level2.mdl"	[$SIGSEGV]
+	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
+	LuaScriptFile "scripts/dover2_custom_weapons.lua"
+	CustomWeapon	[$SIGSEGV]
+	{
+		"Biker's Redeemer"
+		{
+			OriginalItemName "The Flying Guillotine"
+			"item style override" 1
+			"projectile speed decreased" 0.5
+			"damage bonus HIDDEN" 0
+			"mod projectile heat no predict target speed" 1	[$SIGSEGV]
+			"mod projectile heat seek power" 360	[$SIGSEGV]
+			"mod projectile heat aim error" 0	[$SIGSEGV]
+			"mod projectile heat aim time" 100	[$SIGSEGV]
+			"collect currency on kill" 1	[$SIGSEGV]
+			"Blast radius decreased" 0
+			"projectile lifetime" 9	[$SIGSEGV]
+			"no explosion particles" 1	[$SIGSEGV]
+			"override projectile type" 2
+			"custom projectile model" "models/weapons/c_models/c_sd_cleaver/c_sd_cleaver.mdl"
+			"projectile trail particle" "eyeboss_projectile"	[$SIGSEGV]
+			"special item description" "Home onto and phase through enemy, dealing contact damage each time"	[$SIGSEGV]
+			"special item description 2" "Damage is multiplied each hit, up to a cap of 10x"	[$SIGSEGV]
+		}
+		"PHD Jumper"
+		{
+			OriginalItemName "Rocket Jumper"
+			"cancel falling damage" 1
+			"attach particle effect" 1
+			"special item description" "On landing after a rocket jump: Create an explosion"	[$SIGSEGV]
+			"special item description 2" "Explosion radius and damage is determined by airborne time"	[$SIGSEGV]
+			"special item description 3" "Explosion damage is affected by damage bonus upgrade"	[$SIGSEGV]
+			"special item description 4" "Airborne time while parachuting is not counted"	[$SIGSEGV]
+		}
+		"Parry Addiction"
+		{
+			OriginalItemName "Festive Targe 2014"
+			"dmg taken from blast reduced" 0.9
+			"dmg taken from fire reduced" 0.9
+			"dmg taken from bullets reduced" 0.9
+			"charge recharge rate increased" 1.4
+			"special item description" "Alt-fire to negate all incoming damage and deal back twice the amount to the attacker"	[$SIGSEGV]
+			"special item description 2" "Parry period lasts for 0.8 seconds"	[$SIGSEGV]
+		}
+		"Buster Transformer"
+		{
+			OriginalItemName "Festive Targe 2014"
+			"dmg taken from blast reduced" 0.95
+			"dmg taken from fire reduced" 0.75
+			"charge recharge rate increased" -10
+			"no resupply" 1	[$SIGSEGV]
+			"special item description" "Fill up the charge meter by dealing damage"	[$SIGSEGV]
+			"special item description 2" "When the meter is full, press MOUSE2 to transform into a sentry buster."	[$SIGSEGV]
+		}
+		"Holy Diver"
+		{
+			OriginalItemName "The Degreaser"
+			"damage penalty" 0.1
+			"special item description" "+50% damage bonus on secondary weapon"	[$SIGSEGV]
+			"special item description 2" "+125% damage bonus on melee weapon"	[$SIGSEGV]
+		}
+		"Wormhole Diver"
+		{
+			OriginalItemName "The Detonator"
+			"penetrate teammates" 1	[$SIGSEGV]
+			"damage penalty" 0
+			"Projectile speed decreased" 0.4
+			"paintkit_proto_def_index" 408
+			"set_item_texture_wear" 0
+			"lunchbox adds minicrits" 0
+			"special item description" "Alt-Fire: Teleport to projectile position"	[$SIGSEGV]
+			"projectile trail particle" "eyeboss_projectile"	[$SIGSEGV]
+		}
+		"Thunderdome"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_MINIGUN"
+			"hidden primary max ammo bonus" 0.0001
+			"move speed bonus" 1.25
+			"cannot be upgraded" 1	[$SIGSEGV]
+			"special item description" "Create 2 small projectile shields that orbit around you and damage enemies"	[$SIGSEGV]
+			"special item description 2" "Increased damage for secondary and melee"	[$SIGSEGV]
+			"special item description 3" "No primary weapon"	[$SIGSEGV]
+		}
+		"Drone Walker"
+		{
+			OriginalItemName "The Rescue Ranger"
+			"paintkit_proto_def_index" 217
+			"set_item_texture_wear" 0
+			"damage bonus" 1.5
+			"clip size penalty" 0.5
+			"engineer building teleporting pickup" 1000
+			"arrow heals buildings" 0
+			"engy sentry damage bonus" 0.65
+			"mod projectile heat follow crosshair" 1	[$SIGSEGV]
+			"mod projectile heat seek power" 360	[$SIGSEGV]
+			"mod projectile heat aim error" 0	[$SIGSEGV]
+			"mod projectile heat aim time" 100000	[$SIGSEGV]
+			"Projectile speed decreased" 0.2
+			"mult projectile scale" 0.001	[$SIGSEGV]
+			"arrow hit kill time" 0.01	[$SIGSEGV]
+			"special item description" "Fires controlled drones that follow your cursor. Only 2 drones can be active at a time"	[$SIGSEGV]
+			"special item description 2" "Press alt-fire to toggle stationary state on active drones"	[$SIGSEGV]
+		}
+		"No Mercy"
+		{
+			OriginalItemName "Wings of Purity"
+			"cancel falling damage" 1
+			"increased air control" 5
+			"increased jump height" 1.2
+			"special item description" "Increased gravity and air control on wearer"	[$SIGSEGV]
+			"special item description 2" "Hold DUCK to rapidly descend"	[$SIGSEGV]
+			"special item description 3" "Wearer never takes falling damage"	[$SIGSEGV]
+		}
+		"Explosive Touch"
+		{
+			OriginalItemName "The Fortified Compound"
+			"fire rate penalty" 1.2
+			"throwable healing" 1
+			"arrow hit kill time" 0.1	[$SIGSEGV]
+			"special item description" "Fires explosive tipped arrows that sticks to enemies and detonate after 2 seconds"	[$SIGSEGV]
+		}
+		"Seducer"
+		{
+			OriginalItemName "The Enforcer"
+			"mod no reload DISPLAY ONLY" 1
+			"mod max primary clip override" -1
+			"damage penalty" 0.1
+			"fire input on hit" "popscript^$SeducerHit^"	[$SIGSEGV]
+			"add cond when active" 46	[$SIGSEGV]
+			"special item description" "On hit: force a non-giant enemy to fight on your side"	[$SIGSEGV]
+			"special item description 2" "Controlled enemies are crit boosted and will self-destruct after 8 seconds"	[$SIGSEGV]
+			"special item description 3" "8 seconds cooldown"	[$SIGSEGV]
+		}
+		"Freelance Mercenary"
+		{
+			OriginalItemName "Activated Campaign 3 Pass"
+			"custom item model" "models/player/items/all_class/hwn_spellbook_complete.mdl"	[$SIGSEGV]
+			"special item description" "Press the Action key to switch between classes on the fly. 5 second cooldown between uses"	[$SIGSEGV]
+			"special item description 2" "Items with charge meter require 8 seconds to be ready after switched to"	[$SIGSEGV]
+		}
+		"Rocket Launcher Prime"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_ROCKETLAUNCHER"
+			"damage bonus" 2
+			"clip size bonus" 3
+			"faster reload rate" 0.15
+			"fire rate bonus" 0.15
+			"critboost on kill" 0.5
+			"rocket specialist" 1
+			"restore health on kill" 1
+		}
+	}
+	ExtraLoadoutItems	[$SIGSEGV]
+	{
+		Scout
+		{
+			Secondary
+			{
+			}
+		}
+		Soldier
+		{
+			Primary
+			{
+			}
+		}
+		Heavyweapons
+		{
+			Primary
+			{
+			}
+		}
+		Pyro
+		{
+			Secondary
+			{
+			}
+		}
+		Demoman
+		{
+			Secondary
+			{
+			}
+			Secondary
+			{
+			}
+			Melee
+			{
+			}
+		}
+		Engineer
+		{
+			Primary
+			{
+			}
+		}
+		Medic
+		{
+			Primary
+			{
+			}
+		}
+		Sniper
+		{
+			Primary
+			{
+			}
+		}
+		Spy
+		{
+			Secondary
+			{
+			}
+		}
+		Action
+		{
+		}
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "projectile penetration"
+		MaxLevel 0
+		ItemName "Explosive Touch"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "charge recharge rate increased"
+		MaxLevel 0
+		ItemName "Buster Transformer"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "effect bar recharge rate increased"
+		MaxLevel 1
+		ItemName "Biker's Redeemer"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "cannot giftwrap"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"generate rage on heal" 1
+		}
+	}
+	ExtendedUpgrades	[$SIGSEGV]
+	{
+		drone_unstable
+		{
+			Name "Unstable Mod: Mothership Delta"
+			Attribute "throwable damage"
+			Description "A single powerful drone. Decreases sentry damage"
+			Cap 1
+			Increment 1
+			Cost 0
+			AllowedWeapons
+			{
+				ItemName "Drone Walker"
+			}
+			SecondaryAttributes
+			{
+				"Projectile speed decreased" -0.75
+				"engy sentry damage bonus" -0.7
+			}
+			OnApply
+			{
+				Output "popscript,$UpdateDroneCap,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$UpdateDroneCap,,0"
+			}
+			Tier 1
+		}
+		drone_stable
+		{
+			Name "Stable Mod: Engineering Limit"
+			Attribute "throwable fire speed"
+			Description "+1 max drone. Replaces Sentry with Mini-Sentry"
+			Cap 2
+			Increment 1
+			Cost 0
+			AllowedWeapons
+			{
+				ItemName "Drone Walker"
+			}
+			OnApply
+			{
+				Output "popscript,$UpdateDroneCap,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$UpdateDroneCap,,0"
+			}
+			Tier 1
+		}
+		ET_unstable
+		{
+			Name "Unstable Mod: Trailblazer"
+			Attribute "throwable damage"
+			Description "Arrow pierce enemies and leave an explosion on each enemy hit. -50% arrow damage"
+			Cap 1
+			Increment 1
+			Cost 0
+			SecondaryAttributes
+			{
+				"damage penalty" -0.5
+			}
+			AllowedWeapons
+			{
+				ItemName "Explosive Touch"
+			}
+			OnApply
+			{
+				Output "!activator,$AddItemAttribute,projectile penetration|1|0,0"
+			}
+			OnDowngrade
+			{
+				Output "!activator,$AddItemAttribute,projectile penetration|1|0,0"
+			}
+			Tier 1
+		}
+		ET_stable
+		{
+			Name "Stable Mod: Arrow Jumpman"
+			Attribute "rocket jump damage reduction"
+			Description "No damage from self arrow explosion and fall damage. -10% fire rate"
+			Cap 0
+			Increment -1
+			Cost 0
+			SecondaryAttributes
+			{
+				"fire rate penalty" 0.1
+				"cancel falling damage" 1
+			}
+			AllowedWeapons
+			{
+				ItemName "Explosive Touch"
+			}
+			Tier 1
+		}
+		redeemer_dmg
+		{
+			Name "+25% damage bonus"
+			Attribute "damage bonus"
+			Cap 2
+			Increment 0.25
+			Cost 200
+			AllowedWeapons
+			{
+				ItemName "Biker's Redeemer"
+			}
+		}
+		instalevel2
+		{
+			Name "Instant Buildings Level 2"
+			Description "All buildings start at level 2 when deployed"
+			Attribute "cannot giftwrap"
+			Cap 1
+			Increment 1
+			Cost 150
+			PlayerUpgrade 1
+			AllowPlayerClass Engineer
+			OnApply
+			{
+				Output "popscript,$InstaLvLPurchase,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$InstaLvLRefunded,,0"
+			}
+		}
+		wingermybeloved
+		{
+			Name "Multi-Directional Dash"
+			Description "Alt-fire to dash in the direction you're facing. 3 seconds cooldown"
+			Attribute "cannot giftwrap"
+			Cap 1
+			Increment 1
+			Cost 100
+			AllowedWeapons
+			{
+				ItemName "The Winger"
+			}
+			SecondaryAttributes
+			{
+				"add cond when active" 46	[$SIGSEGV]
+				"special item description" "Alt-fire to dash in the direction you're facing. 3 seconds cooldown"	[$SIGSEGV]
+			}
+			OnApply
+			{
+				Output "popscript,$WingerDashPurchased,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$WingerDashRefunded,,0"
+			}
+		}
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name FreelanceMercenary_Logic
+		ItemName "Freelance Mercenary"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name PHD_Equip
+		ItemName "PHD Jumper"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Sentry"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Dispenser"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Entry"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Exit"
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name DroneWalker_Shoot
+		ItemName "Drone Walker"
+		AttachToProjectile 1
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name DroneWalker_Equip
+		ItemName "Drone Walker"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name Redeemer_Spawn
+		ItemName "Biker's Redeemer"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name HolyDiver_Spawn
+		ItemName "Holy Diver"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name WomrholeDiver_Spawn
+		ItemName "Wormhole Diver"
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name WomrholeDiver_Shot
+		ItemName "Wormhole Diver"
+		AttachToProjectile 1
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name Thunderdome_Spawn
+		ItemName "Thunderdome"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name ParryAddiction_Spawn
+		ItemName "Parry Addiction"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name BusterTransformer_Spawn
+		ItemName "Buster Transformer"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name NoMercy_Spawn
+		ItemName "No Mercy"
+	}
+	PlayerSpawnTemplate	[$SIGSEGV]
+	{
+		Name Gravity_FailSafe
+	}
+	SpawnTemplate Global_Filters	[$SIGSEGV]
+}

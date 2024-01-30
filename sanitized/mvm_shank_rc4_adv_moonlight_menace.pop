@@ -1,0 +1,7168 @@
+#base robot_standard.pop
+#base robot_giant.pop
+tomboy
+{
+	StartingCurrency 1200
+	RespawnWaveTime 2
+	CanBotsAttackWhileInSpawnRoom no
+	Advanced 1
+	AddSentryBusterWhenDamageDealtExceeds 3000
+	AddSentryBusterWhenKillCountExceeds 15
+	ImprovedAirblast 0	[$SIGSEGV]
+	NoThrillerTaunt 1	[$SIGSEGV]
+	NoRomevisionCosmetics 1	[$SIGSEGV]
+	BotHumansHaveRobotVoice 0	[$SIGSEGV]
+	ForceHoliday 2	[$SIGSEGV]
+	TextPrintTime 0	[$SIGSEGV]
+	FixSetCustomModelInput 1	[$SIGSEGV]
+	CustomUpgradesFile mvm_upgrades_tomboy3.txt	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Planted"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Spawn"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Another"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Multiple"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Halfway"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Halfway_Multiple"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Near_Hatch"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Tank_Alert_Deploying"	[$SIGSEGV]
+	DisableSound "Announcer.MVM_Spy_Alert"	[$SIGSEGV]
+	DisableSound "Announcer.mvm_spybot_death"	[$SIGSEGV]
+	DisableSound "Announcer.mvm_spybot_death_all"	[$SIGSEGV]
+	PointTemplates	[$SIGSEGV]
+	{
+		Literally_Nothing
+		{
+		}
+		Combo_Pyro
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary"
+				"spawnflags" "2"
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1"
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,0.6,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,0.61,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary^Trigger^|0,0.62,-1"
+			}
+			logic_relay
+			{
+				"targetname" "combo_primary_to_secondary_longhold"
+				"spawnflags" "2"
+				"OnTrigger" "!self,EnableRefire,,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,1,0,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,disable weapon switch|1,0.01,-1"
+				"OnTrigger" "!activator,$RemovePlayerAttribute,disable weapon switch,1.5,-1"
+				"OnTrigger" "!activator,$WeaponSwitchSlot,0,1.51,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire input on hit|combo_primary_to_secondary_longhold^Trigger^|0,1.52,-1"
+			}
+		}
+		Buster_Upgrade_Station
+		{
+			logic_auto
+			{
+				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger extra_forward_upgrade_station:Disable::0:-1"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger extra_forward_upgrade_station:Enable::0:-1"
+			}
+			func_upgradestation
+			{
+				"origin" "-3003.77 6531.5 183.77"
+				"mins" "-240 -48 -191"
+				"maxs" "240 48 191"
+			}
+			func_upgradestation
+			{
+				"targetname" "extra_forward_upgrade_station"
+				"origin" "-1619.5 1001.24 215.77"
+				"mins" "-48 -200 -159"
+				"maxs" "48 200 159"
+			}
+		}
+		Path_Choose
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "force_right_path_relay"
+				"OnTrigger" "bombpath_right_nav_avoid,Disable,,1,-1"
+				"OnTrigger" "bombpath_arrows_left,Disable,,1,-1"
+				"OnTrigger" "bombpath_left_nav_avoid,Enable,,1,-1"
+				"OnTrigger" "bombpath_arrows_right,Enable,,1.1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "force_left_path_relay"
+				"OnTrigger" "bombpath_left_nav_avoid,Disable,,1,-1"
+				"OnTrigger" "bombpath_arrows_clear_relay,Trigger,,1,-1"
+				"OnTrigger" "bombpath_right_nav_avoid,Enable,,1,-1"
+				"OnTrigger" "bombpath_arrows_left,Enable,,1.1,-1"
+			}
+		}
+		Giant_Portal
+		{
+			NoFixup 1
+			info_target
+			{
+				"targetname" "giant_portal_position"
+			}
+			logic_relay
+			{
+				"targetname" "stop_giant_portal"
+				"OnTrigger" "giant_portal_activate*,Stop,,0,-1"
+			}
+			logic_auto
+			{
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger stop_giant_portal:Trigger::0:-1"
+			}
+			info_particle_system
+			{
+				"origin" "73.5 -111.9 630.218"
+				"targetname" "giant_portal_activate0"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate0,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-1264 992 630.218"
+				"targetname" "giant_portal_activate1"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound1,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate1,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-688 1968 630.218"
+				"targetname" "giant_portal_activate2"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound2,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate2,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-1760 3264 630.218"
+				"targetname" "giant_portal_activate3"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound3,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate3,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-2240 1952 630.218"
+				"targetname" "giant_portal_activate4"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound4,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate4,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-2272 3952 630.218"
+				"targetname" "giant_portal_activate5"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound5,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate5,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+			info_particle_system
+			{
+				"origin" "-3632 3360 630.218"
+				"targetname" "giant_portal_activate6"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "wormhole_green_large"
+				"angles" "0 180 0"
+				"OnUser1" "giant_portal_activate*,Stop,,0,-1"
+				"OnUser1" "tele_forward_sound6,PlaySound,,0,-1"
+				"OnUser1" "giant_portal_position,$TeleportToEntity,giant_portal_activate6,0,-1"
+				"OnUser1" "!self,Stop,,0,-1"
+				"OnUser1" "!self,Start,,0.01,-1"
+			}
+		}
+		SpawnAtGiantPortal
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$TeleportToEntity"
+				Param "giant_portal_position"
+				Delay 0.05
+			}
+		}
+		Bomb_Replacement
+		{
+			NoFixup 1
+			logic_auto
+			{
+				"OnMapSpawn" "intel_rad_trigger,Trigger,,0,-1"
+				"OnMapSpawn" "wave_start_relay,AddOutput,OnTrigger intel:Kill:0:-1"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger intel_rad_trigger:Trigger:0:-1"
+			}
+			logic_relay
+			{
+				"targetname" "intel_rad_trigger"
+				"OnTrigger" "intel_rad,Enable,,0,-1"
+				"OnTrigger" "intel,Kill,,0,-1"
+				"OnTrigger" "bombinomicon_prop,Enable,,0,-1"
+				"OnTrigger" "bombinomicon_prop,SetParent,intel_rad,0.1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "intel_rad_disable"
+				"OnTrigger" "intel_rad,Disable,,0,-1"
+				"OnTrigger" "bombinomicon_prop,Disable,,0,-1"
+			}
+			item_teamflag
+			{
+				"origin" "-926.5 -533.3 260.0"
+				"trail_effect" "1"
+				"TeamNum" "3"
+				"targetname" "intel_rad"
+				"StartDisabled" "1"
+				"skin" "0"
+				"ScoringType" "0"
+				"ReturnTime" "60000000"
+				"ReturnBetweenWaves" "1"
+				"rendercolor" "255 255 255"
+				"renderamt" "255"
+				"physdamagescale" "1.0"
+				"NeutralType" "1"
+				"MinAnimTime" "5"
+				"MaxAnimTime" "10"
+				"GameType" "1"
+				"flag_trail" "flagtrail"
+				"flag_paper" "player_intel_papertrail"
+				"flag_model" "models/empty.mdl"
+				"flag_icon" "../hud/objectives_flagpanel_carried"
+				"angles" "0 180 0"
+			}
+			prop_dynamic
+			{
+				"origin" "-926.5 -533.3 260.0"
+				"targetname" "bombinomicon_prop"
+				"spawnflags" "0"
+				"solid" "0"
+				"rendercolor" "255 255 255"
+				"renderamt" "255"
+				"RandomAnimation" "0"
+				"pressuredelay" "0"
+				"physdamagescale" "1.0"
+				"PerformanceMode" "0"
+				"modelscale" "0.6"
+				"model" "models/props_halloween/bombonomicon.mdl"
+				"MinAnimTime" "5"
+				"MaxAnimTime" "10"
+				"body" "0"
+				"angles" "-90 0 -90"
+				"StartDisabled" "1"
+			}
+		}
+		Stickybomb_Flicker_Particle
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "sticky_flicker"
+				Action "Kill"
+				Delay 1
+			}
+			info_particle_system
+			{
+				"targetname" "sticky_flicker"
+				"effect_name" "stickybomb_pulse_red"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Stickybomb_Flicker_Particle_Blue
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "sticky_flicker"
+				Action "Kill"
+				Delay 1
+			}
+			info_particle_system
+			{
+				"targetname" "sticky_flicker"
+				"effect_name" "stickybomb_pulse_blue"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Explosion_Particle
+		{
+			OnSpawnOutput
+			{
+				Target "explosion_particle"
+				Action "Kill"
+				Delay 1
+			}
+			info_particle_system
+			{
+				"targetname" "explosion_particle"
+				"effect_name" "ExplosionCore_MidAir"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Explosive_Tip
+		{
+			KeepAlive 1
+			OnSpawnOutput
+			{
+				Target "tip_explosion"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "@c@!activator"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			logic_relay
+			{
+				"targetname" "explosive_tip_relay"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+			info_target
+			{
+				"targetname" "detonate_position"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+			tf_point_weapon_mimic
+			{
+				"targetname" "tip_explosion"
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "-1 0 -3"
+				"teamnum" "2"
+				"Crits" "0"
+				"Damage" "75"
+				"ModelScale" "1"
+				"SpeedMax" "1000000"
+				"SpeedMin" "1000000"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "3"
+				"OnUser1" "!self,FireOnce,,2,-1"
+				"OnUser4" "!self,DetonateStickies,,0,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "tip_explosion"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			info_particle_system
+			{
+				"targetname" "sticky_flicker"
+				"effect_name" "stickybomb_pulse_red"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				"OnUser1" "!self,Start,2,1,-1"
+				"OnUser1" "!self,Kill,2.7,3,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_flicker"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			ambient_generic
+			{
+				"targetname" "sticky_sound"
+				"message" "weapons/stickybomblauncher_det.wav"
+				"radius" "4000"
+				"health" "5"
+				"spawnflags" "48"
+				"OnUser1" "!self,PlaySound,,1,-1"
+				"OnUser1" "!self,Kill,,3,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_sound"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "filter_is_blu"
+				"Negated" "0"
+				"TeamNum" "3"
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			trigger_hurt
+			{
+				"targetname" "attach_to_enemy"
+				"origin" "0 0 0"
+				"mins" "-3 -3 -3"
+				"maxs" "3 3 3"
+				"Damage" "0"
+				"spawnflags" "1"
+				"filtername" "filter_is_blu"
+				"OnStartTouch" "detonate_position,SetParent,!activator,0.1,-1"
+				"OnStartTouch" "!self,Disable,,0,-1"
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			RemoveIfKilled "explosive_tip_relay"
+		}
+		Explosive_Tip_Bot
+		{
+			KeepAlive 1
+			OnSpawnOutput
+			{
+				Target "tip_explosion"
+				Action "$InheritOwner"
+				Param "!activator"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "@c@!activator"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "explosive_tip_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			logic_relay
+			{
+				"targetname" "explosive_tip_relay"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+			info_target
+			{
+				"targetname" "detonate_position"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+			tf_point_weapon_mimic
+			{
+				"targetname" "tip_explosion"
+				"spawnflags" "1"
+				"angles" "0 0 0"
+				"origin" "-1 0 -3"
+				"teamnum" "3"
+				"Crits" "0"
+				"Damage" "100"
+				"ModelScale" "1"
+				"SpeedMax" "1000000"
+				"SpeedMin" "1000000"
+				"SplashRadius" "144"
+				"SpreadAngle" "0"
+				"WeaponType" "3"
+				"OnUser1" "!self,FireOnce,,2,-1"
+				"OnUser4" "!self,DetonateStickies,,0,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "tip_explosion"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			info_particle_system
+			{
+				"targetname" "sticky_flicker"
+				"effect_name" "stickybomb_pulse_blue"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				"OnUser1" "!self,Start,2,1,-1"
+				"OnUser1" "!self,Kill,2.7,3,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_flicker"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			ambient_generic
+			{
+				"targetname" "sticky_sound"
+				"message" "weapons/stickybomblauncher_det.wav"
+				"radius" "4000"
+				"health" "5"
+				"spawnflags" "48"
+				"OnUser1" "!self,PlaySound,,1,-1"
+				"OnUser1" "!self,Kill,,3,-1"
+			}
+			logic_measure_movement
+			{
+				"MeasureReference" "detonate_position"
+				"MeasureTarget" "detonate_position"
+				"MeasureType" "0"
+				"Target" "sticky_sound"
+				"TargetReference" "detonate_position"
+				"TargetScale" "1"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			trigger_hurt
+			{
+				"targetname" "attach_to_enemy"
+				"origin" "0 0 0"
+				"mins" "-3 -3 -3"
+				"maxs" "3 3 3"
+				"Damage" "0"
+				"spawnflags" "1"
+				"filtername" "filter_is_red"
+				"OnStartTouch" "detonate_position,SetParent,!activator,0.1,-1"
+				"OnStartTouch" "!self,Disable,,0,-1"
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			RemoveIfKilled "explosive_tip_relay"
+		}
+		HHH_Hitbox_Fix
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "modelscale 1"
+				Delay 0.1
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "modelscale 1"
+				Delay 0
+			}
+		}
+		HHH_Stun_Hitbox
+		{
+			OnSpawnOutput
+			{
+				Target "hhh_stun"
+				Action "FireUser1"
+				Delay 16
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			trigger_stun
+			{
+				"targetname" "hhh_stun"
+				"origin" "0 0 0"
+				"mins" "-350.0 -350.0 -350.0"
+				"maxs" "350.0 350.0 350.0"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"solid" "0"
+				"filtername" "filter_is_red"
+				"stun_type" "2"
+				"stun_effects" "1"
+				"stun_duration" "3"
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+				"OnUser1" "!self,FireUser1,,16,-1"
+			}
+		}
+		HHH_Footstep_Particle
+		{
+			OnSpawnOutput
+			{
+				Target "hhh_footstep"
+				Action "Kill"
+				Delay 3
+			}
+			info_particle_system
+			{
+				"targetname" "hhh_footstep"
+				"effect_name" "halloween_boss_foot_impact"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		HHH_Footstep
+		{
+			OnSpawnOutput
+			{
+				Target "hhh_footstep_maker"
+				Action "FireUser1"
+				Delay 0
+			}
+			info_target
+			{
+				"targetname" "hhh_position"
+				"origin" "0 0 0"
+			}
+			env_entity_maker
+			{
+				"targetname" "hhh_footstep_maker"
+				"EntityTemplate" "HHH_Footstep_Particle"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,hhh_position,0,-1"
+				"OnUser1" "!self,FireUser1,,0.5,-1"
+			}
+		}
+		HHH_Death_Init
+		{
+			KeepAlive 1
+			OnParentKilledOutput
+			{
+				Target "hhh_death_effect"
+				Action "FireUser1"
+				Delay 0
+			}
+			info_particle_system
+			{
+				"targetname" "hhh_death_effect"
+				"effect_name" "halloween_boss_death"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				"OnUser1" "!self,Start,,0,-1"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+		}
+		Portal_Particle
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "portal_particle"
+				Action "Kill"
+				Delay 4
+			}
+			info_particle_system
+			{
+				"targetname" "portal_particle"
+				"effect_name" "wormhole_green_large"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Spell_Effect_Red
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "spell_effect_red"
+				Action "Kill"
+				Delay 5
+			}
+			info_particle_system
+			{
+				"targetname" "spell_effect_red"
+				"effect_name" "spell_cast_wheel_red"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Spell_Effect_Blue
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "spell_effect_blue"
+				Action "Kill"
+				Delay 5
+			}
+			info_particle_system
+			{
+				"targetname" "spell_effect_blue"
+				"effect_name" "spell_cast_wheel_blue"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Necromancer_Summon_Teleport_Chief
+		{
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_necromancer_chief_summon"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "bot_summoned_chief"
+			}
+			trigger_teleport
+			{
+				"targetname" "summon_teleport_chief"
+				"origin" "1512.0 136.7 -85.9"
+				"mins" "-1000.0 -1000.0 -1000.0"
+				"maxs" "1000.0 1000.0 1000.0"
+				"spawnflags" "1"
+				"filtername" "filter_necromancer_chief_summon"
+				"target" "necromancer_position_chief"
+			}
+		}
+		Necromancer_Chief_Summon_Logic
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "spell_effect_maker"
+				Action "FireUser1"
+				Delay 12
+			}
+			OnSpawnOutput
+			{
+				Target "necromancer_position_chief"
+				Action "FireUser1"
+				Delay 12
+			}
+			OnParentKilledOutput
+			{
+				Target "summon_teleport_chief"
+				Action "Kill"
+				Delay 0
+			}
+			logic_case
+			{
+				"targetname" "summon_randomizer_chief"
+				"origin" "0 0 0"
+				"OnCase01" "summon_chief1,Enable,,0,-1"
+				"OnCase01" "summon_chief1,Disable,,0.1,-1"
+				"OnCase02" "summon_chief2,Enable,,0,-1"
+				"OnCase02" "summon_chief2,Disable,,0.1,-1"
+				"OnCase03" "summon_chief3,Enable,,0,-1"
+				"OnCase03" "summon_chief3,Disable,,0.1,-1"
+			}
+			info_target
+			{
+				"targetname" "necromancer_position_chief"
+				"origin" "0 0 20"
+				"OnUser1" "summon_randomizer_chief,PickRandomShuffle,,0,-1"
+				"OnUser1" "summon_randomizer_chief,PickRandomShuffle,,0,-1"
+				"OnUser1" "necromancer_position_chief,FireUser1,,16,-1"
+			}
+			env_entity_maker
+			{
+				"targetname" "spell_effect_maker"
+				"EntityTemplate" "Spell_Effect_Blue"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,necromancer_position_chief,0,-1"
+				"OnUser1" "!self,FireUser1,,16,-1"
+			}
+		}
+		Necromancer_Chief_On_Death
+		{
+			NoFixup 1
+			KeepAlive 1
+			OnParentKilledOutput
+			{
+				Target "portal_effect_maker"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "tfc_heav_player_stuck_prevention"
+				Action "FireUser1"
+				Delay 0
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_tfc_heavy"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "tfc_heavy"
+			}
+			trigger_teleport
+			{
+				"targetname" "death_teleport_chief"
+				"origin" "0 0 0"
+				"mins" "-10000.0 -10000.0 -10000.0"
+				"maxs" "10000.0 10000.0 10000.0"
+				"spawnflags" "1"
+				"filtername" "filter_tfc_heavy"
+				"target" "chief_necromancer_position"
+				"OnStartTouch" "portal_effect_maker,Kill,,0,-1"
+				"OnStartTouch" "chief_necromancer_position,Kill,,0,-1"
+				"OnStartTouch" "filter_tfc_heavy,Kill,,0,-1"
+				"OnStartTouch" "!self,Kill,,0.1,-1"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "chief_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			trigger_multiple
+			{
+				"targetname" "tfc_heav_player_stuck_prevention"
+				"origin" "0 0 0"
+				"mins" "-100.0 -100.0 -100.0"
+				"maxs" "100.0 100.0 100.0"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"filtername" "chief_filter_is_red"
+				"OnStartTouch" "!activator,AddOutput,BaseVelocity 0 0 1000,0,-1"
+				"OnUser1" "!self,Enable,,3,-1"
+				"OnUser1" "!self,Disable,,4,-1"
+			}
+			info_target
+			{
+				"targetname" "chief_necromancer_position"
+				"origin" "0 0 0"
+			}
+			env_entity_maker
+			{
+				"targetname" "portal_effect_maker"
+				"EntityTemplate" "Portal_Particle"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,chief_necromancer_position,0,-1"
+			}
+		}
+		HHH_Footstep
+		{
+			OnSpawnOutput
+			{
+				Target "hhh_footstep_maker"
+				Action "FireUser1"
+				Delay 0
+			}
+			info_target
+			{
+				"targetname" "hhh_position"
+				"origin" "0 0 0"
+			}
+			env_entity_maker
+			{
+				"targetname" "hhh_footstep_maker"
+				"EntityTemplate" "HHH_Footstep_Particle"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,hhh_position,0,-1"
+				"OnUser1" "!self,FireUser1,,0.5,-1"
+			}
+		}
+		Payload_Checkpoints
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "payload_death_relay"
+				"OnTrigger" "bots_win,RoundWin,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "wave4_giants_all_killed"
+				"OnTrigger" "wave4_all_dead,SetValue,0,0,-1"
+				"OnTrigger" "wave4_all_dead,Compare,,0.1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "wave4_commons_all_killed"
+				"OnTrigger" "wave4_all_dead,SetCompareValue,0,0,-1"
+				"OnTrigger" "wave4_all_dead,Compare,,0.1,-1"
+			}
+			logic_compare
+			{
+				"targetname" "wave4_all_dead"
+				"CompareValue" "2"
+				"InitialValue" "3"
+				"OnEqualTo" "payloadtank,SetSpeed,90,0,-1"
+				"OnEqualTo" "pitstop_annotation,Kill,,0,-1"
+				"OnEqualTo" "pitstop_relay,Kill,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "pitstop_relay"
+				"OnTrigger" "payloadtank,SetSpeed,0,0,-1"
+				"OnTrigger" "pitstop_annotation,Show,0,0,-1"
+			}
+			logic_auto
+			{
+				"OnMapSpawn" "payload_red_10,AddOutput,OnPass tele_forward_relay_disable6:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_10,AddOutput,OnPass tele_forward_relay_trigger3:Trigger::0.01:-1,0,-1"
+				"OnMapSpawn" "payload_red_10,AddOutput,OnPass giant_portal_activate2:FireUser1::0:-1,1,-1"
+				"OnMapSpawn" "payload_red_25,AddOutput,OnPass tele_forward_relay_disable3:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_25,AddOutput,OnPass tele_forward_relay_trigger2:Trigger::0.01:-1,0,-1"
+				"OnMapSpawn" "payload_red_25,AddOutput,OnPass giant_portal_activate1:FireUser1::0:-1,1,-1"
+				"OnMapSpawn" "payload_red_32,AddOutput,OnPass tele_forward_relay_disable2:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_32,AddOutput,OnPass tele_forward_relay_trigger1:Trigger::0.01:-1,0,-1"
+				"OnMapSpawn" "payload_red_32,AddOutput,OnPass giant_portal_activate0:FireUser1::0:-1,1,-1"
+				"OnMapSpawn" "payload_red_38,AddOutput,OnPass pitstop_relay:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_44,AddOutput,OnPass tele_forward_relay_disable1:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_44,AddOutput,OnPass stop_giant_portal:Trigger::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_44,AddOutput,OnPass breadman:$Suicide::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_44,AddOutput,OnPass payload_death_relay:Disable::0:-1,0,-1"
+				"OnMapSpawn" "payload_red_44,AddOutput,OnPass payloadtank:Kill::0:-1,0.1,-1"
+			}
+		}
+		Wave4Logic
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "intel_rad_disable"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "wave4_bots_start_relay"
+				Action "Trigger"
+				Delay 5
+			}
+			OnSpawnOutput
+			{
+				Target "wave4_teleporter_annotation"
+				Action "Show"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "wave4_teleporter*"
+				Action "Kill"
+				Delay 25
+			}
+			logic_relay
+			{
+				"targetname" "wave4_bots_start_relay"
+				"OnTrigger" "payloadtank,SetSpeed,60,0,-1"
+				"OnTrigger" "tele_forward_relay_trigger6,Trigger,,0,-1"
+				"OnTrigger" "giant_portal_activate3,FireUser1,,0,-1"
+			}
+			info_target
+			{
+				"targetname" "bread_position"
+				"origin" "430.7 -216.2 53.2"
+				"angles" "180 180 0"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_bread"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "bread_monster"
+			}
+			trigger_teleport
+			{
+				"targetname" "bead_teleporter"
+				"origin" "0 0 0"
+				"mins" "-50000.0 -50000.0 -50000.0"
+				"maxs" "50000.0 50000.0 50000.0"
+				"spawnflags" "1"
+				"filtername" "filter_bread"
+				"target" "bread_position"
+			}
+			prop_dynamic
+			{
+				"targetname" "wave4_teleporter_model"
+				"DefaultAnim" "running"
+				"model" "models/buildables/teleporter_light.mdl"
+				"origin" "36 560 96"
+			}
+			training_annotation
+			{
+				"targetname" "wave4_teleporter_annotation"
+				"parentname" "wave4_teleporter_model"
+				"display_text" "Take the teleporter"
+				"lifetime" "10"
+				"origin" "36 560 105"
+			}
+			info_target
+			{
+				"targetname" "wave4_teleporter_target"
+				"angles" "0 180 0"
+				"origin" "-3321.4 6401.4 190"
+			}
+			trigger_teleport
+			{
+				"targetname" "wave4_teleporter"
+				"origin" "36 560 96"
+				"mins" "-50 -50 -50"
+				"maxs" "50 50 50"
+				"spawnflags" "1"
+				"filtername" "filter_redteam"
+				"target" "wave4_teleporter_target"
+			}
+		}
+		Drac_Init
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname dracman"
+				Delay 0
+			}
+		}
+		Wave5Cutscene1
+		{
+			NoFixup 1
+			RemoveIfKilled "filter_drac"
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_drac"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "dracula"
+			}
+			trigger_teleport
+			{
+				"targetname" "drac_teleporter"
+				"origin" "0 0 0"
+				"mins" "-50000.0 -50000.0 -50000.0"
+				"maxs" "50000.0 50000.0 50000.0"
+				"spawnflags" "1"
+				"filtername" "filter_drac"
+				"target" "drac_position"
+			}
+			info_target
+			{
+				"parentname" "drac_mover"
+				"targetname" "drac_position"
+				"angles" "30 30 30"
+				"origin" "-54.5 -184.0 700.1"
+			}
+			OnSpawnOutput
+			{
+				Target "dracula_particle"
+				Action "$SetLocalOrigin"
+				Param "-10 10 20"
+				Delay 0
+			}
+			info_particle_system
+			{
+				"parentname" "drac_position"
+				"targetname" "dracula_particle"
+				"effect_name" "utaunt_meteor_parent"
+				"origin" "0 0 0"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+			func_tracktrain
+			{
+				"targetname" "drac_mover"
+				"mins" "-1 -1 -1"
+				"maxs" "1 1 1"
+				"bank" "0"
+				"disablereceiveshadows" "0"
+				"disableshadows" "0"
+				"dmg" "0"
+				"height" "-20"
+				"ManualAccelSpeed" "0"
+				"ManualDecelSpeed" "0"
+				"ManualSpeedChanges" "0"
+				"MoveSoundMaxPitch" "200"
+				"MoveSoundMaxTime" "0"
+				"MoveSoundMinPitch" "60"
+				"MoveSoundMinTime" "0"
+				"orientationtype" "1"
+				"origin" "-54.5 -184.0 700.1"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"renderfx" "0"
+				"rendermode" "0"
+				"spawnflags" "520"
+				"speed" "50"
+				"startspeed" "50"
+				"target" "drac_cutscene_1"
+				"velocitytype" "0"
+				"volume" "0"
+				"wheels" "50"
+			}
+			path_track
+			{
+				"angles" "0 0 0"
+				"orientationtype" "0"
+				"radius" "0"
+				"spawnflags" "0"
+				"speed" "50"
+				"target" "drac_cutscene_2"
+				"targetname" "drac_cutscene_1"
+				"origin" "-54.5 -184.0 500.1"
+			}
+			path_track
+			{
+				"angles" "0 0 0"
+				"orientationtype" "0"
+				"radius" "0"
+				"spawnflags" "0"
+				"speed" "0"
+				"targetname" "drac_cutscene_2"
+				"origin" "-54.5 -184.0 30.0"
+			}
+		}
+		Wave5Cutscene2
+		{
+			OnSpawnOutput
+			{
+				Target "blimpcrash_mover"
+				Action "SetSpeed"
+				Param "5000"
+				Delay 8
+			}
+			OnSpawnOutput
+			{
+				Target "blimpmodel"
+				Action "TurnOff"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "blimpmodel"
+				Action "TurnOn"
+				Delay 8
+			}
+			OnSpawnOutput
+			{
+				Target "blimpmodel"
+				Action "TurnOn"
+				Delay 8
+			}
+			RemoveIfKilled "blimpcrash_mover"
+			info_particle_system
+			{
+				"targetname" "blimp_explosion"
+				"effect_name" "fluidSmokeExpl_ring_mvm"
+				"origin" "-54.5 -184.0 30.0"
+				"flag_as_weather" "0"
+				"start_active" "0"
+			}
+			prop_dynamic
+			{
+				"parentname" "blimpcrash_mover"
+				"targetname" "blimpmodel"
+				"model" "models/bots/boss_bot/boss_blimp.mdl"
+				"skin" "1"
+				"origin" "1257.9 -443.3 970.0"
+				"angles" "0 0 0"
+				"solid" "0"
+			}
+			func_tracktrain
+			{
+				"targetname" "blimpcrash_mover"
+				"mins" "-1 -1 -1"
+				"maxs" "1 1 1"
+				"bank" "0"
+				"dmg" "0"
+				"height" "0"
+				"MoveSoundMaxPitch" "200"
+				"MoveSoundMaxTime" "0"
+				"MoveSoundMinPitch" "60"
+				"MoveSoundMinTime" "0"
+				"orientationtype" "1"
+				"origin" "1257.9 -443.3 970.0"
+				"spawnflags" "520"
+				"speed" "0"
+				"startspeed" "5000"
+				"target" "blimp_cutscene_1"
+				"volume" "0"
+				"wheels" "50"
+			}
+			path_track
+			{
+				"angles" "0 0 0"
+				"orientationtype" "1"
+				"radius" "0"
+				"spawnflags" "0"
+				"speed" "5000"
+				"target" "blimp_cutscene_2"
+				"targetname" "blimp_cutscene_1"
+				"origin" "1257.9 -443.3 970.0"
+			}
+			path_track
+			{
+				"angles" "0 0 0"
+				"orientationtype" "1"
+				"radius" "0"
+				"spawnflags" "0"
+				"speed" "0"
+				"targetname" "blimp_cutscene_2"
+				"origin" "-54.5 -184.0 30.0"
+				"OnPass" "filter_drac,Kill,,0,-1"
+				"OnPass" "dracman,$Suicide,,0,-1"
+				"OnPass" "blimpmodel,Kill,,0,-1"
+				"OnPass" "blimp_explosion,Start,,0,-1"
+				"OnPass" "blimpcrash_mover,Kill,,10,-1"
+			}
+		}
+		CanteenUseAudio
+		{
+			OnSpawnOutput
+			{
+				Target "red_player"
+				Action "$PlaySoundToSelf"
+				Param "=35|mvm/mvm_used_powerup.wav"
+				Delay 0
+			}
+		}
+		KillOnSpawn
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$Suicide"
+				Delay 0.1
+			}
+		}
+		Pit_Recall
+		{
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_corporal"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "corporal_canteen"
+			}
+			trigger_teleport
+			{
+				"targetname" "pit_recall"
+				"origin" "-2704 3272.97 -640"
+				"mins" "-384 -384 -128"
+				"maxs" "384 384 128"
+				"spawnflags" "1"
+				"filtername" "filter_corporal"
+				"target" "corporal_spawn"
+				"OnStartTouch" "canteen_msg_recall,Enable,,0,-1"
+				"OnStartTouch" "canteen_msg_recall,Disable,,0.1,-1"
+			}
+		}
+		PreventPowerupDropOnDeath
+		{
+			OnParentKilledOutput
+			{
+				Target "item_powerup_rune"
+				Action "Kill"
+				Delay 0
+			}
+		}
+		Yakuza_Title_Card
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "ROBOT FAMILY OFFICER, SPECIAL UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "CORPORAL CANTEEN"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "1"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Yakuza_Title_Card_Sergeant_Crit
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "ROBOT FAMILY PATRIARCH, ELITE UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT CRIT"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "1"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Yakuza_Title_Card_Sergeant_Reciever
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "ROBOT FAMILY PATRIARCH, ELITE UNIT"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "SERGEANT RECEIVER"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "1"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		Yakuza_Title_Card_Necromancer
+		{
+			OnSpawnOutput
+			{
+				Target "upper_text"
+				Action "Display"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "middle_text"
+				Action "Display"
+				Delay 0.2
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "upper_text"
+				"message" "ENMA OF THE UNDERWORLD, THE HELLTAKER"
+				"x" "-1"
+				"y" "0.4"
+				"spawnflags" "1"
+				"effect" "2"
+				"channel" "2"
+				"color" "255 255 255"
+				"fxtime" "0.2"
+				"fadeout" "1"
+				"holdtime" "5"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "middle_text"
+				"message" "CHIEF NECROMANCER MEDIC"
+				"x" "-1"
+				"y" "0.45"
+				"channel" "1"
+				"spawnflags" "1"
+				"color" "255 255 255"
+				"fadein" "0.2"
+				"fadeout" "1"
+				"holdtime" "4.8"
+			}
+		}
+		CustomCanteensInit
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname corporal"
+				Delay 0.1
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname "
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "first_spawn_canteen"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "closerange_canteens_detector"
+				Action "Enable"
+				Delay 1
+			}
+			logic_relay
+			{
+				"targetname" "first_spawn_canteen"
+				"OnTrigger" "!activator,$AddCond,5,0,-1"
+				"OnTrigger" "canteen_msg_uber,Enable,,0,-1"
+				"OnTrigger" "canteen_msg_uber,Disable,,0.1,-1"
+				"OnTrigger" "!activator,$RemoveCond,5,5,-1"
+			}
+			info_particle_system
+			{
+				"origin" "0 0 0"
+				"targetname" "supernova_particle"
+				"start_active" "0"
+				"flag_as_weather" "0"
+				"effect_name" "powerup_supernova_explode_blue"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "supernova_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			trigger_stun
+			{
+				"targetname" "supernova_stun"
+				"origin" "0 0 0"
+				"mins" "-250.0 -250.0 -250.0"
+				"maxs" "250.0 250.0 250.0"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"solid" "0"
+				"filtername" "supernova_filter_is_red"
+				"stun_type" "1"
+				"stun_duration" "3"
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			logic_case
+			{
+				"targetname" "random_canteen_use"
+				"oncase01" "!activator,$AddItemAttribute,Reload time decreased|-0.8|1,0,-1"
+				"oncase01" "canteen_msg_infclip,Enable,,0,-1"
+				"oncase01" "canteen_msg_infclip,Disable,,0.1,-1"
+				"oncase01" "!activator,$RemoveItemAttribute,Reload time decreased|1,5,-1"
+				"oncase03" "!activator,$AddCond,96,0,-1"
+				"oncase03" "canteen_msg_precision,Enable,,0,-1"
+				"oncase03" "canteen_msg_precision,Disable,,0.1,-1"
+				"oncase03" "!activator,$RemoveCond,96,5,-1"
+				"oncase04" "!activator,$AddCond,32,0,-1"
+				"oncase04" "canteen_msg_speed,Enable,,0,-1"
+				"oncase04" "canteen_msg_speed,Disable,,0.1,-1"
+				"oncase04" "!activator,$RemoveCond,32,5,-1"
+				"oncase06" "!activator,$AddCond,91,1,-1"
+				"oncase06" "canteen_msg_haste,Enable,,0,-1"
+				"oncase06" "canteen_msg_haste,Disable,,0.1,-1"
+				"oncase06" "!activator,$RemoveCond,91,6,-1"
+				"oncase07" "!activator,$AddCond,105,1,-1"
+				"oncase07" "canteen_msg_crit,Enable,,0,-1"
+				"oncase07" "canteen_msg_crit,Disable,,0.1,-1"
+				"oncase07" "!activator,$RemoveCond,105,6,-1"
+				"oncase08" "!activator,$AddCond,110,1,-1"
+				"oncase08" "canteen_msg_plague,Enable,,0,-1"
+				"oncase08" "canteen_msg_plague,Disable,,0.1,-1"
+				"oncase08" "!activator,$RemoveCond,110,6,-1"
+				"oncase09" "!activator,$AddCond,90,1,-1"
+				"oncase09" "canteen_msg_strength,Enable,,0,-1"
+				"oncase09" "canteen_msg_strength,Disable,,0.1,-1"
+				"oncase09" "!activator,$RemoveCond,90,6,-1"
+			}
+			logic_relay
+			{
+				"targetname" "pinch_canteen"
+				"OnTrigger" "!activator,$AddPlayerAttribute,health regen|200,0,-1"
+				"OnTrigger" "!activator,$AddCond,36,0,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,clip size bonus|1,0,-1"
+				"OnTrigger" "canteen_msg_pinch,Enable,0,-1"
+				"OnTrigger" "canteen_msg_pinch,Disable,0.1,-1"
+			}
+			logic_case
+			{
+				"targetname" "closerange_cateens"
+				"oncase01" "corporal,$AddCond,111,0,-1"
+				"oncase01" "corporal,$AddPlayerAttribute,move speed penalty|0.2,0,-1"
+				"oncase01" "canteen_msg_supernova,Enable,,0,-1"
+				"oncase01" "canteen_msg_supernova,Disable,,0.1,-1"
+				"oncase01" "supernova_particle,Start,,5,-1"
+				"oncase01" "supernova_stun,FireUser1,,5,-1"
+				"oncase01" "corporal,$RemoveCond,111,5,-1"
+				"oncase01" "corporal,$RemovePlayerAttribute,move speed penalty,2,-1"
+				"oncase01" "supernova_particle,Stop,,8,-1"
+			}
+			filter_tf_class
+			{
+				"targetname" "filter_isnt_spy"
+				"Negated" "1"
+				"tfclass" "8"
+			}
+			filter_multi
+			{
+				"targetname" "filter_melee_pullout_main"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "supernova_filter_is_red"
+				"Filter02" "filter_isnt_spy"
+			}
+			trigger_multiple
+			{
+				"targetname" "melee_pullout_range"
+				"origin" "0 0 0"
+				"mins" "-100.0 -100.0 -100.0"
+				"maxs" "100.0 100.0 100.0"
+				"spawnflags" "1"
+				"filtername" "filter_melee_pullout_main"
+				"OnStartTouch" "corporal,$WeaponSwitchSlot,2,0,-1"
+				"OnStartTouch" "corporal,$AddPlayerAttribute,disable weapon switch|1,0.01,-1"
+				"OnStartTouch" "corporal,$RemovePlayerAttribute,disable weapon switch,0.7,-1"
+				"OnStartTouch" "corporal,$WeaponSwitchSlot,1,0.71,-1"
+				"OnStartTouch" "!self,Disable,,0.72,-1"
+				"OnStartTouch" "!self,Enable,,6,-1"
+			}
+		}
+		Yauka_Styles
+		{
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "style_transition"
+				"OnTrigger" "!activator,$RemoveCond,36,0,-1"
+				"OnTrigger" "!activator,$RemoveCond,56,0,-1"
+				"OnTrigger" "!activator,$WeaponStripSlot,-1,0,-1"
+				"OnTrigger" "!activator,$GiveItem,TF_WEAPON_ROCKETLAUNCHER,0.01,-1"
+			}
+			logic_case
+			{
+				"targetname" "randomstyle"
+				"oncase01" "charged_style,Trigger,,0,-1"
+				"oncase02" "homing_style,Trigger,,0,-1"
+				"oncase03" "barrage_style,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "homing_style"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "msg_homingstyle,Enable,,0,-1"
+				"OnTrigger" "msg_homingstyle,Disable,,0.01,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat aim time|0.8|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.35|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddCond,36,0.01,-1"
+			}
+			logic_relay
+			{
+				"targetname" "charged_style"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "msg_chargedstyle,Enable,,0,-1"
+				"OnTrigger" "msg_chargedstyle,Disable,,0.01,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|2|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"
+				"OnTrigger" "!activator,$AddCond,56,0.01,-1"
+			}
+			logic_relay
+			{
+				"targetname" "barrage_style"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "msg_barragestyle,Enable,,0,-1"
+				"OnTrigger" "msg_barragestyle,Disable,,0.01,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.2|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|1.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|26|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.07|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"
+				"OnTrigger" "!activator,$RemoveItemAttribute,no_attack|0,1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "dragon_style"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "msg_legendstyle,Enable,,0,-1"
+				"OnTrigger" "msg_legendstyle,Disable,,0.01,-1"
+				"OnTrigger" "randomstyle,Kill,,0,-1"
+				"OnTrigger" "charged_style_dragon,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "charged_style_dragon"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile no deflect|1|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.25|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|3.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.01|0,0.02,-1"
+				"OnTrigger" "!activator,$AddCond,56,0.01,-1"
+				"OnTrigger" "homing_style_dragon,Trigger,,0.7,-1"
+			}
+			logic_relay
+			{
+				"targetname" "homing_style_dragon"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile trail particle|eyeboss_projectile|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage penalty|0.75|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat seek power|360|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,mod projectile heat aim time|0.8|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.01|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|0.1|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,clip size upgrade atomic|-1|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|5|0,0.02,-1"
+				"OnTrigger" "!activator,$AddCond,36,0.01,-1"
+				"OnTrigger" "barrage_style_dragon,Trigger,,2,-1"
+			}
+			logic_relay
+			{
+				"targetname" "barrage_style_dragon"
+				"OnTrigger" "!activator,$AddItemAttribute,attach particle effect|704|0,0.02,-1"
+				"OnTrigger" "style_transition,Trigger,,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,fire rate bonus|0.03|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Projectile speed increased|0.3|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage bonus|0.8|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,Reload time decreased|-1|0,0.02,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,projectile spread angle penalty|8|0,0.02,-1"
+				"OnTrigger" "charged_style_dragon,Trigger,,2.5,-1"
+			}
+		}
+		TFC_Heavy_AI
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname TFC_Heavy"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname "
+				Delay 0
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "heavy_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			trigger_multiple
+			{
+				"targetname" "shotgun_pullout_range"
+				"origin" "0 0 0"
+				"mins" "-400.0 -400.0 -400.0"
+				"maxs" "400.0 400.0 400.0"
+				"spawnflags" "1"
+				"filtername" "heavy_filter_is_red"
+				"OnStartTouch" "TFC_Heavy,$AddPlayerAttribute,disable weapon switch|1,0.01,-1"
+				"OnStartTouch" "TFC_Heavy,$WeaponSwitchSlot,1,0,-1"
+				"OnEndTouch" "TFC_Heavy,$RemovePlayerAttribute,disable weapon switch,0,-1"
+				"OnEndTouch" "TFC_Heavy,$WeaponSwitchSlot,0,0,01,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "melee_pullout_range"
+				"origin" "0 0 0"
+				"mins" "-100.0 -100.0 -100.0"
+				"maxs" "100.0 100.0 100.0"
+				"spawnflags" "1"
+				"filtername" "heavy_filter_is_red"
+				"OnStartTouch" "TFC_Heavy,$RemovePlayerAttribute,disable weapon switch,0,-1"
+				"OnStartTouch" "TFC_Heavy,$WeaponSwitchSlot,2,0.01,-1"
+				"OnStartTouch" "TFC_Heavy,$AddPlayerAttribute,disable weapon switch|1,0.02,-1"
+				"OnEndTouch" "TFC_Heavy,$RemovePlayerAttribute,disable weapon switch,0,-1"
+				"OnEndTouch" "TFC_Heavy,$WeaponSwitchSlot,1,0.01,-1"
+			}
+		}
+		Bread_Monster_Base_Init_New
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname breadman"
+				Delay 0.1
+			}
+			prop_dynamic
+			{
+				"targetname" "breadmonster_model"
+				"model" "models/weapons/w_models/w_breadmonster/w_breadmonster.mdl"
+				"origin" "0 0 30"
+				"angles" "0 0 0"
+				"modelscale" "50"
+				"solid" "0"
+			}
+		}
+		Bread_Monster_Base_Init
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname breadmonsterbase"
+				Delay 0
+			}
+			prop_dynamic
+			{
+				"targetname" "breadmonster_model"
+				"model" "models/weapons/w_models/w_breadmonster/w_breadmonster.mdl"
+				"origin" "150 0 50"
+				"angles" "0 0 0"
+				"modelscale" "25"
+				"solid" "0"
+			}
+			prop_dynamic
+			{
+				"targetname" "breadmonster_bomb_model"
+				"model" "models/custom/dirty_bomb_cart.mdl"
+				"origin" "130 0 20"
+				"angles" "0 0 0"
+				"solid" "0"
+			}
+			info_target
+			{
+				"targetname" "breadmonsterhitbox_position"
+				"origin" "150 0 0"
+			}
+		}
+		Bread_Monster_Tank_Init
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "breadmonstertank_relay"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "breadmonsterbase"
+				Action "$Suicide"
+				Delay 0
+			}
+			logic_relay
+			{
+				"targetname" "breadmonstertank_relay"
+				"OnUser1" "!activator,$TeleportToEntity,breadmonsterhitbox_position,0,-1"
+				"OnUser1" "!self,FireUser1,,0.01,-1"
+			}
+		}
+		Bread_Monster_Death_Init
+		{
+			KeepAlive 1
+			OnParentKilledOutput
+			{
+				Target "bread_monster_death_effect"
+				Action "FireUser1"
+				Delay 0
+			}
+			info_particle_system
+			{
+				"targetname" "bread_monster_death_effect"
+				"effect_name" "cinefx_goldrush"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				"OnUser1" "!self,Start,,0,-1"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+		}
+		Monoculus_Shooter_Init
+		{
+			OnSpawnOutput
+			{
+				Target "monoculus_model"
+				Action "FireUser1"
+				Delay 1
+			}
+			prop_dynamic
+			{
+				"targetname" "monoculus_model"
+				"model" "models/props_halloween/halloween_demoeye.mdl"
+				"origin" "0 0 30"
+				"angles" "30 0 0"
+				"DefaultAnim" "general_noise"
+				"solid" "0"
+				"OnUser1" "!self,SetAnimation,firing3,0,-1"
+				"OnUser1" "!self,FireUser1,,6,-1"
+			}
+			info_particle_system
+			{
+				"parentname" "monoculus_model"
+				"targetname" "monoculus_aura"
+				"effect_name" "eyeboss_aura_grumpy"
+				"origin" "0 0 30"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Monoculus_Shooter_Init_Crit
+		{
+			OnSpawnOutput
+			{
+				Target "monoculus_model"
+				Action "FireUser1"
+				Delay 1
+			}
+			prop_dynamic
+			{
+				"targetname" "monoculus_model"
+				"model" "models/props_halloween/halloween_demoeye.mdl"
+				"skin" "3"
+				"origin" "0 0 30"
+				"angles" "30 0 0"
+				"DefaultAnim" "general_noise"
+				"solid" "0"
+				"OnUser1" "!self,SetAnimation,firing3,0,-1"
+				"OnUser1" "!self,FireUser1,,6,-1"
+			}
+			info_particle_system
+			{
+				"parentname" "monoculus_model"
+				"targetname" "monoculus_aura"
+				"origin" "0 0 30"
+				"effect_name" "eyeboss_team_blue"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Monoculus_Tank_Init
+		{
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_monoculus_shooter"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "monoculus_shooter"
+			}
+			trigger_teleport
+			{
+				"targetname" "monoculus_teleporter"
+				"landmark" "!activator"
+				"origin" "0 0 0"
+				"mins" "-50000.0 -50000.0 -50000.0"
+				"maxs" "50000.0 50000.0 50000.0"
+				"spawnflags" "1"
+				"filtername" "filter_monoculus_shooter"
+				"target" "monoculus_shooter_position"
+			}
+			info_target
+			{
+				"targetname" "monoculus_shooter_position"
+				"origin" "0 0 -30"
+			}
+		}
+		Monoculus_Death_Init
+		{
+			KeepAlive 1
+			OnParentKilledOutput
+			{
+				Target "monoculus_death_effect"
+				Action "FireUser1"
+				Delay 0
+			}
+			info_particle_system
+			{
+				"targetname" "monoculus_death_effect"
+				"effect_name" "eyeboss_death"
+				"flag_as_weather" "0"
+				"start_active" "0"
+				"OnUser1" "!self,$PlaySound,ui/halloween_boss_defeated_monoculus,0,-1"
+				"OnUser1" "!self,Start,,0,-1"
+				"OnUser1" "!self,Kill,,5,-1"
+			}
+		}
+		Monoculus_Cleanup_Init
+		{
+			KeepAlive 1
+			OnParentKilledOutput
+			{
+				Target "monoculus_bots_cleanup"
+				Action "FireUser1"
+				Delay 0
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_monoculus_shooter_cleanup"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "monoculus_shooter"
+				"OnPass" "!activator,$Suicide,,0,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "monoculus_bots_cleanup"
+				"origin" "0 0 0"
+				"mins" "-500 -500 -500"
+				"maxs" "500 500 500"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"OnStartTouch" "filter_monoculus_shooter_cleanup,TestActivator,,0,-1"
+				"OnUser1" "!self,Enable,,0,1"
+				"OnUser1" "filter_monoculus_shooter_cleanup,Kill,,0.05,1"
+				"OnUser1" "!self,Kill,,0.1,1"
+			}
+		}
+		Payload_Init
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "payload_model"
+				Action "SetParent"
+				Param "!activator"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "payload_model"
+				Action "SetParent"
+				Param "!activator"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "payload_annotation"
+				Action "Show"
+				Delay 0.1
+			}
+			training_annotation
+			{
+				"targetname" "payload_annotation"
+				"display_text" "Escort the Payload to the Bread Monster"
+				"lifetime" "10"
+				"origin" "0 0 100"
+			}
+			training_annotation
+			{
+				"targetname" "pitstop_annotation"
+				"display_text" "Destroy all remaining enemies to advance"
+				"lifetime" "8"
+				"origin" "0 0 100"
+			}
+			dispenser_touch_trigger
+			{
+				"targetname" "cart_dispenser_trigger"
+				"mins" "-300 -300 -300"
+				"maxs" "300 300 300"
+				"spawnflags" "1"
+			}
+			mapobj_cart_dispenser
+			{
+				"targetname" "cart_dispenser"
+				"origin" "-40 -10 100"
+				"spawnflags" "10"
+				"TeamNum" "2"
+				"touch_trigger" "cart_dispenser_trigger"
+			}
+			info_target
+			{
+				"targetname" "payload_position"
+			}
+			prop_dynamic
+			{
+				"targetname" "payload_model"
+				"model" "models/props_trainyard/bomb_cart_red.mdl"
+				"origin" "0 0 30"
+				"angles" "0 180 0"
+				"solid" "0"
+			}
+		}
+		Constraint_Bot_Init
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname constraint_bot"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname "
+				Delay 0
+			}
+		}
+		Constraint_Tank_Init
+		{
+			OnParentKilledOutput
+			{
+				Target "constraint_bot"
+				Action "$GiveItem"
+				Param "The B.A.S.E. Jumper"
+				Delay 0
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_constraint"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "constraint"
+			}
+			trigger_teleport
+			{
+				"targetname" "constraint_tank_teleport"
+				"origin" "0 0 0"
+				"landmark" "!activator"
+				"mins" "-50000.0 -50000.0 -50000.0"
+				"maxs" "50000.0 50000.0 50000.0"
+				"spawnflags" "1"
+				"filtername" "filter_constraint"
+				"target" "constraint_tank_position"
+			}
+			info_target
+			{
+				"targetname" "constraint_tank_position"
+				"origin" "0 0 250"
+			}
+		}
+		NewReprogramLogic
+		{
+			NoFixup 1
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_can_be_reprogrammed"
+				"Negated" "1"
+				"require_all_tags" "1"
+				"tags" "no_reprogram"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_can_be_reprogrammed_sepcial"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "reprogram_special"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_set_to_be_reprogrammed"
+				"Negated" "0"
+				"condition" "65"
+			}
+			filter_multi
+			{
+				"targetname" "filter_reprogram_main"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "filter_is_set_to_be_reprogrammed"
+				"Filter02" "filter_can_be_reprogrammed"
+				"OnPass" "!activator,$RemoveCond,65,0,-1"
+				"OnPass" "!activator,$AddCond,43,0,-1"
+				"OnPass" "!activator,$AddCond,50,0,-1"
+				"OnPass" "!activator,$AddCond,40,0,-1"
+				"OnPass" "!activator,$AddPlayerAttribute,not solid to players|1,0,-1"
+				"OnPass" "!activator,$RemoveCond,43,8,-1"
+				"OnPass" "!activator,$RemoveCond,50,8,-1"
+				"OnPass" "!activator,$RemoveCond,40,8,-1"
+				"OnPass" "!activator,$RemovePlayerAttribute,not solid to players,8,-1"
+				"OnPass" "!activator,$Suicide,,8,-1"
+			}
+			filter_multi
+			{
+				"targetname" "filter_reprogram_special"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "filter_is_set_to_be_reprogrammed"
+				"Filter02" "filter_can_be_reprogrammed_sepcial"
+				"OnPass" "!activator,$RemoveCond,65,0,-1"
+				"OnPass" "!activator,$AddCond,43,0,-1"
+				"OnPass" "!activator,$AddCond,50,0,-1"
+				"OnPass" "!activator,$AddPlayerAttribute,not solid to players|1,0,-1"
+				"OnPass" "!activator,$RemoveCond,43,3.5,-1"
+				"OnPass" "!activator,$RemoveCond,50,3.5,-1"
+				"OnPass" "!activator,$RemovePlayerAttribute,not solid to players,3.5,-1"
+			}
+			trigger_multiple
+			{
+				"targetname" "reprogram_handler"
+				"mins" "-10000 -10000 -10000"
+				"maxs" "10000 10000 10000"
+				"spawnflags" "1"
+				"OnStartTouch" "filter_reprogram_main,TestActivator,,0,-1"
+				"OnStartTouch" "filter_reprogram_special,TestActivator,,0,-1"
+				"OnUser1" "!self,Disable,,0,-1"
+				"OnUser1" "!self,Enable,,0.01,-1"
+			}
+		}
+		CandyCane_Rework2_Electric_Boogaloo
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill|122|0"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill duration|1|0"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill|122|1"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill duration|1|1"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill|122|2"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "add cond on kill duration|1|2"
+				Delay 0.1
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "candycane_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			trigger_multiple
+			{
+				"targetname" "aoe_ammo_regen"
+				"mins" "-1000 -1000 -1000"
+				"maxs" "1000 1000 1000"
+				"spawnflags" "1"
+				"filtername" "candycane_filter_is_red"
+				"OnEndTouch" "!activator,$RemovePlayerAttribute,ammo regen,0,-1"
+				"OnUser1" "!self,Disable,,0,-1"
+				"OnUser1" "!self,Enable,,0.01,-1"
+			}
+			math_counter
+			{
+				"targetname" "regen_count"
+				"startvalue" "0"
+				"min" "0"
+				"max" "0.3"
+				"OnGetValue" "aoe_regen_increaser,$SetKey$case01,,0,-1"
+				"OnGetValue" "aoe_regen_increaser,$Format,,0.1,-1"
+				"OnUser1" "delay_count,FireUser1,,0,-1"
+				"OnUser1" "stacks_count,FireUser1,,0,-1"
+				"OnUser1" "!self,Add,0.03,0,-1"
+				"OnUser1" "!self,GetValue,,0.1,-1"
+			}
+			math_counter
+			{
+				"targetname" "delay_count"
+				"startvalue" "0"
+				"min" "0"
+				"max" "10"
+				"OnGetValue" "aoe_regen_increaser,$SetKey$case02,,0,-1"
+				"OnGetValue" "aoe_regen_increaser,$Format,,0.1,-1"
+				"OnUser1" "!self,Add,0.001,0,-1"
+				"OnUser1" "!self,GetValue,,0.1,-1"
+			}
+			math_counter
+			{
+				"targetname" "stacks_count"
+				"startvalue" "0"
+				"min" "0"
+				"max" "10"
+				"OnGetValue" "stack_counter_formatter,$SetKey$case01,,0,-1"
+				"OnGetValue" "stack_counter_formatter,$Format,,0.1,-1"
+				"OnUser1" "!self,Add,1,0,-1"
+				"OnUser1" "!self,GetValue,,0.1,-1"
+			}
+			logic_case
+			{
+				"targetname" "aoe_regen_increaser"
+				"case16" "OnStartTouch !activator:$AddPlayerAttribute:ammo regen|%:%:-1"
+				"case01" "0"
+				"case02" "0"
+				"ondefault" "aoe_ammo_regen,AddOutput,,0,-1"
+				"ondefault" "aoe_ammo_regen,FireUser1,,0,-1"
+			}
+			OnSpawnOutput
+			{
+				Target "stack_counter_formatter"
+				Action "$Format"
+				Param 0.1
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "stack_counter_text"
+				"message" "unassigned"
+				"x" "-1"
+				"y" "0.77"
+				"color" "255 255 255"
+				"channel" "4"
+				"fadein" "0"
+				"holdtime" "9999999"
+			}
+			logic_case
+			{
+				"targetname" "stack_counter_formatter"
+				"case16" "message Stacks %/10"
+				"case01" "0"
+				"ondefault" "stack_counter_text,AddOutput,,0,-1"
+				"ondefault" "stack_counter_text,Display,,0.1,-1"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_new_stack"
+				"Negated" "0"
+				"condition" "122"
+				"OnPass" "regen_count,FireUser1,,0,-1"
+				"OnPass" "!activator,$RemoveCond,122,0,-1"
+			}
+			OnSpawnOutput
+			{
+				Target "stack_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			logic_relay
+			{
+				"targetname" "stack_checker"
+				"spawnflags" "2"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "filter_new_stack,TestActivator,!activator,0,-1"
+			}
+		}
+		Hammer_Impact_Particle
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "hammer_impact"
+				Action "Kill"
+				Delay 1
+			}
+			info_particle_system
+			{
+				"targetname" "hammer_impact"
+				"effect_name" "hammer_impact_button"
+				"flag_as_weather" "0"
+				"start_active" "1"
+			}
+		}
+		Mantread_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "mantread_dmg_multiplier"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "landing_explosion_hitbox"
+				Action "$SetOwner"
+				Param "!activator"
+				Delay 0
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "land_dmg_multi_indicator"
+				"message" "unassigned"
+				"x" "-1"
+				"y" "0.77"
+				"color" "0 255 255"
+				"channel" "4"
+				"fadein" "0"
+				"holdtime" "9999999"
+			}
+			math_counter
+			{
+				"targetname" "final_multiplier_storer"
+				"startvalue" "1.0"
+				"min" "1.0"
+				"max" "100000.0"
+				"OnGetValue" "multiplier_apply,Multiply,,0,-1"
+				"OnGetValue" "!self,SetValue,1,0.1,-1"
+			}
+			math_counter
+			{
+				"targetname" "mantread_dmg_multiplier"
+				"startvalue" "1"
+				"min" "1"
+				"max" "5"
+				"StartDisabled" "1"
+				"OnGetValue" "dmg_multi_formatter,$SetKey$case01,,0,-1"
+				"OnGetValue" "dmg_multi_formatter,$Format,,0.1,-1"
+				"OnGetValue" "final_multiplier_storer,SetValueNoFire,,0,-1"
+				"OnUser1" "!self,Add,0.1,0,-1"
+				"OnUser1" "!self,GetValue,,0.1,-1"
+				"OnUser1" "!self,FireUser1,,0.1,-1"
+			}
+			math_counter
+			{
+				"targetname" "multiplier_apply"
+				"startvalue" "125"
+				"min" "125"
+				"max" "1000"
+				"OutValue" "landing_explosion_hitbox,SetDamage,,0,-1"
+				"OutValue" "!self,SetValue,125,0.3,-1"
+			}
+			logic_branch
+			{
+				"targetname" "is_landing"
+				"InitialValue" "0"
+				"OnTrue" "landed_relay,FireUser1,,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "dmg_multi_formatter"
+				"case16" "message Explosive Landing Damage Multi %x"
+				"case01" "<DISPLAY_NUMBER_BROKEN>"
+				"ondefault" "land_dmg_multi_indicator,AddOutput,,0,-1"
+				"ondefault" "land_dmg_multi_indicator,Display,,0.1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "landed_relay"
+				"OnUser1" "final_multiplier_storer,GetValue,,0,-1"
+				"OnUser1" "landing_explosion_hitbox,FireUser1,,0,-1"
+				"OnUser1" "hammer_impact_maker,FireUser1,,0,-1"
+				"OnUser1" "explosion_maker,FireUser1,,0,-1"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "explosive_filter_is_blu"
+				"Negated" "0"
+				"TeamNum" "3"
+			}
+			trigger_hurt
+			{
+				"targetname" "landing_explosion_hitbox"
+				"origin" "0 0 0"
+				"mins" "-150 -150 -150"
+				"maxs" "150 150 150"
+				"Damage" "100"
+				"spawnflags" "1"
+				"filtername" "explosive_filter_is_blu"
+				"choices" "64"
+				"StartDisabled" "1"
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_rocket_jumping"
+				"Negated" "0"
+				"condition" "81"
+				"OnPass" "mantread_dmg_multiplier,Enable,,0,-1"
+				"OnPass" "is_landing,SetValue,1,0,-1"
+				"OnFail" "mantread_dmg_multiplier,SetValue,1,0,-1"
+				"OnFail" "mantread_dmg_multiplier,GetValue,,0.05,-1"
+				"OnFail" "mantread_dmg_multiplier,Disable,,0.05,-1"
+				"OnFail" "is_landing,Test,,0,-1"
+				"OnFail" "is_landing,SetValue,0,0.1,-1"
+			}
+			OnSpawnOutput
+			{
+				Target "rocketjumping_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			logic_relay
+			{
+				"targetname" "rocketjumping_checker"
+				"spawnflags" "2"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "filter_is_rocket_jumping,TestActivator,!activator,0,-1"
+			}
+			env_entity_maker
+			{
+				"targetname" "hammer_impact_maker"
+				"EntityTemplate" "Hammer_Impact_Particle"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,!self,0,-1"
+			}
+			env_entity_maker
+			{
+				"targetname" "explosion_maker"
+				"EntityTemplate" "Explosion_Particle"
+				"PostSpawnDirection" "0 0 0"
+				"PostSpawnDirectionVariance" "0"
+				"PostSpawnInheritAngles" "0"
+				"PostSpawnSpeed" "0"
+				"spawnflags" "0"
+				"OnUser1" "!self,ForceSpawnAtEntityOrigin,!self,0,-1"
+			}
+		}
+		Axtinguisher_IsEquipped
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddCond"
+				Param "78"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveCond"
+				Param "78"
+				Delay 0
+			}
+		}
+		Degreaser_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "damage bonus|1.75|1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "damage bonus|2.25|2"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "axtinguisher_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "damage bonus|1"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "damage bonus|2"
+				Delay 0
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_has_axtinguisher"
+				"Negated" "0"
+				"condition" "78"
+				"OnPass" "!activator,$AddItemAttribute,damage bonus|2.5|2,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "axtinguisher_checker"
+				"OnTrigger" "filter_has_axtinguisher,TestActivator,!activator,0,-1"
+			}
+		}
+		Caber_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "caber_taunt_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "common_damage"
+				Action "$SetOwner"
+				Param "!activator"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "giant_damage"
+				Action "$SetOwner"
+				Param "!activator"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddCond"
+				Param "41"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddCond"
+				Param "85"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$RemoveCond"
+				Param "85"
+				Delay 0.01
+			}
+			OnSpawnOutput
+			{
+				Target "apply_buster_attributes"
+				Action "Trigger"
+				Delay 0.01
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "SetCustomModel"
+				Param ""
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "modelscale 1"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "SetForcedTauntCam"
+				Param "0"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveCond"
+				Param "41"
+				Delay 0
+			}
+			logic_relay
+			{
+				"targetname" "apply_buster_attributes"
+				"OnTrigger" "!activator,AddOutput,modelscale 1.75,0.11,-1"
+				"OnTrigger" "!activator,SetCustomModel,models/bots/demo/red_sentry_buster.mdl,0.11,-1"
+				"OnTrigger" "!activator,SetForcedTauntCam,1,0.11,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,max health additive bonus|625|2,0.11,-1"
+				"OnTrigger" "!activator,sethealth,800,0.3,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,no_attack|1|2,0.11,-1"
+				"OnTrigger" "!activator,$AddPlayerAttribute,move speed penalty|2|2,0,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,damage force reduction|0.5|2,0.11,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,always allow taunt|0.5|2,0.11,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,override footstep sound set|7|2,0.11,-1"
+				"OnTrigger" "!activator,$AddItemAttribute,cannot be backstabbed|1|2,0.11,-1"
+			}
+			filter_tf_class
+			{
+				"targetname" "filter_still_demoman"
+				"Negated" "0"
+				"tfclass" "4"
+				"OnPass" "!activator,SetCustomModel,,0,-1"
+				"OnPass" "!activator,$RemoveCond,7,0,-1"
+				"OnPass" "!activator,$RemoveCond,41,0,-1"
+				"OnPass" "!activator,SetForcedTauntCam,0,0,-1"
+				"OnPass" "!activator,$AddCond,57,0,-1"
+				"OnPass" "!activator,$AddCond,32,0,-1"
+				"OnPass" "!activator,$RemoveCond,57,2,-1"
+				"OnPass" "!activator,$RemoveCond,32,2,-1"
+				"OnPass" "common_damage,FireUser1,,0,-1"
+				"OnPass" "giant_damage,FireUser1,,0,-1"
+				"OnPass" "!activator,AddOutput,modelscale 1,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,no_attack|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,max health additive bonus|2,0,-1"
+				"OnPass" "!activator,sethealth,201,0,-1"
+				"OnPass" "!activator,$RemovePlayerAttribute,move speed penalty,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,damage force reduction|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,always allow taunt|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,model scale|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,override footstep sound set|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,cannot be backstabbed|2,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,mod_maxhealth_drain_rate|1|2,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,mod_maxhealth_drain_rate|2,0.1,-1"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_is_taunting"
+				"Negated" "0"
+				"condition" "7"
+				"OnPass" "caber_taunt_checker,Disable,,0,-1"
+				"OnPass" "!self,Disable,,5,-1"
+				"OnPass" "!activator,$AddPlayerAttribute,move speed penalty|0.001,0,-1"
+				"OnPass" "filter_still_demoman,TestActivator,,2,-1"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "filter_is_blu"
+				"Negated" "0"
+				"TeamNum" "3"
+				"OnUser1" "!self,Kill,,2.1,-1"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_is_common"
+				"Negated" "1"
+				"require_all_tags" "1"
+				"tags" "no_reprogram"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_still_in_spawn"
+				"Negated" "1"
+				"condition" "51"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_ubered"
+				"Negated" "1"
+				"condition" "5"
+			}
+			filter_multi
+			{
+				"targetname" "filter_caber_common"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "filter_is_blu"
+				"Filter02" "filter_is_common"
+				"Filter03" "filter_still_in_spawn"
+				"Filter04" "filter_ubered"
+			}
+			filter_tf_bot_has_tag
+			{
+				"targetname" "filter_is_giant"
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "no_reprogram"
+			}
+			filter_multi
+			{
+				"targetname" "filter_caber_giant"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "filter_is_blu"
+				"Filter02" "filter_is_giant"
+			}
+			trigger_hurt
+			{
+				"targetname" "common_damage"
+				"origin" "0 0 0"
+				"mins" "-500 -500 -500"
+				"maxs" "500 500 500"
+				"Damage" "99999"
+				"spawnflags" "1"
+				"filtername" "filter_caber_common"
+				"choices" "64"
+				"StartDisabled" "1"
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			trigger_hurt
+			{
+				"targetname" "giant_damage"
+				"origin" "0 0 0"
+				"mins" "-500 -500 -500"
+				"maxs" "500 500 500"
+				"Damage" "1200"
+				"spawnflags" "1"
+				"filtername" "filter_caber_giant"
+				"choices" "64"
+				"StartDisabled" "1"
+				"OnUser1" "!self,Enable,,0,-1"
+				"OnUser1" "!self,Disable,,0.1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "caber_taunt_checker"
+				"spawnflags" "2"
+				"OnTrigger" "caber_taunt_checker,Trigger,,0.1,-1"
+				"OnTrigger" "filter_is_taunting,TestActivator,!activator,0,-1"
+			}
+		}
+		Natascha_Global
+		{
+			NoFixup 1
+			math_counter
+			{
+				"targetname" "Natascha_berserk_points_to_add"
+				"startvalue" "0"
+				"min" "0"
+				"max" "0"
+				"OutValue" "berserkpoints_grabber,$GetKeyValueFromActivator,spawnflags,0,-1"
+				"OutValue" "Natascha_berserk_updater,Add,,0.01,-1"
+				"OutValue" "Natascha_berserk_updater,SetValueNoFire,0,0,-1"
+			}
+			math_counter
+			{
+				"targetname" "Natascha_berserk_updater"
+				"startvalue" "0"
+				"min" "0"
+				"max" "2500"
+				"OutValue" "Natascha_berserkpoints_apply,$SetKey$case01,,0,-1"
+				"OutValue" "Natascha_berserkpoints_apply,$Format,,0.001,-1"
+			}
+			logic_case
+			{
+				"targetname" "Natascha_berserkpoints_apply"
+				"case16" "spawnflags %"
+				"case01" "0"
+				"ondefault" "!activator,AddOutput,,0,-1"
+				"ondefault" "!self,$SetKey$case01,0,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "berserkpoints_grabber"
+				"ondefault" "Natascha_berserk_updater,SetValue,,0,-1"
+			}
+		}
+		Natascha_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "fire input on hit|Natascha_berserk_points_to_add^SetValue^|0"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "spawnflags 0"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "berserkpoints_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "berserk_meter_formatter"
+				Action "$SetKey$case01"
+				Param "0"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "berserk_meter_formatter"
+				Action "$Format"
+				Param "0"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "spawnflags 0"
+				Delay 0
+			}
+			filter_tf_condition
+			{
+				"targetname" "berserk_filter_is_taunting"
+				"Negated" "0"
+				"condition" "7"
+				"OnPass" "!activator,AddOutput,spawnflags 0,0,-1"
+				"OnPass" "berserkpoints_storer,SetValue,0,0,-1"
+				"OnPass" "berserkpoints_storer,GetValue,,0.1,-1"
+				"OnPass" "is_berserk_ready,SetValueTest,0,0,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,fire input on hit|0,0,-1"
+				"OnPass" "!activator,$RemoveCond,7,0,-1"
+				"OnPass" "!activator,$AddCond,46,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,heal on hit for rapidfire|20|0,0,-1"
+				"OnPass" "!activator,$AddItemAttribute,fire input on hit|Natascha_berserk_points_to_add^SetValue^|0,10,-1"
+				"OnPass" "!activator,$RemoveItemAttribute,heal on hit for rapidfire|0,10,-1"
+				"OnPass" "!activator,$RemoveCond,46,10,-1"
+			}
+			logic_branch
+			{
+				"targetname" "is_berserk_ready"
+				"InitialValue" "0"
+				"OnFalse" "berserk_start_checker,Disable,,0,-1"
+				"OnTrue" "berserk_start_checker,Enable,,0,-1"
+				"OnTrue" "berserk_start_checker,Trigger,,0.1,-1"
+				"OnTrue" "!activator,$DisplayTextCenter,Berserk is ready. Taunt to activate,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "berserk_start_checker"
+				"spawnflags" "2"
+				"StartDisabled" "1"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "berserk_filter_is_taunting,TestActivator,!activator,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "berserk_meter_formatter"
+				"case16" "message Berserk %/2500"
+				"case01" "<ERROR>"
+				"ondefault" "berserk_meter,AddOutput,,0,-1"
+				"ondefault" "berserk_meter,Display,,0.01,-1"
+			}
+			math_counter
+			{
+				"targetname" "berserkpoints_storer"
+				"startvalue" "0"
+				"min" "0"
+				"max" "2500"
+				"OnHitMax" "is_berserk_ready,SetValueTest,1,0,-1"
+				"OnGetValue" "berserk_meter_formatter,$SetKey$case01,,0,-1"
+				"OnGetValue" "berserk_meter_formatter,$Format,,0.001,-1"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "berserk_meter"
+				"message" "unassigned"
+				"x" "-1"
+				"y" "0.77"
+				"color" "255 255 255"
+				"channel" "4"
+				"fadein" "0"
+				"holdtime" "999999"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "berserk_ready_text"
+				"message" "Berserk is ready! Taunt to activate"
+				"x" "-1"
+				"y" "0.3"
+				"channel" "1"
+				"color" "255 255 255"
+				"fadein" "0"
+				"holdtime" "3"
+			}
+			logic_relay
+			{
+				"targetname" "berserkpoints_checker"
+				"spawnflags" "2"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "berserkpoints_grabber_local,$GetKeyValueFromActivator,spawnflags,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "berserkpoints_grabber_local"
+				"ondefault" "berserkpoints_storer,SetValue,,0,-1"
+				"ondefault" "berserkpoints_storer,GetValue,,0.01,-1"
+			}
+		}
+		Widowmaker_IsEquipped
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddCond"
+				Param "78"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveCond"
+				Param "78"
+				Delay 0
+			}
+		}
+		ShortCircuit_IsEquipped
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddCond"
+				Param "130"
+				Delay 0
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemoveCond"
+				Param "130"
+				Delay 0
+			}
+		}
+		RenamePlayer
+		{
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname red_player"
+				Delay 0.1
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "AddOutput"
+				Param "targetname red_player"
+				Delay 0.1
+			}
+		}
+		Gunslinger_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "widowmaker_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "ss_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			OnParentKilledOutput
+			{
+				Target "!activator"
+				Action "$RemovePlayerAttribute"
+				Param "damage bonus"
+				Delay 0.1
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_has_windowmaker"
+				"Negated" "0"
+				"condition" "78"
+				"OnPass" "!activator,$AddPlayerAttribute,damage bonus|1.9,0,-1"
+				"OnFail" "!activator,$AddPlayerAttribute,damage bonus|2.25,0,-1"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_has_ss"
+				"Negated" "0"
+				"condition" "130"
+				"OnPass" "!activator,$AddItemAttribute,damage penalty|0.25|1,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "widowmaker_checker"
+				"OnTrigger" "filter_has_windowmaker,TestActivator,!activator,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "ss_checker"
+				"OnTrigger" "filter_has_ss,TestActivator,!activator,0,-1"
+			}
+		}
+		Enforcer_Rework
+		{
+			OnSpawnOutput
+			{
+				Target "funky"
+				Action "Kill"
+				Delay 0.5
+			}
+			func_regenerate
+			{
+				"targetname" "funky"
+				"mins" "-10 -10 -10"
+				"maxs" "10 10 10"
+				"spawnflags" "1"
+				"TeamNum" "2"
+			}
+		}
+		Amputator_Id
+		{
+			NoFixup 1
+			math_counter
+			{
+				"targetname" "amputator_id_request_receiver"
+				"startvalue" "0"
+				"min" "0"
+				"max" "0"
+				"OnGetValue" "amputator_id_assigner,$SetKey$case01,,0,-1"
+				"OnGetValue" "amputator_id_assigner,$Format,,0.001,-1"
+				"OnUser1" "!self,GetValue,,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "amputator_id_assigner"
+				"case16" "spawnflags %"
+				"case01" "0"
+				"ondefault" "!activator,AddOutput,,0,-1"
+				"ondefault" "amputator_id_request_receiver,Add,1,0,-1"
+			}
+		}
+		Amputator_Cooldown
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "cooldown_handler"
+				Action "SetCompareValue"
+				Param "0"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "cooldown_handler"
+				Action "SetValueCompare"
+				Param "0"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "cooldown"
+				Action "FireUser1"
+				Delay 0.1
+			}
+			math_counter
+			{
+				"targetname" "cooldown"
+				"startvalue" "0"
+				"min" "0"
+				"max" "40"
+				"OnGetValue" "cooldown_formatter,$SetKey$case01,,0,-1"
+				"OnGetValue" "cooldown_formatter,$Format,,0.1,-1"
+				"OnGetValue" "cooldown_handler,SetValueCompare,,0.1,-1"
+				"OnUser1" "cooldown,Subtract,1,0,-1"
+				"OnUser1" "cooldown,GetValue,,0,-1"
+				"OnUser1" "cooldown,FireUser1,,1,-1"
+				"OnUser2" "cooldown,GetValue,,0,-1"
+			}
+			logic_compare
+			{
+				"targetname" "cooldown_handler"
+				"OnNotEqualTo" "amputator_checker,Disable,,0,-1"
+				"OnEqualTo" "amputator_checker,Enable,,0,-1"
+				"OnEqualTo" "amputator_checker,Trigger,,0,-1"
+			}
+		}
+		Amputator_Rework
+		{
+			NoFixup 1
+			OnSpawnOutput
+			{
+				Target "amputator_id_request_receiver"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "amputator_id_self_receiver"
+				Action "FireUser1"
+				Delay 0.2
+			}
+			OnSpawnOutput
+			{
+				Target "cooldown_formatter"
+				Action "$Format"
+				Delay 0.1
+			}
+			OnSpawnOutput
+			{
+				Target "cooldown_requester"
+				Action "FireUser1"
+				Delay 0
+			}
+			logic_relay
+			{
+				"targetname" "amputator_id_self_receiver"
+				"OnUser1" "amputator_id_self_assigners_middleman,$GetKeyValueFromActivator,spawnflags,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "amputator_id_self_assigners_middleman"
+				"ondefault" "amputator_id_self_assigner1,$SetKey$case01,,0,-1"
+				"ondefault" "amputator_id_self_assigner2,$SetKey$case01,,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "amputator_id_self_assigner1"
+				"case16" "targetname medic_position_%"
+				"case01" "0"
+				"ondefault" "medic_position,AddOutput,,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "amputator_id_self_assigner2"
+				"case16" "target medic_position_%"
+				"case01" "0"
+				"ondefault" "amputator_teleport,AddOutput,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "cooldown_requester"
+				"OnUser1" "cooldown,FireUser2,,0,-1"
+				"OnUser1" "!self,FireUser1,,1,-1"
+			}
+			logic_case
+			{
+				"targetname" "cooldown_formatter"
+				"case16" "message Ability Cooldown %"
+				"case01" "<COOLDOWN_BROKEN>"
+				"ondefault" "cooldown_indicator,AddOutput,,0,-1"
+				"ondefault" "cooldown_indicator,Display,,0.1,-1"
+			}
+			game_text
+			{
+				"origin" "1984 1984 99999"
+				"targetname" "cooldown_indicator"
+				"message" "among us"
+				"x" "-1"
+				"y" "0.77"
+				"color" "255 0 255"
+				"channel" "4"
+				"fadein" "0"
+				"holdtime" "999999"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_amputator_taunting"
+				"Negated" "0"
+				"condition" "7"
+				"OnPass" "cooldown,SetValue,40,0,-1"
+				"OnPass" "cooldown,FireUser2,,0,-1"
+				"OnPass" "red_player,$ForceRespawnDead,,0.2,-1"
+				"OnPass" "alive_marker,Enable,,0,-1"
+				"OnPass" "alive_marker,Disable,,0.1,-1"
+				"OnPass" "amputator_teleport,Enable,,0.21,-1"
+				"OnPass" "amputator_teleport,Disable,,0.25,-1"
+			}
+			info_target
+			{
+				"targetname" "medic_position"
+				"origin" "0 0 0"
+			}
+			filter_activator_tfteam
+			{
+				"targetname" "amputator_filter_is_red"
+				"Negated" "0"
+				"TeamNum" "2"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_amputator_not_revived"
+				"Negated" "1"
+				"condition" "121"
+			}
+			filter_multi
+			{
+				"targetname" "filter_amputator_teleport_main"
+				"Negated" "0"
+				"FilterType" "0"
+				"Filter01" "amputator_filter_is_red"
+				"Filter02" "filter_amputator_not_revived"
+			}
+			trigger_multiple
+			{
+				"targetname" "alive_marker"
+				"mins" "-10000 -10000 -10000"
+				"maxs" "10000 10000 10000"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"filtername" "amputator_filter_is_red"
+				"OnStartTouch" "!activator,$AddCond,121,0,-1"
+				"OnStartTouch" "!activator,$RemoveCond,121,5,-1"
+			}
+			trigger_teleport
+			{
+				"targetname" "amputator_teleport"
+				"mins" "-10000 -10000 -10000"
+				"maxs" "10000 10000 10000"
+				"spawnflags" "1"
+				"StartDisabled" "1"
+				"filtername" "filter_amputator_teleport_main"
+				"target" "medic_position"
+				"OnStartTouch" "!activator,$PlaySoundToSelf,mvm/mvm_revive.wav,0,-1"
+				"OnStartTouch" "!activator,$AddCond,52,0,-1"
+				"OnStartTouch" "!activator,$AddCond,32,0,-1"
+				"OnStartTouch" "!activator,$RemoveCond,52,3,-1"
+				"OnStartTouch" "!activator,$RemoveCond,32,3,-1"
+			}
+			OnSpawnOutput
+			{
+				Target "amputator_checker"
+				Action "Trigger"
+				Delay 0.1
+			}
+			logic_relay
+			{
+				"targetname" "amputator_checker"
+				"spawnflags" "2"
+				"OnTrigger" "!self,Trigger,,0.1,-1"
+				"OnTrigger" "filter_amputator_taunting,TestActivator,!activator,0,-1"
+			}
+		}
+		OnReprogrammerWeaponFire
+		{
+			OnSpawnOutput
+			{
+				Target "reprogram_handler"
+				Action "FireUser1"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$AddItemAttribute"
+				Param "no_attack|1|0"
+				Delay 0
+			}
+			OnSpawnOutput
+			{
+				Target "!activator"
+				Action "$RemoveItemAttribute"
+				Param "no_attack|0"
+				Delay 4
+			}
+		}
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name OnReprogrammerWeaponFire
+		Speed 0
+		ItemName "The Enforcer"
+	}
+	PlayerSpawnTemplate	[$SIGSEGV]
+	{
+		Name "RenamePlayer"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "CandyCane_Rework2_Electric_Boogaloo"
+		ItemName "The Candy Cane"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Mantread_Rework"
+		ItemName "The Mantreads"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Degreaser_Rework"
+		ItemName "The Degreaser"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Caber_Rework"
+		ItemName "The Ullapool Caber"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Natascha_Rework"
+		ItemName "Natascha"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Axtinguisher_IsEquipped"
+		ItemName "The Axtinguisher"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Axtinguisher_IsEquipped"
+		ItemName "Festive Axtinguisher"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Axtinguisher_IsEquipped"
+		ItemName "The Postal Pummeler"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Gunslinger_Rework"
+		ItemName "The Gunslinger"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Widowmaker_IsEquipped"
+		ItemName "The Widowmaker"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "ShortCircuit_IsEquipped"
+		ItemName "The Short Circuit"
+		Origin "0 0 0"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Amputator_Rework"
+		ItemName "The Amputator"
+		Origin "0 0 0"
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name Explosive_Tip
+		Speed 0
+		AttachToProjectile 1
+		Classname "tf_weapon_compound_bow"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name "Enforcer_Rework"
+		ItemName "The Enforcer"
+		Origin "0 0 0"
+	}
+	ItemAttributes
+	{
+		ItemName "The Candy Cane"
+		"special item description" "On kill with any weapon: Adds stack. Each stack grants you and teammates within 1000 units +3% passive ammo regen up to a cap of 30%"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Mantreads"
+		"special item description" "On landing after a rocket jump: deal explosive damage in a 150 units radius, explosive landing damage is increased the longer you're airborne after a rocket jump"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Degreaser"
+		"damage penalty" 0.1
+		"special item description" "+75% damage bonus on secondary weapon, +125% damage bonus on melee weapon (+150% damage bonus with The Axtinguisher)"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Ullapool Caber"
+		"not solid to players" 1	[$SIGSEGV]
+		"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "Natascha"
+		"special item description" "Deal damage to build Berserk. Taunt to activate Berserk and gain health on hit for 10 seconds"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Gunslinger"
+		"special item description" "+125% damage bonus on all weapons (90% damage bonus with the Widowmaker equipped)"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Amputator"
+		"special item description" "On taunt: revives all dead teammates and teleport them to your location with temporary uber and speed boost. Ability has a 40 seconds cooldown between use (cooldown is shared across all medics)"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		Classname "tf_weapon_Compound_Bow"
+		"special item description" "Fires explosive arrows that stick to enemies and surfaces. Arrows detonate after 3 seconds"	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Enforcer"
+		"provide on active" 1
+		"mod no reload DISPLAY ONLY" 1
+		"mod max primary clip override" -1
+		"damage penalty" 0.1
+		"clip size penalty" 0.16
+		"add cond on hit" 65	[$SIGSEGV]
+		"add cond on hit duration" 1	[$SIGSEGV]
+		"special item description" "On hit: force a non-giant enemy to fight on your side, controlled enemies are crit boosted and will self-destruct after 8 seconds"	[$SIGSEGV]
+	}
+	SpawnTemplate "Combo_Pyro"	[$SIGSEGV]
+	SpawnTemplate "Payload_Checkpoints"	[$SIGSEGV]
+	SpawnTemplate "Giant_Portal"	[$SIGSEGV]
+	SpawnTemplate "Path_Choose"	[$SIGSEGV]
+	SpawnTemplate "Buster_Upgrade_Station"	[$SIGSEGV]
+	SpawnTemplate "Bomb_Replacement"	[$SIGSEGV]
+	SpawnTemplate "Natascha_Global"	[$SIGSEGV]
+	SpawnTemplate "Amputator_Id"	[$SIGSEGV]
+	SpawnTemplate "Amputator_Cooldown"	[$SIGSEGV]
+	SpawnTemplate "NewReprogramLogic"	[$SIGSEGV]
+	SpawnTemplate "Necromancer_Summon_Teleport_Chief"	[$SIGSEGV]
+	PrecacheModel "models/player/scout.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/soldier.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/pyro.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/demo.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/heavy.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/engineer.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/medic.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/sniper.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/spy.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/engineer/bot_engineer.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/demo/red_sentry_buster.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage1.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage2.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage3.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage_explode.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_explode.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_halloween/bombonomicon.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_halloween/gargoyle_backpack.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/items/heavy/heavy_bandana.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/items/demo/top_hat.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_halloween/ghost_no_hat.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_halloween/eyeball_projectile.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_halloween/halloween_demoeye.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/merasmus/merasmus.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/headless_hatman.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/skeleton_sniper_boss/skeleton_sniper_boss.mdl"	[$SIGSEGV]
+	PrecacheModel "models/weapons/w_models/w_breadmonster/w_breadmonster.mdl"	[$SIGSEGV]
+	PrecacheModel "models/custom/dirty_bomb_cart.mdl"	[$SIGSEGV]
+	PrecacheSound "ui/halloween_boss_summoned.wav"	[$SIGSEGV]
+	PrecacheSound "mvm/mvm_revive.wav"	[$SIGSEGV]
+	PrecacheSound "mvm/mvm_used_powerup.wav"	[$SIGSEGV]
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "monoculus"
+		Node "-458.2 -1219.1 550.0"
+		Node "39.4 1493.9 550.0"
+		Node "-2265.3 1658.1 550.0"
+		Node "-2375.6 5401.9 550.0"
+		Node "-3012.9 5417.1 550.0"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "payload_red"
+		Node "-3468.1 6416.2 193.0"
+		Node "-3471.5 5836.7 126.1"
+		Node "-3520 5776 168"
+		Node "-3664 5584 168"
+		Node "-3664 4960 104"
+		Node "-3600 4864 104"
+		Node "-3536 4816 104"
+		Node "-3520 4736 104"
+		Node "-3520 4224 104"
+		Node "-3616 3904 104"
+		Node "-3696 3792 104"
+		Node "-3712 3568 104"
+		Node "-3696 3360 104"
+		Node "-3632 3232 104"
+		Node "-3200 3232 104"
+		Node "-3168 3216 104"
+		Node "-3152 3184 104"
+		Node "-3152 3088 104"
+		Node "-3120 3008 104"
+		Node "-3072 2976 104"
+		Node "-2800 2976 104"
+		Node "-2736 3024 104"
+		Node "-2720 3152 104"
+		Node "-2576 3248 104"
+		Node "-2080 3248 104"
+		Node "-1280 3232 104"
+		Node "-1232 3232 104"
+		Node "-1200 3216 104"
+		Node "-1184 3184 104"
+		Node "-1184 2164.3 200.7"
+		Node "-976 1920 168"
+		Node "-896 1904 168"
+		Node "-320 1664 104"
+		Node "-272 1616 104"
+		Node "-288 1552 104"
+		Node "-80 1472 104"
+		Node "-32 768 232"
+		Node "-32 565 232"
+		Node "-32 384 232"
+		Node "-32 -160 152"
+		Node "-32 -216 152"
+		Node "0 -248 152"
+		Node "32 -264 152"
+		Node "430.7 -216.2 152"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "corporal_spawn"
+		TeamNum 3	[$SIGSEGV]
+		X "-6.3 "
+		Y "-215.0"
+		Z "30.0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "msg_homingstyle"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "-6.3 "
+		Y "-215.0"
+		Z "30.0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "msg_chargedstyle"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "-6.3 "
+		Y "-215.0"
+		Z "30.0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "msg_barragestyle"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "-6.3 "
+		Y "-215.0"
+		Z "30.0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "msg_legendstyle"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "-6.3 "
+		Y "-215.0"
+		Z "30.0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_recall"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_uber"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_crit"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_haste"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_strength"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_infclip"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_reflect"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_supernova"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_plague"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_emp"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_precision"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_sandvich"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_speed"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "canteen_msg_pinch"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "summon_chief1"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "summon_chief2"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "summon_chief3"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "d4c"
+		TeamNum 3	[$SIGSEGV]
+		X "1512.0"
+		Y "273.9"
+		Z "-85.7"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "outofbound"
+		TeamNum 3	[$SIGSEGV]
+		X "-2768.2"
+		Y "2149.7"
+		Z "-186.8"
+	}
+	Mission
+	{
+		Where spawnbot_secondary
+		Objective DestroySentries
+		InitialCooldown 0
+		BeginAtWave 1
+		RunForThisManyWaves 7
+		CooldownTime 40
+		TFBot
+		{
+			Template T_TFBot_SentryBuster
+		}
+	}
+	Templates
+	{
+		Extra_AttackPayload_Behavior
+		{
+			Action Mobber
+			InterruptAction	[$SIGSEGV]
+			{
+				Target "payloadtank"
+				Delay 0.1
+				Duration 9999999
+				WaitUntilDone 1
+			}
+		}
+		T_TFBot_Giant_Scout_Cleaver
+		{
+			Name "Giant Cleaver Scout"
+			Class Scout
+			ClassIcon scout_cleaver
+			Health 1600
+			WeaponRestrictions SecondaryOnly
+			item "The Flying Guillotine"
+			item "Death Racer's Helmet"
+			item "Wipe Out Wraps"
+			item "Zombie Scout"
+			UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+			Tag bot_giant
+			Skill Expert
+			Attributes MiniBoss
+			ItemColor	[$SIGSEGV]
+			{
+				ItemName "Death Racer's Helmet"
+				Red 180
+				Green 0
+				Blue 184
+			}
+			ItemAttributes
+			{
+				ItemName "Death Racer's Helmet"
+				"set item tint rgb" 8208497
+			}
+			ItemAttributes
+			{
+				ItemName "The Flying Guillotine"
+				"effect bar recharge rate increased" 0
+				"fire rate penalty" 2
+				"item style override" 1
+			}
+			CharacterAttributes
+			{
+				"damage force reduction" 0.7
+				"airblast vulnerability multiplier" 0.7
+				"override footstep sound set" 5
+			}
+		}
+		T_TFBot_Giant_Burst_Fireball_Soldier
+		{
+			Name "Giant Burst Fireball Soldier"
+			Class Soldier
+			ClassIcon pyro_dragon_fury_burst
+			Health 5000
+			item "Battle Bird"
+			item "Zombie Soldier"
+			UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+			Skill Expert
+			Attributes HoldFireUntilFullReload
+			Attributes MiniBoss
+			RocketCustomModel "models/empty.mdl"	[$SIGSEGV]
+			RocketCustomParticle "spell_fireball_small_red"	[$SIGSEGV]
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_ROCKETLAUNCHER"
+				"fire rate bonus" 0.1
+				"clip size upgrade atomic" -1
+				"projectile spread angle penalty" 3
+				"Projectile speed increased" 0.8
+				"Set DamageType Ignite" 1
+				"attach particle effect" 1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"override footstep sound set" 3
+			}
+		}
+		T_TFBot_Giant_Pyro_Fury
+		{
+			Name "Giant Fury Pyro"
+			Class Pyro
+			Health 3000
+			ClassIcon pyro_dragon_fury_swordstone_giant
+			Item "The Dragon's Fury"
+			Item "Zombie Pyro"
+			UseCustomModel "models/player/pyro.mdl"	[$SIGSEGV]
+			MaxVisionRange 1200
+			WeaponRestrictions PrimaryOnly
+			Skill Expert
+			Attributes MiniBoss
+			ItemAttributes
+			{
+				ItemName "The Dragon's Fury"
+				"damage bonus" 1.5
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.6
+				"airblast vulnerability multiplier" 0.6
+				"override footstep sound set" 6
+			}
+		}
+		T_TFBot_Giant_Heavy_Fist
+		{
+			Name "Giant Steel Gauntlet"
+			Class Heavyweapons
+			Health 6000
+			ClassIcon heavy_steelfist
+			Item "Fists of Steel"
+			Item "Zombie Heavy"
+			UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+			WeaponRestrictions MeleeOnly
+			Skill Expert
+			Attributes MiniBoss
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.3
+				"airblast vulnerability multiplier" 0.3
+				"override footstep sound set" 2
+			}
+		}
+		T_TFBot_Giant_Pyro_ComboFlare
+		{
+			Name "Giant Combo Pyro"
+			Class Pyro
+			Health 3000
+			ClassIcon pyro_degreaser_flare
+			Item "The Degreaser"
+			Item "The Flare Gun"
+			Item "Pyromancer's Mask"
+			Item "Zombie Pyro"
+			UseCustomModel "models/player/pyro.mdl"	[$SIGSEGV]
+			Skill Expert
+			Attributes MiniBoss
+			MaxVisionRange 1200
+			ItemAttributes
+			{
+				ItemName "The Degreaser"
+				"fire input on hit" "combo_primary_to_secondary_longhold^Trigger^"	[$SIGSEGV]
+				"airblast disabled" 1
+				"damage penalty" 0.1
+			}
+			ItemAttributes
+			{
+				ItemName "The Flare Gun"
+				"faster reload rate" 0.2
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.6
+				"damage force reduction" 0.6
+				"airblast vulnerability multiplier" 0.6
+				"override footstep sound set" 6
+			}
+		}
+		T_TFBot_Giant_Bowman_Explosive_Tip
+		{
+			Name "Giant Explosive Tip Bowman"
+			Class Sniper
+			ClassIcon sniper_bow_atomic
+			Health 3200
+			WeaponRestrictions PrimaryOnly
+			Item "The Fortified Compound"
+			Item "Zombie Sniper"
+			Skill Expert
+			Attributes MiniBoss
+			UseCustomModel "models/player/sniper.mdl"	[$SIGSEGV]
+			ShootTemplate	[$SIGSEGV]
+			{
+				Name Explosive_Tip_Bot
+				Speed 0
+				AttachToProjectile 1
+				Classname "tf_weapon_compound_bow"
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 5
+			}
+		}
+		T_TFBot_Giant_Skeleton
+		{
+			Name "Skeleton King"
+			Class Sniper
+			ClassIcon dead_king_lite
+			Health 2100
+			WeaponRestrictions MeleeOnly
+			item "Prince Tavish's Crown"
+			Skill Expert
+			Attributes MiniBoss
+			UseCustomModel "models/bots/skeleton_sniper_boss/skeleton_sniper_boss.mdl"	[$SIGSEGV]
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 2
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			ItemAttributes
+			{
+				ItemName tf_weapon_club
+				"custom kill icon" "skull"	[$SIGSEGV]
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.8
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 5
+				"voice pitch scale" 0
+			}
+		}
+		T_TFBot_Headless_Horseless_Horsemann
+		{
+			SpawnTemplate "HHH_Hitbox_Fix"	[$SIGSEGV]
+			SpawnTemplate "HHH_Death_Init"	[$SIGSEGV]
+			SpawnTemplate "HHH_Stun_Hitbox"	[$SIGSEGV]
+			SpawnTemplate "HHH_Footstep"	[$SIGSEGV]
+			Name "Horseless Headless Horsemann"
+			Class Demoman
+			Scale 1.75
+			CustomEyeParticle "halloween_boss_eye_glow"	[$SIGSEGV]
+			ClassIcon demoknight_headtaker_nys_giant
+			Health 6000
+			WeaponRestrictions MeleeOnly
+			Item "The Horseless Headless Horseman's Headtaker"
+			Skill Expert
+			Attributes MiniBoss
+			UseCustomModel "models/bots/headless_hatman.mdl"	[$SIGSEGV]
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			Taunt	[$SIGSEGV]
+			{
+				Delay 14
+				Cooldown 16
+			}
+			CharacterAttributes
+			{
+				"hand scale" 1.75
+				"always allow taunt" 1	[$SIGSEGV]
+				"gesture speed increase" 1.5
+				"move speed bonus" 0.6
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 0
+				"voice pitch scale" 0
+			}
+		}
+		T_TFBot_Bread_Monster_Base
+		{
+			SpawnTemplate "Bread_Monster_Death_Init"	[$SIGSEGV]
+			SpawnTemplate "Bread_Monster_Base_Init_New"	[$SIGSEGV]
+			Name "Bread Monster"
+			Class Soldier
+			Skill Expert
+			Attributes SuppressFire
+			Action Mobber
+			WeaponRestrictions MeleeOnly
+			UseCustomModel "models/empty.mdl"	[$SIGSEGV]
+			Scale 0.001
+			MaxVisionRange 0
+			AddCond	[$SIGSEGV]
+			{
+				Index 52
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 2
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CharacterAttributes
+			{
+				"not solid to players" 1	[$SIGSEGV]
+				"increased jump height" 1.25
+				"cancel falling damage" 1
+				"voice pitch scale" 0
+				"move speed bonus" 0.5
+				"dmg from ranged reduced" 0
+				"dmg from melee increased" 0
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
+				"airblast vertical vulnerability multiplier" 0.001
+				"cannot be backstabbed" 1
+				"cannot pick up intelligence" 1
+			}
+			tag bread_monster
+		}
+		T_TFBot_Chief_Canteen
+		{
+			SpawnTemplate "Yakuza_Title_Card"	[$SIGSEGV]
+			SpawnTemplate "PreventPowerupDropOnDeath"	[$SIGSEGV]
+			SpawnTemplate "CustomCanteensInit"	[$SIGSEGV]
+			Name "Corporal Canteen"
+			Class Heavyweapons
+			ClassIcon heavy_shotgun_burst_lite
+			Health 50000
+			WeaponRestrictions SecondaryOnly
+			item "Security Shades"
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+			ExtAttr SuppressCanteenUse	[$SIGSEGV]
+			UseMeleeThreatPrioritization 1	[$SIGSEGV]
+			Scale 1.9
+			MaxVisionRange 1200
+			Taunt	[$SIGSEGV]
+			{
+				Delay 0.3
+				Repeats 1
+			}
+			FireInput	[$SIGSEGV]
+			{
+				Target "random_canteen_use"
+				Action "PickRandomShuffle"
+				Delay 6
+				Cooldown 11
+				Repeats 0
+			}
+			FireInput	[$SIGSEGV]
+			{
+				Target "pinch_canteen"
+				Action "Trigger"
+				Delay 0.1
+				Cooldown 9999
+				Repeats 1
+				IfHealthBelow 20000
+			}
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SHOTGUN_HWG"
+				"fire rate bonus" 0.3
+				"bullets per shot bonus" 10
+				"clip size penalty" 0.5
+				"damage penalty" 0.5
+				"faster reload rate" 1.25
+			}
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_FISTS"
+				"damage causes airblast" 1
+			}
+			CharacterAttributes
+			{
+				"deploy time decreased" 0.1
+				"health regen" 40
+				"deploy time decreased" 0.1
+				"move speed bonus" 0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"rage giving scale" 0.5
+			}
+			tag chief
+			tag no_reprogram
+			tag corporal_canteen
+		}
+		T_TFBot_Chief_Yakuza
+		{
+			SpawnTemplate "Yakuza_Title_Card_Sergeant_Reciever"	[$SIGSEGV]
+			SpawnTemplate "Yauka_Styles"	[$SIGSEGV]
+			Name "Sergeant Receiver"
+			Class Soldier
+			ClassIcon boss_yakuza
+			Health 50000
+			Scale 1.9
+			WeaponRestrictions PrimaryOnly
+			Item "The Eye-Catcher"
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Attributes HoldFireUntilFullReload
+			FireInput	[$SIGSEGV]
+			{
+				Target "randomstyle"
+				Action "PickRandomShuffle"
+				Delay 0.1
+				Cooldown 8
+				Repeats 0
+			}
+			FireInput	[$SIGSEGV]
+			{
+				Target "dragon_style"
+				Action "Trigger"
+				Delay 0.1
+				Repeats 1
+				IfHealthBelow 25000
+			}
+			CharacterAttributes
+			{
+				"health regen" 100
+				"move speed bonus" 0.5
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
+				"override footstep sound set" 3
+				"airblast vertical vulnerability multiplier" 0.1
+				"rage giving scale" 0.5
+			}
+			tag no_reprogram
+		}
+		T_TFBot_Chief_Necromancer_Medic
+		{
+			SpawnTemplate "Yakuza_Title_Card_Necromancer"	[$SIGSEGV]
+			SpawnTemplate "Necromancer_Chief_Summon_Logic"	[$SIGSEGV]
+			Name "Chief Necromancer Medic"
+			Class Medic
+			ClassIcon medic_boost_giant
+			Health 40000
+			WeaponRestrictions MeleeOnly
+			item "Spine-Chilling Skull"
+			item "Zombie Medic"
+			UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Action FetchFlag
+			Scale 1.9
+			Taunt	[$SIGSEGV]
+			{
+				Delay 10
+				Cooldown 16
+				Repeats 0
+				Name "Taunt: Second Rate Sorcery"
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			ItemAttributes
+			{
+				ItemName tf_weapon_bonesaw
+				"custom kill icon" "skull"	[$SIGSEGV]
+			}
+			CharacterAttributes
+			{
+				"no_jump" 1
+				"always allow taunt" 1	[$SIGSEGV]
+				"voice pitch scale" 1.2
+				"damage force reduction" 0.001
+				"airblast vulnerability multiplier" 0.001
+				"move speed bonus" 0.25
+				"rage giving scale" 0.5
+			}
+			tag chief
+		}
+		T_TFBot_Giant_TFC_Heavy
+		{
+			SpawnTemplate "TFC_Heavy_AI"	[$SIGSEGV]
+			Name "TFC Heavy"
+			Class Heavyweapons
+			ClassIcon heavy_giant
+			Health 35000
+			Skill Expert
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			item "Upgradeable tf_weapon_minigun"
+			item "Upgradeable tf_weapon_shotgun_hwg"
+			item "Upgradeable tf_weapon_fists"
+			item "The War Goggles"
+			item "The Samson Skewer"
+			item "Zombie Heavy"
+			UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+			ItemModel	[$SIGSEGV]
+			{
+				ItemName "The Samson Skewer"
+				Model "models/player/items/heavy/heavy_bandana.mdl"	[$SIGSEGV]
+			}
+			VoiceCommand	[$SIGSEGV]
+			{
+				Delay 0
+				Cooldown 24
+				Type "Battle cry"
+			}
+			VoiceCommand	[$SIGSEGV]
+			{
+				Delay 8
+				Cooldown 32
+				Type "Jeers"
+			}
+			VoiceCommand	[$SIGSEGV]
+			{
+				Delay 24
+				Cooldown 40
+				Type "Negative"
+			}
+			Message	[$SIGSEGV]
+			{
+				Name
+				{
+				}
+				TFC Heavy 
+				{
+				}
+				has escaped the underworld!" Delay
+				0 Repeats
+			}
+			ItemAttributes
+			{
+				ItemName "Upgradeable tf_weapon_minigun"
+				"damage bonus" 2
+				"minigun spinup time decreased" 0.1
+				"mod minigun can holster while spinning" 1	[$SIGSEGV]
+				"killstreak tier" 3
+				"killstreak idleeffect" 3
+				"killstreak effect" 2002
+			}
+			ItemAttributes
+			{
+				ItemName "Upgradeable tf_weapon_shotgun_hwg"
+				"fire rate bonus" 0.7
+				"bullets per shot bonus" 10
+				"damage penalty" 0.5
+				"faster reload rate" -0.8
+				"killstreak tier" 3
+				"killstreak idleeffect" 3
+				"killstreak effect" 2002
+			}
+			ItemAttributes
+			{
+				ItemName "Upgradeable tf_weapon_fists"
+				"damage causes airblast" 1
+				"killstreak tier" 3
+				"killstreak idleeffect" 3
+				"killstreak effect" 2002
+			}
+			CharacterAttributes
+			{
+				"deploy time decreased" 0.1
+				"move speed bonus" 0.5
+				"damage force reduction" 0.01
+				"airblast vulnerability multiplier" 0.01
+				"override footstep sound set" 2
+				"rage giving scale" 0.5
+			}
+			tag chief
+			tag tfc_heavy
+		}
+		T_TFBot_Monoculus_Shoot
+		{
+			SpawnTemplate "Monoculus_Death_Init"	[$SIGSEGV]
+			Name "MONOCULUS!"
+			Class Soldier
+			Skill Expert
+			Attributes SuppressFire
+			UseCustomModel "models/empty.mdl"	[$SIGSEGV]
+			Scale 0.0001
+			MaxVisionRange 100000
+			AlwaysGlow 1	[$SIGSEGV]
+			RocketCustomModel "models/props_halloween/eyeball_projectile.mdl"	[$SIGSEGV]
+			RocketCustomParticle "eyeboss_projectile"	[$SIGSEGV]
+			AddCond	[$SIGSEGV]
+			{
+				Index 52
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 2
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			FireWeapon
+			{
+				Delay 1
+				Cooldown 6
+				Duration 1
+				Type "Primary"
+			}
+			ItemAttributes
+			{
+				ItemName tf_weapon_rocketlauncher
+				"custom kill icon" "eyeball_rocket"	[$SIGSEGV]
+				"mod max primary clip override" -1
+				"fire rate bonus" 0.5
+				"projectile speed decreased" 0.75
+			}
+			CharacterAttributes
+			{
+				"no_jump" 1
+				"move speed bonus" 0.001
+				"dmg from ranged reduced" 0
+				"dmg from melee increased" 0
+				"cannot pick up intelligence" 1
+			}
+			tag monoculus_shooter
+		}
+		T_TFBot_Skeleton
+		{
+			Name "Skeleton"
+			Class Sniper
+			ClassIcon dead_lite
+			WeaponRestrictions MeleeOnly
+			Skill Expert
+			UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 1
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 2
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			ItemAttributes
+			{
+				ItemName tf_weapon_club
+				"custom kill icon" "skull"	[$SIGSEGV]
+			}
+			CharacterAttributes
+			{
+				"voice pitch scale" 0
+			}
+		}
+		T_TFBot_Scout_Ghost_Bonk
+		{
+			Name "Ghostly Bonk! Scout"
+			Class Scout
+			ClassIcon scout_ghost_bonk
+			WeaponRestrictions MeleeOnly
+			Item "Bonk! Atomic Punch"
+			Item "Ghastly Gibus"
+			Item "Zombie Scout"
+			UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+			Skill Expert
+			CustomWeaponModel	[$SIGSEGV]
+			{
+				Slot 0
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			ItemAttributes
+			{
+				ItemName "Bonk! Atomic Punch"
+				"effect cond override" 77	[$SIGSEGV]
+				"mult effect duration" 1.25	[$SIGSEGV]
+			}
+			CharacterAttributes
+			{
+				"not solid to players" 1	[$SIGSEGV]
+			}
+		}
+		T_TFBot_Pyro_ComboDetonator
+		{
+			Name "Combo Pyro"
+			Class Pyro
+			ClassIcon pyro_degreaser_flare
+			Item "The Degreaser"
+			Item "The Detonator"
+			Item "Pyromancer's Mask"
+			Item "Zombie Pyro"
+			UseCustomModel "models/player/pyro.mdl"	[$SIGSEGV]
+			Skill Expert
+			ItemAttributes
+			{
+				ItemName "The Degreaser"
+				"fire input on hit" "combo_primary_to_secondary^Trigger^"	[$SIGSEGV]
+				"airblast disabled" 1
+				"damage penalty" 0.1
+			}
+			ItemAttributes
+			{
+				ItemName "The Detonator"
+				"damage penalty" 1
+				"faster reload rate" 0.3
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			The Candy Cane 
+			{
+			}
+			- On kill with any weapon: Adds stack. Each stack grants you and teammates +3% passive ammo regen up to a cap of 30% (effect will only be active for teammates when they're within 1000 hammer units)" Line
+			"
+			{
+			}
+			The Mantreads 
+			{
+			}
+			- On landing after a rocket jump: deal explosive damage in a 150 units radius, explosive landing damage is increased the longer you're airborne after a rocket jump" Line
+			"
+			{
+			}
+			The Degreaser 
+			{
+			}
+			- +75% damage bonus on secondary weapon,  +125% damage bonus on melee weapon (+150% damage bonus with 
+			{
+			}
+			The Axtinguisher
+			{
+			}
+			). 90% damage penalty on primary" Line
+			"
+			{
+			}
+			The Ullapool Caber 
+			{
+			}
+			- Turns you into a Sentry Buster with increased speed, 800 health and reduced push force. Taunt to detonate. Detonation reverts you back to a normal Demoman with temporal uber and speed boost" Line
+			"
+			{
+			}
+			The Natascha 
+			{
+			}
+			- Deal damage to build Berserk. Taunt to activate Berserk and gain health on hit for 10 seconds" Line
+			"
+			{
+			}
+			The Gunslinger 
+			{
+			}
+			- 125% damage bonus on all weapons while equipped (90% damage bonus with 
+			{
+			}
+			The Widowmaker
+			{
+			}
+			 equipped)" Line
+			"
+			{
+			}
+			The Amputator 
+			{
+			}
+			- On taunt: revives all dead teammates and teleport them to your location with temporary uber and speed boost. Ability has a 40 seconds cooldown between use (cooldown is shared across all medics)" Line
+			"
+			{
+			}
+			All bows 
+			{
+			}
+			- Fire explosive arrows that stick to enemies and surfaces, detonate after 3 seconds" Line
+			"
+			{
+			}
+			The Enforcer 
+			{
+			}
+		}
+		WaveSpawn
+		{
+			Name "1AAAAAA"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier
+				Item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "1AAAAAA"
+			Name "1BBBBB"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 15
+			TotalCurrency 25
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier
+				Item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			Name "1a"
+			Where spawnbot_secondary
+			TotalCount 30
+			MaxActive 10
+			SpawnCount 2
+			WaitBetweenSpawns 2
+			WaitBeforeStarting 0.1
+			TotalCurrency 50
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Pyro_ComboDetonator
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+					Name "Big-Heal Medic"
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "1AAAAAA"
+			Name "1b"
+			Where spawnbot
+			TotalCount 3
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0.1
+			TotalCurrency 150
+			TFBot
+			{
+				Template T_TFBot_Giant_Skeleton
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "1AAAAAA"
+			Name "1b"
+			Where spawnbot
+			TotalCount 40
+			MaxActive 8
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Skeleton
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "1a"
+			Name "1c"
+			Where spawnbot_secondary
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+				Item "Zombie Sniper"
+				UseCustomModel "models/player/sniper.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "1a"
+			Name "1d"
+			Where spawnbot_secondary
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 1
+			WaitBetweenSpawns 12
+			WaitBeforeStarting 20
+			TotalCurrency 300
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro
+				Item "Zombie Pyro"
+				tag no_reprogram
+				UseCustomModel "models/player/pyro.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "1d"
+			Name "1e"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Headless_Horseless_Horsemann
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "1d"
+			Name "1e-support"
+			Where spawnbot_secondary
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 10
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				ClassIcon scout_bat
+				Item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "1d"
+			Name "1e-support"
+			Where spawnbot_secondary
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 15
+			WaitBeforeStarting 5
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Class Soldier
+				Skill Normal
+				Item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "2a"
+			Where spawnbot_secondary
+			TotalCount 25
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Scout_Ghost_Bonk
+			}
+		}
+		WaveSpawn
+		{
+			Name "2a"
+			Where spawnbot_secondary
+			TotalCount 36
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			TFBot
+			{
+				Class Demoman
+				Skill Normal
+				Item "Zombie Demo"
+				UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "2b"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5
+			TotalCurrency 100
+			Tank
+			{
+				SpawnTemplate "Monoculus_Tank_Init"	[$SIGSEGV]
+				SpawnTemplate "Monoculus_Cleanup_Init"	[$SIGSEGV]
+				Health 12000
+				Speed 75
+				Scale 0.8
+				DisableSmokestack 1	[$SIGSEGV]
+				Classicon boss_eyeball
+				MaxTurnRate 25	[$SIGSEGV]
+				Model "models/empty.mdl"	[$SIGSEGV]
+				StartSound "ui/halloween_boss_summoned_monoculus.wav"	[$SIGSEGV]
+				PingSound "misc/null.wav"	[$SIGSEGV]
+				EngineLoopSound "misc/null.wav"	[$SIGSEGV]
+				Gravity 0	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				DisableChildModels 1	[$SIGSEGV]
+				Name "tankboss"
+				StartingPathTrackNode "monoculus_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "2b"
+			Where outofbound
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5
+			TotalCurrency 0
+			Support Limited
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "Monoculus_Shooter_Init"	[$SIGSEGV]
+						Template T_TFBot_Monoculus_Shoot
+						tag no_reprogram
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "2b"
+			Name "2c"
+			Where spawnbot_secondary
+			TotalCount 10
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 200
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+					ClassIcon heavy_shotgun_giant
+					Item "Zombie Heavy"
+					tag no_reprogram
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Easy
+					Item "Zombie Heavy"
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Easy
+					Item "Zombie Heavy"
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Easy
+					Item "Zombie Heavy"
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Easy
+					Item "Zombie Heavy"
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "2c"
+			Name "2e"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 10
+			WaitBeforeStarting 20
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Giant_Bowman_Explosive_Tip
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "2e"
+			Name "2f"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 20
+			TotalCurrency 75
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst
+				Attributes AlwaysCrit
+				Item "Zombie Demo"
+				tag no_reprogram
+				UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "2e"
+			Name "2f"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 20
+			TotalCurrency 75
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer_Reload
+				Item "Zombie Soldier"
+				tag no_reprogram
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "2b"
+			Name "2e-common"
+			Where spawnbot_secondary
+			TotalCount 30
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 10
+			TotalCurrency 150
+			TFBot
+			{
+				Class Pyro
+				Attributes AlwaysFireWeapon
+				Skill Easy
+				Item "Zombie Pyro"
+				UseCustomModel "models/player/pyro.mdl"	[$SIGSEGV]
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "3b"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Cleaver
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			Name "3a"
+			Where spawnbot_secondary
+			TotalCount 12
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			TotalCurrency 300
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Crit
+					Item "Zombie Soldier"
+					tag no_reprogram
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "3c"
+			Where spawnbot_secondary
+			TotalCount 28
+			MaxActive 7
+			SpawnCount 7
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0.1
+			TotalCurrency 50
+			TFBot
+			{
+				Class Scout
+				Skill Hard
+				Item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "3a"
+			Name "3-support"
+			Where spawnbot
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 15
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Skeleton
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "3a"
+			Name "3d"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Cleaver
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3a"
+			Name "3d"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Pyro_ComboFlare
+					tag no_reprogram
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3d"
+			Name "3dd"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3c"
+			Name "3e"
+			Where spawnbot_secondary
+			TotalCount 15
+			MaxActive 3
+			SpawnCount 3
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Fist
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3a"
+			Name "3f"
+			Where spawnbot_secondary
+			TotalCount 20
+			MaxActive 10
+			SpawnCount 5
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Buff_Banner
+					Item "Zombie Soldier"
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Demo_Burst
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Demo_Burst
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Demo_Burst
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Demo_Burst
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3d"
+			Name "3f"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 30
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Cleaver
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "3dd"
+			Name "3g"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					Item "Zombie Soldier"
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target force_right_path_relay
+			Action Trigger
+		}
+		SpawnTemplate "Wave4Logic"	[$SIGSEGV]
+		PlayerAttributes	[$SIGSEGV]
+		{
+			"building cost reduction" 0.5
+		}
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 Hey mercs, Hale here." Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 I am aware you're all very busy fighting undead beings and eyeballs in a summer camp in the middle of the woods" Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 While frankly I don't remember when or why we made a facility there and whose idea it was to name it after the British's favorite activity," Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 But anyhow, this just came up, some bloke over at our anti-robot development research facility was making breakfast and somehow resurrect the 
+			{
+			}
+			Bread Monster
+			{
+			}
+			." Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 You remember it right? The giant mutated bread thing that almost killed you all a couple of years ago? Anyways, we can't just have it lying around our facility killing underpaid workers, so I'm sending it over to you using our teleportation technology." Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+		}
+		WaveSpawn
+		{
+			Name "4-breaddude"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			TFBot
+			{
+				Template T_TFBot_Bread_Monster_Base
+				Classicon heavy_breadbite_nys_giant
+				Attributes MiniBoss
+				NoIdleSound 1	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4-payload"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			Support Limited
+			Tank
+			{
+				SpawnTemplate "Payload_Init"	[$SIGSEGV]
+				Health 27000
+				Speed 0
+				Scale 0.5
+				Classicon payload_red
+				Model "models/empty.mdl"	[$SIGSEGV]
+				StartSound "misc/null.wav"	[$SIGSEGV]
+				PingSound "misc/null.wav"	[$SIGSEGV]
+				EngineLoopSound "items/cart_rolling.wav"	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				DisableSmokestack 1	[$SIGSEGV]
+				DisableChildModels 1	[$SIGSEGV]
+				Name "payloadtank"
+				StartingPathTrackNode "payload_red_1"
+				TeamNum 2	[$SIGSEGV]
+				OnKilledOutput
+				{
+					Target payload_death_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "4-support"
+			Where spawnbot_portal
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 25
+			WaitBeforeStarting 5
+			TotalCurrency 50
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Fist
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4b-bowmen"
+			Where spawnbot_portal
+			TotalCount 36
+			MaxActive 6
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5.1
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+				Skill Hard
+				Item "Zombie Sniper"
+				UseCustomModel "models/player/sniper.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4b-gamers"
+			Where spawnbot_portal
+			TotalCount 42
+			MaxActive 7
+			SpawnCount 7
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 15
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Demoman_Knight
+				Item "Zombie Demo"
+				UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "4b-bowmen"
+			Name "4b-heavy"
+			Where spawnbot_portal
+			TotalCount 28
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 5
+			TotalCurrency 100
+			TFBot
+			{
+				Class Heavyweapons
+				Skill Normal
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4c"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 5.1
+			TotalCurrency 100
+			TFBot
+			{
+				SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+				Template T_TFBot_Giant_Heavyweapons
+				AlwaysGlow 1	[$SIGSEGV]
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "4c"
+			Name "4c-cont"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 7
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			TFBot
+			{
+				SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+				Template T_TFBot_Giant_Pyro_Fury
+				AlwaysGlow 1	[$SIGSEGV]
+				tag no_reprogram
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "4c-cont"
+			Name "4c-chad"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			TFBot
+			{
+				SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+				Template T_TFBot_Giant_Boxing_Heavy
+				AlwaysGlow 1	[$SIGSEGV]
+				Health 6000
+				Attributes AlwaysCrit
+				Item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "4c-chad"
+			Name "4c-common"
+			Where spawnbot_portal
+			TotalCount 36
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 1
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			DoneOutput
+			{
+				Target wave4_commons_all_killed
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Soldier
+				Skill Hard
+				Item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "4c-chad"
+			Name "4e"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 25
+			TotalCurrency 100
+			TFBot
+			{
+				SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+				Template T_TFBot_Giant_Soldier_RocketShotgun
+				Item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				AlwaysGlow 1	[$SIGSEGV]
+				tag no_reprogram
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "4e"
+			Name "4f"
+			Where spawnbot_secondary
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 1
+			WaitBetweenSpawns 15
+			WaitBeforeStarting 0
+			TotalCurrency 200
+			DoneOutput
+			{
+				Target wave4_giants_all_killed
+				Action Trigger
+			}
+			RandomChoice
+			{
+				TFBot
+				{
+					SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+					Template T_TFBot_Giant_Demo_RapidFire
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+					AlwaysGlow 1	[$SIGSEGV]
+					tag no_reprogram
+					CharacterAttributes
+					{
+						"cancel falling damage" 1
+					}
+					AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+				}
+				TFBot
+				{
+					SpawnTemplate "SpawnAtGiantPortal"	[$SIGSEGV]
+					Template T_TFBot_Giant_Demoman
+					Item "Zombie Demo"
+					UseCustomModel "models/player/demo.mdl"	[$SIGSEGV]
+					AlwaysGlow 1	[$SIGSEGV]
+					tag no_reprogram
+					CharacterAttributes
+					{
+						"cancel falling damage" 1
+					}
+					AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "4e"
+			Name "4f-support"
+			Where spawnbot_secondary
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBetweenSpawns 12
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Shortstop
+				Item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+				AddTemplate Extra_AttackPayload_Behavior	[$SIGSEGV]
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		SpawnTemplate "Pit_Recall"	[$SIGSEGV]
+		SpawnTemplate "Wave5Cutscene1"	[$SIGSEGV]
+		SpawnTemplate "Wave5Cutscene2"	[$SIGSEGV]
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+			 Outstanding work! In hindsight we should've just teleported it into an active volcano or something." Line
+			"
+			{
+			}
+			Saxton Hale: 
+			{
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_intro"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Support Limited
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "Drac_Init"	[$SIGSEGV]
+						Class Spy
+						Name "Count Dracula"
+						ClassIcon powerup_vampire_lite
+						Action FetchFlag
+						Attributes MiniBoss
+						Attributes UseBossHealthBar
+						Item "The Distinguished Rogue"
+						Item "Taunt: Luxury Lounge"
+						UseCustomModel "models/player/spy.mdl"	[$SIGSEGV]
+						Scale 1
+						Health 30000
+						AddCond	[$SIGSEGV]
+						{
+							Index 51
+						}
+						Taunt	[$SIGSEGV]
+						{
+							Delay 0.5
+							Repeats 1
+							Duration 99999
+							Name "Taunt: Luxury Lounge"
+						}
+						CharacterAttributes
+						{
+							"always allow taunt" 1	[$SIGSEGV]
+							"cannot pick up intelligence" 1
+							"cannot disguise" 1
+						}
+						tag dracula
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_recall
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							RECALL 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_uber
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							ÜBERCHARGE 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_infclip
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							INFINITE CLIP 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_crit
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							CRITS 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_haste
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							HASTE 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_strength
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							STRENGTH 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_reflect
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							REFLECT 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_plague
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							PLAGUE 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_supernova
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							SUPERNOVA 
+							{
+							}
+							Power Up Canteen! Discharging in 5 seconds!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_emp
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							EMP ROUNDS 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_precision
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							PRECISION 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_sandvich
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							SANDVICH 
+							{
+							}
+							Lunch Box!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_speed
+			TotalCount 99999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							SPEED BOOST 
+							{
+							}
+							Power Up Canteen!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where canteen_msg_pinch
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support Limited
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						SpawnTemplate "CanteenUseAudio"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Corporal Canteen 
+							{
+							}
+							has used their 
+							{
+							}
+							REVERIE 
+							{
+							}
+							Power Up Canteen! Health regen and clip size increased!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "5_intro"
+			Name "5a"
+			Where corporal_spawn
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 900
+			TFBot
+			{
+				Template T_TFBot_Chief_Canteen
+				tag no_reprogram
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "6a-giant"
+			Where spawnbot_secondary
+			TotalCount 12
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0.1
+			TotalCurrency 300
+			Squad
+			{
+				TFBot
+				{
+					SpawnTemplate "PreventPowerupDropOnDeath"	[$SIGSEGV]
+					Template T_TFBot_Giant_Heavyweapons_Deflector
+					Classicon heavy_deflector_precision
+					item "Zombie Heavy"
+					UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+					AddCond	[$SIGSEGV]
+					{
+						Index 96
+					}
+					ItemAttributes
+					{
+						ItemName "Deflector"
+						"damage penalty" 0.75
+						"attack projectiles" 1
+					}
+					tag no_reprogram
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6a"
+			Where spawnbot_secondary
+			TotalCount 20
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			TFBot
+			{
+				Template T_TFBot_Scout_Ghost_Bonk
+			}
+		}
+		WaveSpawn
+		{
+			Name "6a"
+			Where spawnbot_secondary
+			TotalCount 30
+			MaxActive 6
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 10
+			TotalCurrency 25
+			TFBot
+			{
+				Class Soldier
+				Skill Expert
+				Name "Direct Hit Soldier"
+				ClassIcon soldier_dh_nys
+				item "The Direct Hit"
+				item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "6a-giant"
+			Name "6b-giant"
+			Where spawnbot_secondary
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer
+					item "Zombie Soldier"
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					item "Zombie Medic"
+					UseCustomModel "models/player/medic.mdl"	[$SIGSEGV]
+					tag no_reprogram
+				}
+			}
+		}
+		Wavespawn
+		{
+			waitforalldead "6b-giant"
+			Name "6b-dragon of dojima"
+			Where spawnbot_secondary
+			Totalcount 1
+			MaxActive 1
+			Spawncount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			Totalcurrency 700
+			TFBot
+			{
+				Template T_TFBot_Chief_Yakuza
+			}
+		}
+		WaveSpawn
+		{
+			waitforalldead "6a-giant"
+			Name "6b"
+			Where spawnbot_secondary
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 20
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			Support 1
+			TFBot
+			{
+				Class Scout
+				Skill Expert
+				item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Where msg_chargedstyle
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Sergeant Receiver 
+							{
+							}
+							has changed into their 
+							{
+							}
+							CHARGED 
+							{
+							}
+							Combat Style!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where msg_homingstyle
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Sergeant Receiver 
+							{
+							}
+							has changed into their 
+							{
+							}
+							HOMING 
+							{
+							}
+							Combat Style!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where msg_barragestyle
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Sergeant Receiver 
+							{
+							}
+							has changed into their 
+							{
+							}
+							BARRAGE 
+							{
+							}
+							Combat Style!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where msg_legendstyle
+			TotalCount 9999
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 0
+			Support 1
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "KillOnSpawn"	[$SIGSEGV]
+						Class Scout
+						Message	[$SIGSEGV]
+						{
+							Name
+							{
+							}
+							Sergeant Receiver 
+							{
+							}
+							has changed into their 
+							{
+							}
+							DRAGON OF GRAY GRAVEL 
+							{
+							}
+							Combat Style!" Delay
+							0 Repeats
+						}
+					}
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			Spy: 
+			{
+			}
+			 That's rad!" Line
+			"
+			{
+			}
+			Spy 
+			{
+			}
+			has learned: 
+			{
+			}
+			The Essence of Domination!" Line
+			"
+			{
+			}
+			The Enforcer 
+			{
+			}
+		}
+		WaveSpawn
+		{
+			Name "7a"
+			Where spawnbot_secondary
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 0.1
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Headless_Horseless_Horsemann
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			Name "7a"
+			Where spawnbot_secondary
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 3
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 0.1
+			TotalCurrency 200
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Extended_Battalion
+					item "Zombie Soldier"
+					tag no_reprogram
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Extended_Concheror
+					item "Zombie Soldier"
+					tag no_reprogram
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
+					item "Zombie Soldier"
+					tag no_reprogram
+					UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "7-support"
+			Where spawnbot_secondary
+			TotalCount 300
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 20
+			WaitBeforeStarting 0
+			TotalCurrency 300
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+				Attributes AlwaysCrit
+				item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "7d"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 50
+			TotalCurrency 100
+			Tank
+			{
+				SpawnTemplate "Monoculus_Tank_Init"	[$SIGSEGV]
+				SpawnTemplate "Monoculus_Cleanup_Init"	[$SIGSEGV]
+				Health 17000
+				Speed 50
+				Scale 0.8
+				IsCrit 1	[$SIGSEGV]
+				DisableSmokestack 1	[$SIGSEGV]
+				Classicon boss_eyeball
+				MaxTurnRate 25	[$SIGSEGV]
+				Model "models/empty.mdl"	[$SIGSEGV]
+				StartSound "ui/halloween_boss_summoned.wav"	[$SIGSEGV]
+				PingSound "misc/null.wav"	[$SIGSEGV]
+				EngineLoopSound "misc/null.wav"	[$SIGSEGV]
+				Gravity 0	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				DisableChildModels 1	[$SIGSEGV]
+				Name "tankboss"
+				StartingPathTrackNode "monoculus_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "7d"
+			Where outofbound
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 50
+			TotalCurrency 0
+			Support Limited
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						SpawnTemplate "Monoculus_Shooter_Init_Crit"	[$SIGSEGV]
+						Template T_TFBot_Monoculus_Shoot
+						tag no_reprogram
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "7e"
+			Where spawnbot_secondary
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 60
+			TotalCurrency 0
+			TFBot
+			{
+				Template T_TFBot_Chief_Necromancer_Medic
+				tag no_reprogram
+			}
+		}
+		WaveSpawn
+		{
+			Name "7_necromancerchief_a1"
+			Where summon_chief1
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer_Reload
+				item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag reprogram_special
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_a1"
+			Name "7_necromancerchief_a2"
+			Where summon_chief1
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_FAN
+				item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag reprogram_special
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_a2"
+			Name "7_necromancerchief_a3"
+			Where summon_chief1
+			TotalCount 1337
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 1
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_SlowBarrage
+				item "Zombie Soldier"
+				UseCustomModel "models/player/soldier.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag reprogram_special
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			Name "7_necromancerchief_b1"
+			Where summon_chief2
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_Fury
+				Attributes AlwaysCrit
+				tag reprogram_special
+				tag no_reprogram
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_b1"
+			Name "7_necromancerchief_b2"
+			Where summon_chief2
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_ComboFlare
+				tag no_reprogram
+				tag reprogram_special
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_b2"
+			Name "7_necromancerchief_b3"
+			Where summon_chief2
+			TotalCount 1337
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 1
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Deflector
+				item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			Name "7_necromancerchief_c1"
+			Where summon_chief3
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Skeleton
+				tag no_reprogram
+				tag reprogram_special
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_c1"
+			Name "7_necromancerchief_c2"
+			Where summon_chief3
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Shotgun
+				Attributes AlwaysCrit
+				item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_c2"
+			Name "7_necromancerchief_c3"
+			Where summon_chief3
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Baseball_Armored
+				item "Zombie Scout"
+				UseCustomModel "models/player/scout.mdl"	[$SIGSEGV]
+				tag reprogram_special
+				tag no_reprogram
+				tag bot_summoned_chief
+			}
+		}
+		WaveSpawn
+		{
+			waitforallspawned "7_necromancerchief_c3"
+			Name "7_necromancerchief_c4"
+			Where summon_chief3
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 1
+			WaitBeforeStarting 1
+			TotalCurrency 25
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				item "Zombie Heavy"
+				UseCustomModel "models/player/heavy.mdl"	[$SIGSEGV]
+				tag no_reprogram
+				tag bot_summoned_chief
+			}
+		}
+	}
+}

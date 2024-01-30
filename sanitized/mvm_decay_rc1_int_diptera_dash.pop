@@ -1,0 +1,1715 @@
+#base robot_giant.pop
+#base robot_standard.pop
+#base robot_D_I_L.pop
+#base overclock_cactus_general.pop
+WaveSchedule
+{
+	StartingCurrency 400
+	RespawnWaveTime 2
+	CanBotsAttackWhileInSpawnRoom no
+	UpgradeStationKeepWeapons 1	[$SIGSEGV]
+	Advanced 1
+	EventPopfile Halloween
+	ZombiesNoWave666 1	[$SIGSEGV]
+	NoThrillerTaunt 1	[$SIGSEGV]
+	NoCritPumpkin 1	[$SIGSEGV]
+	TextPrintTime 0	[$SIGSEGV]
+	UpgradeStationKeepWeapons 1	[$SIGSEGV]
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "blimp_mid"
+		Node "200 4155 1400"
+		Node "100 1555 900"
+		Node "-95 0 800"
+		Node "-95 -1006 600"
+		Node "-95 -1706 600"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "blimp_left"
+		Node "-900 3800 1400"
+		Node "-400 3600 1350"
+		Node "-180 3100 1200"
+		Node "-110 1010 800"
+		Node "-110 400 800"
+		Node "-800 -300 700"
+		Node "-850 -1650 600"
+		Node "-250 -1820 600"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "blimp_right"
+		Node "800 4000 1400"
+		Node "380 2600 1100"
+		Node "380 600 800"
+		Node "450 -650 700"
+		Node "600 -800 660"
+		Node "800 -1420 610"
+		Node "680 -1670 600"
+		Node "500 -1730 600"
+		Node "300 -1780 600"
+		Node "70 -1820 600"
+	}
+	PrecacheModel "models/bots/boss_bot/boss_blimp.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage1.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage2.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage3.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage_explode.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_explode.mdl"	[$SIGSEGV]
+	Pointtemplates	[$SIGSEGV]
+	{
+		bosshint
+		{
+			logic_relay
+			{
+				"targetname" "hatch_reveal_relay"
+				"OnTrigger" "annotation_deploy,Show,,0.01,-1"
+			}
+			training_annotation
+			{
+				"display_text" "Incoming blimp! Watch the skies!"
+				"lifetime" "5"
+				"origin" "-340 3495 1200"
+				"targetname" "annotation_deploy"
+			}
+		}
+		bosshint2
+		{
+			logic_relay
+			{
+				"targetname" "hatch_reveal_relay2"
+				"OnTrigger" "annotation_deploy2,Show,,0.01,-1"
+			}
+			training_annotation
+			{
+				"display_text" "Another blimp Incoming!"
+				"lifetime" "5"
+				"origin" "700 3495 1200"
+				"targetname" "annotation_deploy2"
+			}
+		}
+	}
+	Templates
+	{
+		T_TFBot_Large_Soldier_Spammer
+		{
+			Class Soldier
+			Name "Large Soldier Spammer"
+			ClassIcon soldier_spammer
+			Health 750
+			Scale 1.4
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_ROCKETLAUNCHER"
+				"fire rate bonus" 0.85
+				"reload time decreased" -1
+				"projectile speed decreased" 0.65
+			}
+			CharacterAttributes
+			{
+				"health regen" 1
+				"damage force reduction" 0.8
+				"airblast vulnerability multiplier" 0.8
+				"head scale" 0.7
+			}
+		}
+		T_TFBot_Large_Heavyweapons
+		{
+			Class Heavyweapons
+			Name "Large Heavy"
+			ClassIcon heavy_armored
+			Health 900
+			Scale 1.5
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_Minigun"
+				"fire rate bonus" 0.9
+			}
+			CharacterAttributes
+			{
+				"health regen" 1
+				"damage force reduction" 0.7
+				"airblast vulnerability multiplier" 0.7
+			}
+		}
+		T_TFBot_Large_Pyro
+		{
+			Class Pyro
+			Name "Large Pyro"
+			ClassIcon pyro_armored2
+			Health 650
+			Scale 1.4
+			Skill Hard
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_FLAMETHROWER"
+				"damage bonus" 1.2
+				"airblast disabled" 1
+			}
+			CharacterAttributes
+			{
+				"health regen" 1
+				"damage force reduction" 0.8
+				"airblast vulnerability multiplier" 0.8
+				"head scale" 0.7
+			}
+		}
+	}
+	SpawnTemplate "bosshint"	[$SIGSEGV]
+	SpawnTemplate "bosshint2"	[$SIGSEGV]
+	Mission
+	{
+		Objective DestroySentries
+		InitialCooldown 40
+		Where spawnbot
+		BeginAtWave 1
+		RunForThisManyWaves 21
+		CooldownTime 45
+		TFBot
+		{
+			Template T_TFBot_SentryBuster
+		}
+	}
+	Mission
+	{
+		Objective Sniper
+		InitialCooldown 45
+		Where spawnbot_mission_sniper
+		BeginAtWave 4
+		RunForThisManyWaves 1
+		CooldownTime 90
+		DesiredCount 2
+		TFBot
+		{
+			Class Sniper
+			Skill Hard
+			Name Sniper
+			MaxVisionRange 2500
+		}
+	}
+	Mission
+	{
+		Objective Sniper
+		InitialCooldown 25
+		Where spawnbot_mission_sniper
+		BeginAtWave 5
+		RunForThisManyWaves 1
+		CooldownTime 15
+		DesiredCount 1
+		TFBot
+		{
+			Class Sniper
+			Skill Expert
+			Name Sniper
+			MaxVisionRange 2500
+		}
+	}
+	Mission
+	{
+		Objective Spy
+		InitialCooldown 60
+		Where spawnbot
+		BeginAtWave 2
+		RunForThisManyWaves 1
+		CooldownTime 90
+		DesiredCount 2
+		TFBot
+		{
+			Class Spy
+			Skill Expert
+			Name Spy
+		}
+	}
+	Mission
+	{
+		Objective Spy
+		InitialCooldown 0
+		Where spawnbot
+		BeginAtWave 3
+		RunForThisManyWaves 1
+		CooldownTime 40
+		DesiredCount 1
+		TFBot
+		{
+			Class Spy
+			Skill Expert
+			Name Spy
+		}
+	}
+	Mission
+	{
+		Objective Spy
+		InitialCooldown 30
+		Where spawnbot
+		BeginAtWave 7
+		RunForThisManyWaves 1
+		CooldownTime 30
+		DesiredCount 2
+		TFBot
+		{
+			Class Spy
+			Skill Expert
+			Name Spy
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 30
+			MaxActive 8
+			SpawnCount 5
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			TFBot
+			{
+				Class Scout
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 20
+			MaxActive 5
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			TFBot
+			{
+				Template T_TFBot_Pyro_Flaregun
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 5
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_RapidFire
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 3
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 25
+			WaitBeforeStarting 6
+			TotalCurrency 150
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_flare_Spammer
+				ClassIcon pyro_detonator
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			TotalCount 40
+			MaxActive 10
+			SpawnCount 8
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 6
+			TotalCurrency 100
+			Support 1
+			WaitForAllSpawned "A"
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+					Tag nav_prefer_flank_left
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+					Tag nav_prefer_flank_right
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.2
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			TotalCount 6
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 11
+			WaitBeforeStarting 6
+			TotalCurrency 50
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Scout
+				Name "Large Scout"
+				Skill Hard
+				Health 650
+				Scale 1.4
+				WeaponRestrictions MeleeOnly
+				ClassIcon scout_armored_pda
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_BAT"
+					"damage bonus" 1.25
+				}
+				CharacterAttributes
+				{
+					"damage force reduction" 0.85
+					"health regen" 1
+					"airblast vulnerability multiplier" 0.85
+					"head scale" 0.7
+				}
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 300
+			FirstSpawnOutput
+			{
+				Target boss_spawn_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 14000
+				Speed 75
+				Name "boss"
+				StartingPathTrackNode "boss_path_b1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 35
+			MaxActive 10
+			SpawnCount 7
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Scout_Sandman
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 6
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_right
+			Name "B"
+			TotalCount 10
+			MaxActive 4
+			SpawnCount 2
+			WaitBetweenSpawns 3.5
+			WaitBeforeStarting 8
+			TotalCurrency 100
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Soldier
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 15
+			MaxActive 6
+			SpawnCount 3
+			WaitBetweenSpawns 3.5
+			WaitBeforeStarting 10
+			TotalCurrency 100
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Pyro
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 1
+			WaitBetweenSpawns 24
+			WaitBeforeStarting 0
+			TotalCurrency 50
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 35
+			MaxActive 9
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 8
+			TotalCurrency 200
+			WaitForAllSpawned "A"
+			Support 1
+			TFBot
+			{
+				Class Scout
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Name "A"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 3
+			SpawnCount 1
+			WaitBetweenSpawns 16
+			WaitBeforeStarting 0
+			TotalCurrency 200
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_RapidFire
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_invasion
+			TotalCount 30
+			MaxActive 8
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 6
+			TotalCurrency 100
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Shotgun
+				Skill Normal
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_invasion
+			TotalCount 36
+			MaxActive 8
+			SpawnCount 4
+			WaitBetweenSpawns 1.5
+			WaitBeforeStarting 6
+			TotalCurrency 100
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Demoman_Knight
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "B"
+			Where spawnbot
+			TotalCount 10
+			MaxActive 10
+			SpawnCount 5
+			WaitBetweenSpawns 32
+			WaitBeforeStarting 20
+			TotalCurrency 100
+			WaitForAllSpawned "A"
+			RandomSpawn 1
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Demo_Burst_Spammer
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+				}
+				TFBot
+				{
+					Class Pyro
+				}
+				TFBot
+				{
+					Class Pyro
+				}
+				TFBot
+				{
+					Class Pyro
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "C"
+			Where spawnbot
+			TotalCount 6
+			MaxActive 4
+			SpawnCount 2
+			WaitBetweenSpawns 9
+			WaitBeforeStarting 21
+			TotalCurrency 80
+			WaitForAllSpawned "B"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Large_Soldier_Spammer
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "C"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 15
+			WaitBeforeStarting 21
+			TotalCurrency 50
+			WaitForAllSpawned "B"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro
+				Skill Hard
+				Attributes AlwaysFireWeapon
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "C"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 21
+			TotalCurrency 70
+			WaitForAllSpawned "B"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Large_Heavyweapons
+				Skill Normal
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.5
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.8
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.8
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.8
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 1.8
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 20
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman
+				ClassIcon demo_infinite
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 15
+			MaxActive 6
+			SpawnCount 5
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 14
+			TotalCurrency 120
+			TFBot
+			{
+				Class Soldier
+				Skill Normal
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 15
+			MaxActive 5
+			SpawnCount 3
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 14
+			TotalCurrency 80
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 3
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 17
+			WaitBeforeStarting 8
+			TotalCurrency 150
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout
+				WeaponRestrictions MeleeOnly
+				ClassIcon scout_bat_nys
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 50
+			TotalCurrency 50
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Heater
+				Name "Giant Heater Heavy"
+				Action FetchFlag
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 12
+			MaxActive 7
+			SpawnCount 4
+			WaitBetweenSpawns 7
+			WaitBeforeStarting 8
+			TotalCurrency 75
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Heavyweapons
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 18
+			MaxActive 4
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 8
+			TotalCurrency 75
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Demoman
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_left
+			Name "B"
+			TotalCount 18
+			MaxActive 4
+			SpawnCount 3
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 8
+			TotalCurrency 50
+			WaitForAllSpawned "A"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Sniper_Huntsman
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 4
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 14
+			WaitBeforeStarting 0
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Guillotine
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 30
+			MaxActive 10
+			SpawnCount 5
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0.2
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Sniper_SMG
+				Action FetchFlag
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 4
+			TotalCurrency 200
+			Name "B"
+			WaitForAllSpawned "A"
+			FirstSpawnOutput
+			{
+				Target boss_spawn_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 18000
+				Speed 75
+				Name "boss"
+				StartingPathTrackNode "boss_path_b1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 9
+			MaxActive 9
+			SpawnCount 3
+			WaitBetweenSpawns 22
+			WaitBeforeStarting 8
+			TotalCurrency 200
+			WaitForAllSpawned "A"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer_Reload
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 2.4
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Attributes IgnoreFlag
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 25
+			MaxActive 8
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 8
+			TotalCurrency 200
+			WaitForAllSpawned "A"
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Demo_Burst
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.2
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 30
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2.4
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 28
+			MaxActive 12
+			SpawnCount 7
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0.1
+			TotalCurrency 150
+			TFBot
+			{
+				Class Heavyweapons
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1.5
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 18
+			WaitBeforeStarting 12
+			TotalCurrency 150
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman_PrinceTavish
+				Attributes AlwaysCrit
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 0.14
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 10
+			MaxActive 3
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 12
+			TotalCurrency 75
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Scout_Shortstop
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 0.8
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 30
+			MaxActive 9
+			SpawnCount 5
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 12
+			TotalCurrency 75
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Scout_Pistol
+				ClassIcon scout_pistol_nys
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 0.8
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 3
+			WaitBetweenSpawns 25
+			WaitBeforeStarting 12
+			TotalCurrency 100
+			WaitForAllSpawned "A"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Demo_Burst
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 2.4
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 4
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 14
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer_Spread
+					AddCond	[$SIGSEGV]
+					{
+						Name "TF_COND_SPEED_BOOST"
+						Duration 2.4
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 36
+			MaxActive 13
+			SpawnCount 8
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 9
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Demoman_Knight
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2.4
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		InitWaveOutput
+		{
+			Target intel
+			Action forceresetsilent
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 10
+			WaitBeforeStarting 0
+			TotalCurrency 150
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst_Spammer
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "A"
+			TotalCount 20
+			MaxActive 20
+			SpawnCount 5
+			WaitBetweenSpawns 0.5
+			WaitBeforeStarting 0.1
+			TotalCurrency 100
+			TFBot
+			{
+				Class Scout
+				Skill Normal
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 1
+			WaitBetweenSpawns 20
+			WaitBeforeStarting 10
+			TotalCurrency 200
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Shotgun
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 20
+			WaitBeforeStarting 15
+			TotalCurrency 200
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "B"
+			TotalCount 48
+			MaxActive 14
+			SpawnCount 12
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 10
+			TotalCurrency 100
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Class Pyro
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitBeforeStarting 2
+			Name "relay"
+			WaitForAllSpawned "B"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
+			WaitBeforeStarting 37
+			Name "relay"
+			WaitForAllSpawned "B"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay2
+				Action Trigger
+			}
+		}
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 0
+			WaitForAllSpawned "B"
+			TotalCurrency 200
+			FirstSpawnOutput
+			{
+				Target boss_spawn_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 12000
+				Speed 75
+				DisableSmokestack 1	[$SIGSEGV]
+				Classicon blimp2_lite
+				Skin 1
+				MaxTurnRate 10	[$SIGSEGV]
+				Model "models/bots/boss_bot/boss_blimp.mdl"	[$SIGSEGV]
+				Gravity 0	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				ReplaceModelCollisions 1	[$SIGSEGV]
+				DisableChildModels 1	[$SIGSEGV]
+				EngineLoopSound "npc\combine_gunship\dropship_engine_distant_loop1.wav"	[$SIGSEGV]
+				PingSound "npc\combine_gunship\ping_search.wav"	[$SIGSEGV]
+				Name "tankboss"
+				StartingPathTrackNode "blimp_left_1"
+				NoCrushDamage 1	[$SIGSEGV]
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 43
+			WaitBetweenSpawns 0
+			WaitForAllSpawned "B"
+			TotalCurrency 200
+			FirstSpawnOutput
+			{
+				Target boss_spawn_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 10000
+				Speed 75
+				DisableSmokestack 1	[$SIGSEGV]
+				Classicon blimp2_lite
+				Skin 4
+				MaxTurnRate 10	[$SIGSEGV]
+				Model "models/bots/boss_bot/boss_blimp.mdl"	[$SIGSEGV]
+				Gravity 0	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				ReplaceModelCollisions 1	[$SIGSEGV]
+				DisableChildModels 1	[$SIGSEGV]
+				EngineLoopSound "npc\combine_gunship\dropship_engine_distant_loop1.wav"	[$SIGSEGV]
+				PingSound "npc\combine_gunship\ping_search.wav"	[$SIGSEGV]
+				Name "tankboss"
+				StartingPathTrackNode "blimp_right_1"
+				NoCrushDamage 1	[$SIGSEGV]
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 6
+			WaitBeforeStarting 8
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 6
+			WaitBeforeStarting 16
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 6
+			WaitBeforeStarting 22
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot
+			Name "C"
+			TotalCount 3
+			MaxActive 2
+			SpawnCount 1
+			WaitBetweenSpawns 18
+			WaitBeforeStarting 28
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst_Spammer
+				AddCond	[$SIGSEGV]
+				{
+					Name "TF_COND_SPEED_BOOST"
+					Duration 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_invasion
+			TotalCount 40
+			MaxActive 9
+			SpawnCount 3
+			WaitBetweenSpawns 2.5
+			WaitBeforeStarting 13
+			TotalCurrency 100
+			WaitForAllSpawned "B"
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Attributes AlwaysCrit
+				ClassIcon scout_bat_nys
+			}
+		}
+	}
+}

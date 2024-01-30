@@ -1,0 +1,1967 @@
+#base robot_standard.pop
+#base robot_giant.pop
+#base rotating_shield_whitecliff.pop
+#base whitecliff_of_dover_custom.pop
+#base whitecliff_of_dover_bots.pop
+#base whitecliff_of_dover_bot_logics.pop
+cliff_of_dover
+{
+	StartingCurrency 1500
+	CanBotsAttackWhileInSpawnRoom no
+	RespawnWaveTime 5
+	AddSentryBusterWhenDamageDealtExceeds 3000
+	AddSentryBusterWhenKillCountExceeds 15
+	PrecacheModel "models/props_mvm/mvm_comically_small_player_shield.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/demo/red_sentry_buster.mdl"	[$SIGSEGV]
+	PrecacheModel "models/rcat/rcat_level2.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage1.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage2.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage3.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_damage_explode.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/boss_bot/boss_blimp_explode.mdl"	[$SIGSEGV]
+	PrecacheModel "models/player/items/all_class/gately_gibus_heavy.mdl"	[$SIGSEGV]
+	Advanced 1
+	EventPopfile Halloween
+	ZombiesNoWave666 1	[$SIGSEGV]
+	WaveStartCountdown 3	[$SIGSEGV]
+	FixHuntsmanDamageBonus 1	[$SIGSEGV]
+	NoThrillerTaunt 1	[$SIGSEGV]
+	NoRomevisionCosmetics 1	[$SIGSEGV]
+	FixSetCustomModelInput 1	[$SIGSEGV]
+	CustomUpgradesFile mvm_upgrades_tomboy3.txt	[$SIGSEGV]
+	LuaScriptFile "scripts/freelance_mercenary_logic.lua"
+	LuaScriptFile "scripts/remove_zombie_model.lua"
+	LuaScriptFile "scripts/dover_custom_weapons.lua"
+	LuaScriptFile "scripts/dover_custom_bots.lua"
+	LuaScriptFile "scripts/projectile_shield_damage_whitecliff.lua"
+	LuaScriptFile "scripts/timeconstraint_boss.lua"
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "explosive sniper shot"
+		MaxLevel 0
+		ItemName "Scavenger"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "projectile penetration"
+		MaxLevel 0
+		ItemName "Scavenger"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "faster reload rate"
+		MaxLevel 2
+		ItemName "Scavenger"
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "effect bar recharge rate increased"
+		MaxLevel 1
+		ItemName "Biker's Redeemer"
+	}
+	Mission
+	{
+		Where flankers
+		Objective DestroySentries
+		InitialCooldown 0
+		BeginAtWave 1
+		RunForThisManyWaves 5
+		CooldownTime 40
+		TFBot
+		{
+			Template T_TFBot_SentryBuster
+			Tag no_reprogram
+		}
+	}
+	Mission
+	{
+		Objective Sniper
+		InitialCooldown 30
+		Where spawnbot_mission_sniper
+		BeginAtWave 2
+		RunForThisManyWaves 1
+		CooldownTime 15
+		DesiredCount 2
+		TFBot
+		{
+			Class Sniper
+			Skill Hard
+			Name Sniper
+			MaxVisionRange 3000
+		}
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "undying_first_death"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "2921"
+		Y "-4554"
+		Z "528"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "ambulance_support"
+		StartDisabled 1	[$SIGSEGV]
+		TeamNum 3	[$SIGSEGV]
+		X "2022.725708"
+		Y "-6524.927734"
+		Z "692.031311"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "teleblimp_support"
+		TeamNum 3	[$SIGSEGV]
+		X "2022.725708"
+		Y "-6524.927734"
+		Z "692.031311"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "timeconstraint_fast"
+		TeamNum 3	[$SIGSEGV]
+		X "921"
+		Y "-6102"
+		Z "621"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "monoculus"
+		Node "3132 -3841.4 673.1"
+		Node "2217 -4970 1100"
+		Node "1895 -4490 1100"
+		Node "1616.27 -2140.15 750"
+		Node "-358.16 421.37 700"
+		Node "-1763.047241 421.37 650"
+		Node "-2415 -388 650"
+		Node "-2423.677979 -1522.862427 580"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "monoculus_alt"
+		Node "857 -6600 620"
+		Node "857 -5332 1100"
+		Node "610 -3717 1100"
+		Node "-358.16 421.37 700"
+		Node "-1763.047241 421.37 650"
+		Node "-2415 -388 650"
+		Node "-2423.677979 -1522.862427 580"
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "tele_blimp"
+		Node "857 -6600 620"
+		Node "857 -5332 1100"
+		Node "671 -4075 1000"
+		Node "610 -3717 1000"
+	}
+	CustomWeapon	[$SIGSEGV]
+	{
+		"Biker's Redeemer"
+		{
+			OriginalItemName "The Flying Guillotine"
+			"item style override" 1
+			"projectile speed decreased" 0.5
+			"damage bonus HIDDEN" 0
+			"mod projectile heat no predict target speed" 1	[$SIGSEGV]
+			"mod projectile heat seek power" 360	[$SIGSEGV]
+			"mod projectile heat aim error" 0	[$SIGSEGV]
+			"mod projectile heat aim time" 100	[$SIGSEGV]
+			"collect currency on kill" 1	[$SIGSEGV]
+			"Blast radius decreased" 0
+			"projectile lifetime" 9	[$SIGSEGV]
+			"no explosion particles" 1	[$SIGSEGV]
+			"override projectile type" 2
+			"custom projectile model" "models/weapons/c_models/c_sd_cleaver/c_sd_cleaver.mdl"
+			"projectile trail particle" "eyeboss_projectile"	[$SIGSEGV]
+			"special item description" "Home onto and phase through enemy, dealing contact damage each time"	[$SIGSEGV]
+			"special item description 2" "Damage is multiplied each hit, up to a cap of 10x"	[$SIGSEGV]
+		}
+		"PHD Jumper"
+		{
+			OriginalItemName "Rocket Jumper"
+			"cancel falling damage" 1
+			"attach particle effect" 1
+			"special item description" "On landing after a rocket jump: Create an explosion"	[$SIGSEGV]
+			"special item description 2" "Explosion radius and damage is determined by airborne time"	[$SIGSEGV]
+			"special item description 3" "Explosion damage is affected by damage bonus upgrade"	[$SIGSEGV]
+			"special item description 4" "Airborne time while parachuting is not counted"	[$SIGSEGV]
+		}
+		"Parry Addiction"
+		{
+			OriginalItemName "Festive Targe 2014"
+			"dmg taken from blast reduced" 0.9
+			"dmg taken from fire reduced" 0.9
+			"dmg taken from bullets reduced" 0.9
+			"charge recharge rate increased" 1.4
+			"special item description" "Alt-fire to negate all incoming damage and deal back twice the amount to the attacker"	[$SIGSEGV]
+			"special item description 2" "Parry period lasts for 0.8 seconds"	[$SIGSEGV]
+		}
+		"Caber Buster"
+		{
+			OriginalItemName "The Ullapool Caber"
+			"not solid to players" 1	[$SIGSEGV]
+			"special item description" "Becomes a Sentry Buster. Taunt to detonate (revert back to a regular Demoman on detonation)"	[$SIGSEGV]
+		}
+		"Holy Diver"
+		{
+			OriginalItemName "The Degreaser"
+			"damage penalty" 0.1
+			"special item description" "+50% damage bonus on secondary weapon"	[$SIGSEGV]
+			"special item description 2" "+125% damage bonus on melee weapon"	[$SIGSEGV]
+		}
+		"Thunderdome"
+		{
+			OriginalItemName "Upgradeable TF_WEAPON_MINIGUN"
+			"hidden primary max ammo bonus" 0.0001
+			"move speed bonus" 1.5
+			"cannot be upgraded" 1	[$SIGSEGV]
+			"special item description" "Create 2 small projectile shields that orbit around you and damage enemies"	[$SIGSEGV]
+			"special item description 2" "Increased damage for secondary and melee"	[$SIGSEGV]
+			"special item description 3" "No primary weapon"	[$SIGSEGV]
+		}
+		"Drone Walker"
+		{
+			OriginalItemName "The Rescue Ranger"
+			"paintkit_proto_def_index" 217
+			"set_item_texture_wear" 0
+			"damage bonus" 1.5
+			"clip size penalty" 0.5
+			"engineer building teleporting pickup" 1000
+			"arrow heals buildings" 0
+			"engy sentry damage bonus" 0.65
+			"mod projectile heat follow crosshair" 1	[$SIGSEGV]
+			"mod projectile heat seek power" 360	[$SIGSEGV]
+			"mod projectile heat aim error" 0	[$SIGSEGV]
+			"mod projectile heat aim time" 100000	[$SIGSEGV]
+			"Projectile speed decreased" 0.2
+			"mult projectile scale" 0.001	[$SIGSEGV]
+			"arrow hit kill time" 0.01	[$SIGSEGV]
+			"special item description" "Fires controlled drones that follow your cursor. Only 2 drones can be active at a time"	[$SIGSEGV]
+			"special item description 2" "Press alt-fire to toggle stationary state on active drones"	[$SIGSEGV]
+			"special item description 3" "With gunslinger equipped: +1 max drone and always crit"	[$SIGSEGV]
+		}
+		"Scavenger"
+		{
+			OriginalItemName "craftsmann_sniperrifle_shotinthedark"
+			"override projectile type" 2
+			"mult projectile scale" 0.01	[$SIGSEGV]
+			"blast radius decreased" 0.1
+			"no explosion particles" 1	[$SIGSEGV]
+			"attach particle effect" 703
+			"projectile speed increased" 1.5
+			"hidden primary max ammo bonus" 1.5
+			"no self blast dmg" 1
+			"rocket jump damage reduction HIDDEN" 0.0001
+			"cancel falling damage" 1
+			"rocket specialist" 1
+			"special item description" "Fires explosive tipped bolt that stuns on hit and stick to enemies and surfaces. Detonate after 3 seconds"	[$SIGSEGV]
+			"special item description 2" "Explosion damage is affected by damage bonus upgrade and distance rampup"	[$SIGSEGV]
+			"special item description 3" "Explosion damage and projectile speed are further increased by charge rate"	[$SIGSEGV]
+		}
+		"No Mercy"
+		{
+			OriginalItemName "Wings of Purity"
+			"cancel falling damage" 1
+			"increased air control" 5
+			"increased jump height" 1.2
+			"special item description" "Increased gravity and air control on wearer"	[$SIGSEGV]
+			"special item description 2" "Hold DUCK to rapidly descend"	[$SIGSEGV]
+			"special item description 3" "Wearer never takes falling damage"	[$SIGSEGV]
+		}
+		"Kirin's Ascension"
+		{
+			OriginalItemName "TF_WEAPON_INVIS"
+			"mult cloak rate" 50
+			"mult decloak rate" 0.001
+			"attach particle effect" 1
+			"special item description" "On Cloak: Remove disguise and gain a speed boost with infinite air jumps"	[$SIGSEGV]
+			"special item description 2" "No disguise while active"	[$SIGSEGV]
+			"special item description 3" "No cloak effect"	[$SIGSEGV]
+			"special item description 3" "Cannot gain cloak on hit from primary weapon"	[$SIGSEGV]
+		}
+		"Seducer"
+		{
+			OriginalItemName "The Enforcer"
+			"mod no reload DISPLAY ONLY" 1
+			"mod max primary clip override" -1
+			"damage penalty" 0.1
+			"fire input on hit" "popscript^$SeducerHit^"	[$SIGSEGV]
+			"add cond when active" 46	[$SIGSEGV]
+			"special item description" "On hit: force a non-giant enemy to fight on your side"	[$SIGSEGV]
+			"special item description 2" "Controlled enemies are crit boosted and will self-destruct after 8 seconds"	[$SIGSEGV]
+			"special item description 3" "8 seconds cooldown"	[$SIGSEGV]
+		}
+		"Freelance Mercenary"
+		{
+			OriginalItemName "Activated Campaign 3 Pass"
+			"custom item model" "models/player/items/all_class/hwn_spellbook_complete.mdl"	[$SIGSEGV]
+			"special item description" "Press the Action key to switch between classes on the fly. 5 second cooldown between uses"	[$SIGSEGV]
+			"special item description 2" "Items with charge meter require 8 seconds to be ready after switched to"	[$SIGSEGV]
+		}
+	}
+	ExtraLoadoutItems	[$SIGSEGV]
+	{
+		Scout
+		{
+			Secondary
+			{
+			}
+		}
+		Soldier
+		{
+			Primary
+			{
+			}
+		}
+		Heavyweapons
+		{
+			Primary
+			{
+			}
+		}
+		Pyro
+		{
+			Primary
+			{
+			}
+		}
+		Demoman
+		{
+			Secondary
+			{
+			}
+			Melee
+			{
+			}
+		}
+		Engineer
+		{
+			Primary
+			{
+			}
+		}
+		Medic
+		{
+			Primary
+			{
+			}
+		}
+		Sniper
+		{
+			Primary
+			{
+			}
+		}
+		Spy
+		{
+			Secondary
+			{
+			}
+		}
+		Action
+		{
+		}
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "cannot giftwrap"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"generate rage on heal" 1
+		}
+	}
+	ExtendedUpgrades	[$SIGSEGV]
+	{
+		redeemer_dmg
+		{
+			Name "+25% damage bonus"
+			Attribute "damage bonus"
+			Cap 2
+			Increment 0.25
+			Cost 200
+			AllowedWeapons
+			{
+				ItemName "Biker's Redeemer"
+			}
+		}
+		instalevel2
+		{
+			Name "Instant Buildings Level 2"
+			Description "All buildings start at level 2 when deployed"
+			Attribute "cannot giftwrap"
+			Cap 1
+			Increment 1
+			Cost 150
+			PlayerUpgrade 1
+			AllowPlayerClass Engineer
+			OnApply
+			{
+				Output "popscript,$InstaLvLPurchase,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$InstaLvLRefunded,,0"
+			}
+		}
+		wingermybeloved
+		{
+			Name "Multi-Directional Dash"
+			Description "Alt-fire to dash in the direction you're facing. 3 seconds cooldown"
+			Attribute "cannot giftwrap"
+			Cap 1
+			Increment 1
+			Cost 100
+			AllowedWeapons
+			{
+				ItemName "The Winger"
+			}
+			SecondaryAttributes
+			{
+				"add cond when active" 46	[$SIGSEGV]
+				"special item description" "Alt-fire to dash in the direction you're facing. 3 seconds cooldown"	[$SIGSEGV]
+			}
+			OnApply
+			{
+				Output "popscript,$WingerDashPurchased,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$WingerDashRefunded,,0"
+			}
+		}
+		smol_shield
+		{
+			Name "Personal Projectile Shield"
+			Description "Smaller shield that charges faster and deal heavy contact damage"
+			Attribute "cannot giftwrap"
+			Cap 2
+			Increment 2
+			Cost 350
+			AllowedWeapons
+			{
+				ClassName "TF_WEAPON_MEDIGUN"
+			}
+			SecondaryAttributes
+			{
+				"generate rage on heal" 2
+				"dmg penalty vs players" 1.5
+				"special item description" "Smaller shield that charges faster and deal heavy contact damage"	[$SIGSEGV]
+			}
+			OnApply
+			{
+				Output "popscript,$PersonalProjectileShieldPurchase,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$PersonalProjectileShieldRefunded,,0"
+			}
+		}
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name FreelanceMercenary_Logic
+		ItemName "Freelance Mercenary"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name PHD_Equip
+		ItemName "PHD Jumper"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name ScavengerSpawn
+		ItemName "Scavenger"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Sentry"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Dispenser"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Entry"
+	}
+	BuildingSpawnTemplate	[$SIGSEGV]
+	{
+		Name Building_Level2_Spawn
+		BuildingType "Teleporter Exit"
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name DroneWalker_Shoot
+		ItemName "Drone Walker"
+		AttachToProjectile 1
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name DroneWalker_Equip
+		ItemName "Drone Walker"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name Redeemer_Spawn
+		ItemName "Biker's Redeemer"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name HolyDiver_Spawn
+		ItemName "Holy Diver"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name Thunderdome_Spawn
+		ItemName "Thunderdome"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name ParryAddiction_Spawn
+		ItemName "Parry Addiction"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name Caber_Buster
+		ItemName "Caber Buster"
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name NoMercy_Spawn
+		ItemName "No Mercy"
+	}
+	PlayerSpawnTemplate	[$SIGSEGV]
+	{
+		Name Gravity_FailSafe
+	}
+	PlayerShootTemplate	[$SIGSEGV]
+	{
+		Name Explosive_Tip_Scavenger
+		ItemName "Scavenger"
+		AttachToProjectile 1
+	}
+	PlayerItemEquipSpawnTemplate	[$SIGSEGV]
+	{
+		Name KirinAscension_Spawn
+		ItemName "Kirin's Ascension"
+	}
+	SpawnTemplate Global_Filters	[$SIGSEGV]
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "1_banner_bison"
+			Where flankers
+			TotalCount 20
+			MaxActive 20
+			SpawnCount 5
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 8
+			TotalCurrency 50
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Concheror
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					Attributes AlwaysCrit
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_droner"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			TFBot
+			{
+				Template T_TFBot_Giant_Engineer_DroneShoot
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_drone_support"
+			WaitForAllSpawned "1_droner"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 12
+			TotalCurrency 25
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Pyro_Flaregun
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_conchknight"
+			WaitForAllSpawned "1_droner"
+			Where flankers
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_DemoMan_PrinceTavish
+				Name "Giant Conch Demoknight"
+				ClassIcon demoknight_conch_lite
+				Attributes SpawnWithFullCharge
+				Item "The Concheror"
+				CharacterAttributes
+				{
+					"increase buff duration" 9.0
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_otherknights"
+			WaitForAllSpawned "1_conchknight"
+			Where flankers
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			TFBot
+			{
+				Template T_TFBot_Giant_DemoMan_PrinceTavish
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_heater"
+			WaitForAllDead "1_droner"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heater
+					Name "Giant Heater Heavy"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_bat_scouts"
+			Where spawnbot
+			WaitForAllSpawned "1_droner"
+			TotalCount 20
+			MaxActive 8
+			SpawnCount 4
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 8
+			TotalCurrency 50
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Scout_Melee
+					ClassIcon scout_bat
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Melee
+					ClassIcon scout_bat
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Melee
+					ClassIcon scout_bat
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Melee
+					ClassIcon scout_bat
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_tank"
+			WaitForAllSpawned "1_heater"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 0
+			TotalCurrency 150
+			Tank
+			{
+				Name "tankboss"
+				StartingPathTrackNode "tank_path_1"
+				Health 10000
+				Speed 70
+				ClassIcon tank_shield
+				Template RShieldLvL1
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_tank_support"
+			WaitForAllSpawned "1_tank"
+			Where spawnbot
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 15
+			TotalCurrency 25
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Scattergun_SlowFire
+				Name "Scout"
+			}
+		}
+		WaveSpawn
+		{
+			Name "1_bb"
+			WaitForAllSpawned "1_tank"
+			Where flankers
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 23
+			WaitBetweenSpawns 0
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_RocketShotgun
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "2_undying_first_death"
+			Where undying_first_death
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Support Limited
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Class Scout
+						SpawnTemplate KillOnSpawn	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_undying_runner"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Undying_Runner
+				tag bot_giant
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_charged_spam"
+			WaitForAllSpawned "2_undying_first_death"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Crit
+				Attributes AlwaysFireWeapon
+				tag bot_giant
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_charged_spam"
+			WaitForAllSpawned "2_undying_first_death"
+			Where flankers
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Crit
+				Attributes AlwaysFireWeapon
+				tag bot_giant
+				AddTemplate Gatebot	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_pyros"
+			WaitForAllDead "2_charged_spam"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro
+				tag bot_giant
+				Attributes AlwaysFireWeapon
+				AddTemplate Gatebot	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_grus_from_minions"
+			Where spawnbot
+			TotalCount 28
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+				AddTemplate Gatebot	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_hunts"
+			WaitForAllSpawned "2_charged_spam"
+			Where spawnbot
+			TotalCount 24
+			MaxActive 8
+			SpawnCount 2
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 3
+			TotalCurrency 50
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_steel"
+			WaitForAllDead "2_charged_spam"
+			Where spawnbot
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Fist
+					tag bot_giant
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "2_heavyboys"
+			WaitForAllDead "2_pyros"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 15
+			TotalCurrency 300
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				tag bot_giant
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "3_scouts"
+			Where spawnbot
+			TotalCount 24
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 9
+			TotalCurrency 0
+			TFBot
+			{
+				Class Scout
+				Skill Normal
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_monoculus"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Tank
+			{
+				Name "tankboss"
+				StartingPathTrackNode "monoculus_alt_1"
+				Health 12000
+				Speed 75
+				SpawnTemplate Monoculus_Annotation	[$SIGSEGV]
+				Template Monoculus
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_demo"
+			Where flankers
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 300
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Demoman
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_gshotgun"
+			WaitForAllDead "3_demo"
+			Where spawnbot
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_BigHeal
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_post_demo_pyros"
+			WaitForAllDead "3_demo"
+			Where flankers
+			TotalCount 24
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			Support Limited
+			TFBot
+			{
+				Class Pyro
+				Skill Expert
+				Attributes AlwaysFireWeapon
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_pos_gshotgun_conchknight"
+			WaitForAllSpawned "3_gshotgun"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 40
+			WaitBetweenSpawns 0
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Giant_DemoMan_PrinceTavish
+				Name "Giant Conch Demoknight"
+				ClassIcon demoknight_conch_lite
+				Attributes SpawnWithFullCharge
+				Item "The Concheror"
+				CharacterAttributes
+				{
+					"increase buff duration" 9.0
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_rapidsoldiers"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 60
+			WaitBetweenSpawns 0
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_heavies"
+			WaitForAllSpawned "3_gshotgun"
+			Where flankers
+			TotalCount 35
+			MaxActive 10
+			SpawnCount 5
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 3
+			TotalCurrency 200
+			Support Limited
+			TFBot
+			{
+				Class Heavy
+				Skill Easy
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_bat_stream_post_mono"
+			WaitForAllDead "3_monoculus"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				ClassIcon scout_bat
+			}
+		}
+		WaveSpawn
+		{
+			Name "3_colonel_post_mono"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 80
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Kritz
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Kritz
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Kritz
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "4_duke"
+			Where spawnbot
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Boomer
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					AddTemplate Gatebot	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					AddTemplate Gatebot	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_dh"
+			Where spawnbot
+			TotalCount 27
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 1
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			TFBot
+			{
+				Class Soldier
+				Skill Expert
+				Name "Direct Hit Soldier"
+				ClassIcon soldier_dh_nys
+				item "The Direct Hit"
+				AddTemplate Gatebot	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_bats_bomb_push"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 15
+			TotalCurrency 0
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				ClassIcon scout_bat
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_shortstop"
+			WaitForAllDead "4_duke"
+			Where ambulance_support
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 1
+			WaitBeforeStarting 3
+			WaitBetweenSpawns 3
+			TotalCurrency 50
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Scout_Shortstop
+				AddTemplate FollowAmbulance	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_giant_punchies"
+			WaitForAllDead "4_duke"
+			Where spawnbot
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 35
+			TotalCurrency 100
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Boxing_Heavy
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_ambulance"
+			WaitForAllDead "4_duke"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 150
+			Tank
+			{
+				Name "ambulancetank"
+				StartingPathTrackNode "tank_path_1"
+				Health 25000
+				Speed 75
+				Template Ambulance
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_demo_support"
+			WaitForAllDead "4_duke"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 50
+			TotalCurrency 50
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman
+			}
+		}
+		WaveSpawn
+		{
+			Name "4_carriers"
+			WaitForAllDead "4_ambulance"
+			Where flankers
+			TotalCount 6
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 4
+			TotalCurrency 200
+			Squad
+			{
+				NoWaitForFormation 1	[$SIGSEGV]
+				NoFormation 1	[$SIGSEGV]
+				TFBot
+				{
+					Template T_TFBot_Giant_Scout_Fast
+					SpawnTemplate Bot_Carrier	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer_Reload
+					SpawnTemplate Bot_Carried	[$SIGSEGV]
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "5_scavenger"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Sergeant_Scavage
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_tele_blimp"
+			WaitForAllDead "5_scavenger"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Support Limited
+			Tank
+			{
+				Name "teleblimpboss"
+				StartingPathTrackNode "tele_blimp_1"
+				Health 16000
+				Speed 120
+				SpawnTemplate Teleporter_Blimp	[$SIGSEGV]
+				Template Blimp
+				ClassIcon blimp_tele
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_hell"
+			WaitForAllDead "5_scavenger"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 11
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			Squad
+			{
+				NoWaitForFormation 1	[$SIGSEGV]
+				NoFormation 1	[$SIGSEGV]
+				TFBot
+				{
+					SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+					Template T_TFBot_Giant_Scout_Fast
+					Item "The B.A.S.E. Jumper"
+					SpawnTemplate Bot_Carrier	[$SIGSEGV]
+				}
+				TFBot
+				{
+					SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+					Template T_TFBot_Giant_Heavyweapons
+					Item "The B.A.S.E. Jumper"
+					SpawnTemplate Bot_Carried	[$SIGSEGV]
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_airdrop_support"
+			WaitForAllDead "5_scavenger"
+			Where teleblimp_support
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 4
+			WaitBeforeStarting 11
+			WaitBetweenSpawns 8
+			TotalCurrency 75
+			Support 1
+			TFBot
+			{
+				SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+				Class Soldier
+				Skill Normal
+				Item "The Air Strike"
+				Item "The B.A.S.E. Jumper"
+				ClassIcon soldier_airstrike_lite
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_scouts"
+			WaitForAllDead "5_scavenger"
+			Where flankers
+			TotalCount 28
+			MaxActive 7
+			SpawnCount 7
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 50
+			TFBot
+			{
+				Class Scout
+				Skill Hard
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_airdrop_colonel"
+			WaitForAllDead "5_hell"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 11
+			WaitBetweenSpawns 20
+			TotalCurrency 50
+			TFBot
+			{
+				SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+				Template T_TFBot_Giant_Soldier_SlowBarrage
+				Attributes AlwaysCrit
+				Item "The B.A.S.E. Jumper"
+				Item "The Air Strike"
+				ItemAttributes
+				{
+					ItemName "The Air Strike"
+					"clip size upgrade atomic" 26.0
+					"faster reload rate" 0.22
+					"fire rate bonus" 0.2
+					"projectile spread angle penalty" 5
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_post_colonel_support"
+			WaitForAllSpawned "5_hell"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 15
+			TotalCurrency 25
+			Support 1
+			TFBot
+			{
+				SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+				Template T_TFBot_Heavyweapons_Fist
+				Attributes AlwaysCrit
+				Item "The B.A.S.E. Jumper"
+			}
+		}
+		WaveSpawn
+		{
+			Name "5_stacking_heavies"
+			WaitForAllDead "5_airdrop_colonel"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			DoneOutput
+			{
+				Target teleblimpboss
+				Action Kill
+			}
+			Squad
+			{
+				NoWaitForFormation 1	[$SIGSEGV]
+				NoFormation 1	[$SIGSEGV]
+				TFBot
+				{
+					SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+					Item "The B.A.S.E. Jumper"
+					SpawnTemplate Bot_Carrier	[$SIGSEGV]
+				}
+				TFBot
+				{
+					SpawnTemplate TeleportToBlimp	[$SIGSEGV]
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+					Item "The B.A.S.E. Jumper"
+					SpawnTemplate Bot_Carried	[$SIGSEGV]
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name "6_real"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			TFBot
+			{
+				Class Scout
+				Attributes IgnoreFlag
+				Attributes MiniBoss
+				Attributes AlwaysCrit
+				Action Idle
+				Name "jerma985 (ignore him"
+				ClassIcon timer_lite
+				tag realcontraint
+				CharacterAttributes
+				{
+					"move speed bonus" 0.0001
+					"no_jump" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc1"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Timeconstraint_1
+						tag timeconstraint1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc2"
+			WaitForAllDead "6_tc1"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Timeconstraint_2
+						tag timeconstraint2
+						SpawnTemplate Bot_Carried	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc2"
+			WaitForAllDead "6_tc1"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Chief_Soldier
+						Health 10000
+						Name "Sergeant Chariot"
+						SpawnTemplate Bot_Carrier	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc3"
+			WaitForAllDead "6_tc2"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Class Heavy
+						Scale 0.0001
+						Action Idle
+						CharacterAttributes
+						{
+							"move speed bonus" 0.0001
+							"no_jump" 1
+						}
+						tag timeconstraint3
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc3"
+			WaitForAllDead "6_tc2"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 25
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			DoneOutput
+			{
+				Target popscript
+				Action "$Phase3SubwaveDone"
+			}
+			Squad
+			{
+				Squad
+				{
+					NoWaitForFormation 1	[$SIGSEGV]
+					NoFormation 1	[$SIGSEGV]
+					TFBot
+					{
+						Template T_TFBot_Giant_Scout_Fast
+						AlwaysGlow 1	[$SIGSEGV]
+						SpawnTemplate Bot_Carrier	[$SIGSEGV]
+					}
+					TFBot
+					{
+						Template T_TFBot_Giant_Soldier_SlowBarrage
+						AlwaysGlow 1	[$SIGSEGV]
+						Attributes AlwaysCrit
+						SpawnTemplate Bot_Carried	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc3"
+			WaitForAllDead "6_tc2"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 39
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			DoneOutput
+			{
+				Target popscript
+				Action "$Phase3SubwaveDone"
+			}
+			Squad
+			{
+				Squad
+				{
+					NoWaitForFormation 1	[$SIGSEGV]
+					NoFormation 1	[$SIGSEGV]
+					TFBot
+					{
+						Template T_TFBot_Giant_Scout_Fast
+						AlwaysGlow 1	[$SIGSEGV]
+						SpawnTemplate Bot_Carrier	[$SIGSEGV]
+					}
+					TFBot
+					{
+						Template T_TFBot_Giant_Heavyweapons_Deflector
+						AlwaysGlow 1	[$SIGSEGV]
+						SpawnTemplate Bot_Carried	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc3"
+			WaitForAllDead "6_tc2"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 42
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			DoneOutput
+			{
+				Target popscript
+				Action "$Phase3SubwaveDone"
+			}
+			Squad
+			{
+				Squad
+				{
+					NoWaitForFormation 1	[$SIGSEGV]
+					NoFormation 1	[$SIGSEGV]
+					TFBot
+					{
+						Template T_TFBot_Giant_Scout_Fast
+						AlwaysGlow 1	[$SIGSEGV]
+						SpawnTemplate Bot_Carrier	[$SIGSEGV]
+					}
+					TFBot
+					{
+						Template T_TFBot_Giant_Pyro_Flare_Spammer
+						AlwaysGlow 1	[$SIGSEGV]
+						Attributes AlwaysCrit
+						SpawnTemplate Bot_Carried	[$SIGSEGV]
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc4"
+			WaitForAllDead "6_tc3"
+			Where timeconstraint_fast
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 0
+			TotalCurrency 1
+			Support Limited
+			DoneOutput
+			{
+				Target popscript
+				Action "$PvPBluWin"
+			}
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Timeconstraint_2
+						Action Idle
+						Health 150
+						CharacterAttributes
+						{
+							"move speed bonus" 0.0001
+							"no_jump" 1
+							"no_attack" 1
+							"mod weapon blocks healing" 1
+						}
+						tag timeconstraintFinal
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc4_reinforcement"
+			WaitForAllDead "6_tc3"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 60
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			Support 1
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Giant_Soldier_Extended_Concheror
+						AlwaysGlow 1	[$SIGSEGV]
+						Attributes AlwaysCrit
+						Action Mobber
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "6_tc4_reinforcement"
+			WaitForAllDead "6_tc3"
+			Where spawnbot
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 70
+			WaitBetweenSpawns 10
+			TotalCurrency 0
+			Support 1
+			Squad
+			{
+				Squad
+				{
+					TFBot
+					{
+						Template T_TFBot_Giant_Scout
+						AlwaysGlow 1	[$SIGSEGV]
+						Attributes AlwaysCrit
+						Action Mobber
+						CharacterAttributes
+						{
+							"damage bonus" 1.5
+						}
+					}
+				}
+			}
+		}
+	}
+}

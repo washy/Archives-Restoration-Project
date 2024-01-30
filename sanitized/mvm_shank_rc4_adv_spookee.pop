@@ -1,0 +1,2076 @@
+#base robot_giant.pop
+#base robot_standard.pop
+WaveSchedule
+{
+	StartingCurrency 1000
+	RespawnWaveTime 3
+	FixedRespawnWaveTime AbsolutelyWhyElseWouldThisBeHere
+	CanBotsAttackWhileInSpawnRoom no
+	EventPopFile Halloween
+	BotsDropSpells 1	[$SIGSEGV]
+	GiantsDropRareSpells 1	[$SIGSEGV]
+	SpellDropRateCommon 0.2	[$SIGSEGV]
+	SpellDropRateGiant 0.05	[$SIGSEGV]
+	FastNPCUpdate 1	[$SIGSEGV]
+	PointTemplates	[$SIGSEGV]
+	{
+		BossBomb
+		{
+			filter_tf_bot_has_tag
+			{
+				targetname bossfilter
+				tags iamthelord
+				require_all_tags 1
+				Negated "Allow entities that match criteria"
+			}
+			trigger_teleport
+			{
+				targetname iwarptheboss
+				spawnflags 1
+				origin -992
+				-688 384
+				target intel_event
+				filtername bossfilter
+				"mins" "-554 -884 -384"
+				"maxs" "554 384 384"
+			}
+		}
+		PlaneTank
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"model" "models/workshop/player/items/demo/hwn2016_aerobatics_demonstrator/hwn2016_aerobatics_demonstrator.mdl"
+				"solid" "0"
+				"modelscale" 4
+				"origin" "20 0 -80"
+				targetname planetank_prop
+			}
+			tf_point_weapon_mimic
+			{
+				angles "90 0 0"
+				"origin" "0 0 -48"
+				Damage 300
+				ModelOverride "models/props_td/atom_bomb.mdl"
+				ModelScale 0.75
+				parentname planetank_prop
+				SpeedMin 768
+				SpeedMax 768
+				SplashRadius 146
+				targetname planetank_bomber
+			}
+			logic_timer
+			{
+				targetname planetank_timer
+				RefireTime 10
+				"OnTimer" "planetank_bomber,FireOnce,0,0"
+				"OnTimer" "planetank_shoot_sound,PlaySound,0,0"
+				"OnTimer" "planetank_bomber,FireOnce,0,1"
+				"OnTimer" "planetank_shoot_sound,PlaySound,0,1"
+				"OnTimer" "planetank_bomber,FireOnce,0,2"
+				"OnTimer" "planetank_shoot_sound,PlaySound,0,2"
+			}
+			ambient_generic
+			{
+				targetname planetank_shoot_sound
+				radius 5000
+				message Player.FallDamageIndicator	[$SIGSEGV]
+				spawnflags 48
+			}
+		}
+	}
+	ExtraTankPath	[$SIGSEGV]
+	{
+		Name "tank_path_air"
+		Node "-352 -1792 480"
+		Node "-352 -1408 480"
+		Node "-352 368 480"
+		Node "-400 640 480"
+		Node "-480 736 480"
+		Node "-624 880 480"
+		Node "-1280 1408 480"
+		Node "-1872 1728 480"
+		Node "-2208 2048 480"
+		Node "-2256 2096 480"
+		Node "-2352 2352 480"
+		Node "-2352 3872 480"
+		Node "-2432 3984 480"
+		Node "-2816 4480 480"
+		Node "-2944 4736 480"
+		Node "-3040 5024 480"
+		Node "-3040 5232 480"
+	}
+	Templates
+	{
+		T_TFBot_Medic_Kritz_Short
+		{
+			Name "Kritzkrieg Medic"
+			Class Medic
+			Skill Expert
+			ClassIcon medic_kritz
+			Attributes SpawnWithFullCharge
+			Item "The Kritzkrieg"
+			ItemAttributes
+			{
+				ItemName "The Kritzkrieg"
+				"ubercharge rate bonus" 10
+				"uber duration bonus" 2
+			}
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+				"damage penalty" 1
+				"mad milk syringes" 1
+			}
+			CharacterAttributes
+			{
+				"bot medic uber health threshold" 500
+			}
+		}
+		T_TFBot_Engineer_Widower
+		{
+			Class Engineer
+			ClassIcon heavy_shotgun
+			Skill Normal
+			Health 200
+			WeaponRestrictions PrimaryOnly
+			Item "The Widowmaker"
+			ItemAttributes
+			{
+				ItemName "The Widowmaker"
+				"fire rate bonus" 0.6
+				"voice pitch scale" 0.1
+			}
+		}
+		T_TFBot_Soldier_Shotgun
+		{
+			Class Soldier
+			ClassIcon heavy_shotgun
+			Skill Normal
+			WeaponRestrictions SecondaryOnly
+			ItemAttributes
+			{
+				ItemName "The TF_WEAPON_SHOTGUN_SOLDIER"
+				"faster reload rate" -0.4
+				"voice pitch scale" 0.1
+			}
+			CharacterAttributes
+			{
+				"voice pitch scale" 0.1
+			}
+		}
+		T_Graver
+		{
+			Class Sniper
+			ClassIcon dead
+			Name "Magician Lord"
+			Skill Expert
+			Health 40000
+			Item "The Crone's Dome"
+			Item "TF_WEAPON_SPELLBOOK"
+			StripItemSlot 0	[$SIGSEGV]
+			StripItemSlot 1	[$SIGSEGV]
+			ItemModel	[$SIGSEGV]
+			{
+				ItemName "TF_WEAPON_CLUB"
+				Model "models/empty.mdl"	[$SIGSEGV]
+			}
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Scale 2.1
+			UseCustomModel "models/bots/skeleton_sniper_boss/skeleton_sniper_boss.mdl"	[$SIGSEGV]
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_CLUB"
+				"fire rate bonus" 1.5
+			}
+			Spell	[$SIGSEGV]
+			{
+				Delay 5
+				Cooldown 3
+				Repeats 0
+				IfSeeTarget 1
+				Charges 1
+				Limit 1
+				Type "Summon Skeletons"
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0
+				"airblast vulnerability multiplier" 0
+				"override footstep sound set" 7
+				"rage giving scale" 0.00001
+				"voice pitch scale" 0
+			}
+		}
+		T_Boneking
+		{
+			Class Demoman
+			ClassIcon dead
+			Name "The Forgotten King"
+			Skill Expert
+			Health 32000
+			Item "Forgotten King's Restless Head"
+			Item "Forgotten King's Pauldrons"
+			Item "The Eyelander"
+			Item "TF_WEAPON_SPELLBOOK"
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Scale 2.1
+			StripItemSlot 0	[$SIGSEGV]
+			StripItemSlot 1	[$SIGSEGV]
+			Spell	[$SIGSEGV]
+			{
+				Delay 5
+				Cooldown 8
+				Repeats 0
+				IfSeeTarget 1
+				Charges 2
+				Limit 2
+				Type "Fireball"
+			}
+			ItemAttributes
+			{
+				ItemName "The Eyelander"
+				"damage bonus" 1.5
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.4
+				"damage force reduction" 0
+				"airblast vulnerability multiplier" 0
+				"override footstep sound set" 7
+				"rage giving scale" 0.00001
+				"voice pitch scale" 0.1
+			}
+		}
+		T_Boneking_B
+		{
+			Class Demoman
+			ClassIcon dead
+			Name "The Forgotten King"
+			Skill Expert
+			Health 32000
+			Item "Forgotten King's Restless Head"
+			Item "Forgotten King's Pauldrons"
+			Item "The Eyelander"
+			Item "TF_WEAPON_SPELLBOOK"
+			Attributes MiniBoss
+			Attributes UseBossHealthBar
+			Scale 2.1
+			StripItemSlot 0	[$SIGSEGV]
+			StripItemSlot 1	[$SIGSEGV]
+			Spell	[$SIGSEGV]
+			{
+				Delay 3
+				Cooldown 10
+				Repeats 0
+				IfSeeTarget 1
+				Charges 1
+				Limit 1
+				Type "Meteor Shower"
+			}
+			ItemAttributes
+			{
+				ItemName "The Eyelander"
+				"damage bonus" 1.5
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.4
+				"damage force reduction" 0
+				"airblast vulnerability multiplier" 0
+				"override footstep sound set" 7
+				"rage giving scale" 0.00001
+				"voice pitch scale" 0.1
+			}
+		}
+	}
+	Mission
+	{
+		Objective DestroySentries
+		InitialCooldown 60
+		Where spawnbot_main
+		BeginAtWave 1
+		RunForThisManyWaves 1
+		CooldownTime 40
+		TFBot
+		{
+			Template T_TFBot_SentryBuster
+			Name "Grave Buster"
+			Attributes DisableDodge
+			Attributes IgnoreEnemies
+			Item "The Crone's Dome"
+			CharacterAttributes
+			{
+				"rage giving scale" 0.00001
+				"head scale" 4
+			}
+		}
+	}
+	Mission
+	{
+		Objective Spy
+		InitialCooldown 180
+		Where spawnbot_mission_spy
+		BeginAtWave 1
+		RunForThisManyWaves 1
+		DesiredCount 2
+		CooldownTime 120
+		TFBot
+		{
+			Template T_TFBot_Spy
+			UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+			UseHumanAnimations 1	[$SIGSEGV]
+			Skin 1
+			Scale 1.1
+			Name "Skeleton"
+			CharacterAttributes
+			{
+				"rage giving scale" 0.00001
+				"voice pitch scale" 0.1
+			}
+		}
+	}
+	Mission
+	{
+		Objective Sniper
+		InitialCooldown 300
+		Where spawnbot_main
+		BeginAtWave 1
+		RunForThisManyWaves 1
+		DesiredCount 2
+		CooldownTime 120
+		TFBot
+		{
+			Template T_TFBot_Sniper
+			Item "The Criminal Cloak"
+			Item "The Dread Hiding Hood"
+			Item "The awper hand"
+			ItemAttributes
+			{
+				ItemName "The awper hand"
+				"sniper charge per sec" 0
+				"dmg pierces resists absorbs" 1
+			}
+			CharacterAttributes
+			{
+				"rage giving scale" 0.00001
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay_event
+			Action Trigger
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "BossBomb"
+		}
+		WaitWhenDone 65
+		WaveSpawn
+		{
+			Name "stage1a"
+			Where spawnbot
+			TotalCount 18
+			MaxActive 18
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0.5
+			TotalCurrency 250
+			TFBot
+			{
+				Class Soldier
+				Skill Easy
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage1b"
+			Where spawnbot_titan
+			TotalCount 18
+			MaxActive 18
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0.5
+			WaitForAllDead "stage1a"
+			TotalCurrency 250
+			TFBot
+			{
+				Class Soldier
+				Skill Easy
+			}
+		}
+		WaveSpawn
+		{
+			Where spawnbot_main
+			TotalCount 65
+			MaxActive 10
+			SpawnCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0.5
+			WaitForAllDead "stage1b"
+			TotalCurrency 400
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ
+					Name "Deadweight Champ"
+					ClassIcon heavy
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Skin 1
+					CharacterAttributes
+					{
+						"voice pitch scale" 0.1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ
+					Name "Deadweight Champ"
+					ClassIcon heavy
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Skin 1
+					CharacterAttributes
+					{
+						"voice pitch scale" 0.1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heavyweight_Champ_Fast
+					Name "Deadweight Champ"
+					ClassIcon heavy
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Skin 1
+					CharacterAttributes
+					{
+						"voice pitch scale" 0.1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage1c"
+			Where spawnbot
+			TotalCount 25
+			MaxActive 8
+			SpawnCount 4
+			WaitBeforeStarting 12
+			WaitBetweenSpawns 12
+			WaitForAllDead "stage1b"
+			TotalCurrency 300
+			TFBot
+			{
+				Class Heavy
+				Skill Easy
+				UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+				UseHumanAnimations 1	[$SIGSEGV]
+				Skin 1
+				CharacterAttributes
+				{
+					"voice pitch scale" 0.1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage1d"
+			Where spawnbot
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 1
+			WaitBeforeStarting 2
+			WaitBetweenSpawns 10
+			WaitForAllSpawned "stage1c"
+			TotalCurrency 300
+			DoneOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				Item "The Manneater"
+				Item "Big Steel Jaw of Summer Fun"
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_1"
+			WaitForAllDead "stage1d"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_enable_logic
+				Action Trigger
+			}
+			FirstSpawnWarningSound "vo\mvm_wave_end07.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage1d"
+			WaitBeforeStarting 0.2
+			FirstSpawnOutput
+			{
+				Target bombpath_choose_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage1d"
+			WaitBeforeStarting 16
+			FirstSpawnWarningSound "vo\mvm_general_wav_start05.mp3"
+			FirstSpawnOutput
+			{
+				Target bombpath_arrows_clear_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2a"
+			Where spawnbot
+			TotalCount 24
+			MaxActive 10
+			SpawnCount 4
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 10
+			WaitForAllDead "stage1d"
+			TotalCurrency 150
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_disable_logic
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Pyro
+				WeaponRestrictions PrimaryOnly
+				Attributes AlwaysFireWeapon
+				Skill Hard
+				Item "The Dragon's Fury"
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2a"
+			Where spawnbot
+			Where spawnbot_titan
+			TotalCount 24
+			MaxActive 9
+			SpawnCount 3
+			WaitBeforeStarting 23
+			WaitBetweenSpawns 6
+			WaitForAllDead "stage1d"
+			TotalCurrency 150
+			RandomSpawn 1
+			FirstSpawnOutput
+			{
+				Target spell_trigger
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Pyro
+				WeaponRestrictions PrimaryOnly
+				Skill Normal
+				Item "The Backburner"
+				UseMeleeThreatPrioritization 1	[$SIGSEGV]
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2b"
+			Where spawnbot_main
+			TotalCount 32
+			MaxActive 12
+			SpawnCount 8
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 6
+			WaitForAllDead "stage2a"
+			TotalCurrency 300
+			Squad
+			{
+				TFBot
+				{
+					Class Demoman
+					Skill Normal
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2b"
+			Where spawnbot_titan
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 30
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage2a"
+			TotalCurrency 300
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					ClassIcon soldier_burstfire
+					Item "The Larval Lid"
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_ROCKETLAUNCHER"
+						"fire rate bonus" 0.05
+						"clip size upgrade atomic" 7.0
+						"faster reload rate" 0.5
+						"projectile spread angle penalty" 10
+					}
+					CharacterAttributes
+					{
+						"damage bonus" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2c"
+			Where spawnbot_main
+			TotalCount 30
+			MaxActive 12
+			SpawnCount 6
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 5
+			WaitForAllSpawned "stage2b"
+			TotalCurrency 300
+			RandomChoice
+			{
+				TFBot
+				{
+					Class Scout
+					Skill Normal
+				}
+				TFBot
+				{
+					Class Scout
+					Skill Normal
+					Tag flank_back
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage2d"
+			Where spawnbot
+			TotalCount 12
+			MaxActive 12
+			SpawnCount 3
+			WaitBeforeStarting 2
+			WaitBetweenSpawns 8
+			WaitForAllSpawned "stage2c"
+			TotalCurrency 300
+			DoneOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_Flare_Spammer
+				Item "The Flare Gun"
+				Item "Binoculus"
+				Item "Burly Beast"
+				ItemAttributes
+				{
+					ItemName "The Flare Gun"
+					"fire rate bonus" 0.3
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_1"
+			WaitForAllDead "stage2d"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_enable_logic
+				Action Trigger
+			}
+			FirstSpawnWarningSound "vo\mvm_wave_end04.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage2d"
+			WaitBeforeStarting 0.2
+			FirstSpawnOutput
+			{
+				Target bombpath_choose_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage2d"
+			WaitBeforeStarting 16
+			FirstSpawnWarningSound "vo\mvm_general_wav_start05.mp3"
+			FirstSpawnOutput
+			{
+				Target bombpath_arrows_clear_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage3a"
+			Where spawnbot
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 1
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 3
+			WaitForAllDead "stage2d"
+			TotalCurrency 200
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_disable_logic
+				Action Trigger
+			}
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Baseball_Armored
+			}
+		}
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage3a"
+			TotalCurrency 300
+			FirstSpawnWarningSound "MVM.TankStart"
+			Tank
+			{
+				Health 40000
+				Speed 70
+				Name "tankboss"
+				StartingPathTrackNode "tank_path_a_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage3b"
+			Where spawnbot
+			TotalCount 20
+			MaxActive 20
+			SpawnCount 2
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 7
+			WaitForAllDead "stage3a"
+			TotalCurrency 200
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
+					Item "Burly Beast"
+					Item "The Larval Lid"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "Burly Beast"
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage3c"
+			Where spawnbot
+			TotalCount 36
+			MaxActive 9
+			SpawnCount 3
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 4
+			WaitForAllSpawned "stage3b"
+			TotalCurrency 250
+			TFBot
+			{
+				Class Demoman
+				Skill Hard
+				Attributes HoldFireUntilFullReload
+				Attributes AlwaysCrit
+				WeaponRestrictions SecondaryOnly
+				Name "Sticky Demo"
+				Item "The Hat With No Name"
+				Item "The Demo's Dustcatcher"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_PIPEBOMBLAUNCHER"
+					"stickybomb charge rate" -1
+					"sticky arm time bonus" 2
+					"max pipebombs increased" -7
+					"faster reload rate" 0.25
+					"self dmg push force decreased" 0.01
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage3c"
+			Where spawnbot
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 2
+			WaitBeforeStarting 16
+			WaitBetweenSpawns 16
+			WaitForAllDead "stage3b"
+			TotalCurrency 250
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Baseball_Armored
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "stage3c"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			StartWaveOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage3d"
+			Where spawnbot_mission_spy
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage3c"
+			TotalCurrency 0
+			StartWaveWarningSound "misc\halloween\skeletons\skelly_giant_02.wav"
+			FirstSpawnWarningSound "ambient\halloween\mysterious_perc_01.wav"
+			DoneWarningSound "misc\halloween\strongman_fast_impact_01.wav"
+			FirstSpawnOutput
+			{
+				Target trap_trigger
+				Action Trigger
+			}
+			DoneOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			TFBot
+			{
+				Template T_Graver
+				Skin 2
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_1"
+			WaitForAllDead "stage3d"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_enable_logic
+				Action Trigger
+			}
+			FirstSpawnWarningSound "vo\mvm_wave_end02.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage3d"
+			WaitBeforeStarting 0.2
+			FirstSpawnOutput
+			{
+				Target bombpath_choose_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage3d"
+			WaitBeforeStarting 16
+			FirstSpawnWarningSound "vo\mvm_general_wav_start05.mp3"
+			FirstSpawnOutput
+			{
+				Target bombpath_arrows_clear_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage4a"
+			Where spawnbot_main
+			Where spawnbot_secondary
+			Where spawnbot_titan
+			TotalCount 64
+			MaxActive 14
+			SpawnCount 5
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 5
+			WaitForAllDead "stage3d"
+			TotalCurrency 300
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_disable_logic
+				Action Trigger
+			}
+			RandomSpawn 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Engineer_Widower
+					Action FetchFlag
+					Item "Binoculus"
+					Item "The Law"
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Name "Bone Patrol"
+					Skin 1
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Shotgun
+					Name "Shotgun Heavy"
+					Item "The Law"
+					Item "Binoculus"
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Name "Bone Patrol"
+					Skin 1
+					CharacterAttributes
+					{
+						"voice pitch scale" 0.1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Item "Binoculus"
+					Item "The Law"
+					UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+					UseHumanAnimations 1	[$SIGSEGV]
+					Name "Bone Patrol"
+					Skin 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage4b"
+			Where spawnbot_titan
+			TotalCount 15
+			MaxActive 7
+			SpawnCount 1
+			WaitBeforeStarting 6
+			WaitBetweenSpawns 9
+			WaitForAllSpawned "stage4a"
+			TotalCurrency 400
+			RandomSpawn 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					ClassIcon soldier_burstfire
+					Item "The Larval Lid"
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_ROCKETLAUNCHER"
+						"fire rate bonus" 0.05
+						"clip size upgrade atomic" 7.0
+						"faster reload rate" 0.5
+						"projectile spread angle penalty" 10
+					}
+					CharacterAttributes
+					{
+						"damage bonus" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer
+					Item "The Magical Mercenary"
+					Item "Lollichop Licker"
+					ClassIcon soldier_burstfire
+					CharacterAttributes
+					{
+						"fire rate bonus with reduced health" 0.5
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage4b"
+			Where spawnbot
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 2
+			WaitBeforeStarting 45
+			WaitBetweenSpawns 35
+			WaitForAllSpawned "stage4a"
+			TotalCurrency 500
+			DoneOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons
+					Skill Hard
+					Item "The Manneater"
+					Item "Big Steel Jaw of Summer Fun"
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic
+					ItemAttributes
+					{
+						ItemName "The Quick-Fix"
+						"uber duration bonus" -7
+					}
+					Item "The Steam Pipe"
+					Item "The Gauzed Gaze"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage4b"
+			Where spawnbot_main
+			Where spawnbot_secondary
+			Where spawnbot_titan
+			TotalCount 48
+			MaxActive 6
+			SpawnCount 3
+			WaitBeforeStarting 40
+			WaitBetweenSpawns 4
+			WaitForAllDead "stage3d"
+			TotalCurrency 300
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Medic_Kritz_Short
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_1"
+			WaitForAllDead "stage4b"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_enable_logic
+				Action Trigger
+			}
+			FirstSpawnWarningSound "vo\mvm_wave_end06.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage4b"
+			WaitBeforeStarting 0.2
+			FirstSpawnOutput
+			{
+				Target bombpath_choose_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage4b"
+			WaitBeforeStarting 16
+			FirstSpawnWarningSound "vo\mvm_general_wav_start05.mp3"
+			FirstSpawnOutput
+			{
+				Target bombpath_arrows_clear_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5a"
+			Where spawnbot_main
+			Where spawnbot_secondary
+			Where spawnbot_titan
+			TotalCount 56
+			MaxActive 12
+			SpawnCount 5
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 3
+			WaitForAllDead "stage4b"
+			TotalCurrency 200
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_disable_logic
+				Action Trigger
+			}
+			RandomSpawn 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Buff_Banner
+					Item "Burly Beast"
+					Item "The Larval Lid"
+					Tag flank_front
+					ClassIcon soldier
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Buff_Banner
+					Item "Burly Beast"
+					Item "Horseless Headless Horseman's Head"
+					Skill Expert
+					ClassIcon soldier
+					CharacterAttributes
+					{
+						"projectile trail particle" "superrare_ghosts"	[$SIGSEGV]
+						"damage bonus" 1.3
+					}
+					HomingRockets	[$SIGSEGV]
+					{
+						IgnoreDisguisedSpies 1
+						IgnoreStealthedSpies 1
+						RocketSpeed 0.5
+						TurnPower 40
+						MaxAimError 135
+					}
+					RocketCustomModel "models\props_mvm\mvm_human_skull.mdl"	[$SIGSEGV]
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Buff_Banner
+					Item "Burly Beast"
+					Item "The Larval Lid"
+					Tag flank_back
+					ClassIcon soldier
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5b"
+			Where spawnbot_main
+			TotalCount 36
+			MaxActive 12
+			SpawnCount 6
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 6
+			WaitForAllDead "stage5a"
+			TotalCurrency 300
+			TFBot
+			{
+				Class Scout
+				Skill Normal
+				Item "Lollichop Licker"
+				Item "Binoculus"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_SCATTERGUN"
+					"damage bonus" 1.25
+					"fire rate bonus" 0.75
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5_p3"
+			Where spawnbot_main
+			TotalCount 9
+			MaxActive 9
+			SpawnCount 3
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 12
+			WaitForAllSpawned "stage5b"
+			TotalCurrency 200
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Pyro
+					Item "Old Guadalajara"
+					Item "Binoculus"
+					Item "Burly Beast"
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_FLAMETHROWER"
+						"damage bonus" 1.5
+						"lunchbox adds minicrits" 2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			TotalCount 1
+			WaitBeforeStarting 40
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage4b"
+			TotalCurrency 100
+			FirstSpawnWarningSound "MVM.TankStart"
+			Tank
+			{
+				Health 30000
+				Speed 70
+				Name "tankboss"
+				StartingPathTrackNode "tank_path_a_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5_p3"
+			TotalCount 3
+			WaitBeforeStarting 100
+			WaitBetweenSpawns 60
+			WaitForAllDead "stage4b"
+			TotalCurrency 300
+			FirstSpawnWarningSound "MVM.TankStart"
+			LastSpawnWarningSound "MVM.TankStart"
+			Tank
+			{
+				Health 30000
+				Speed 70
+				Name "tankboss"
+				StartingPathTrackNode "tank_path_a_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5_p1"
+			Where spawnbot_portal
+			TotalCount 24
+			MaxActive 7
+			SpawnCount 4
+			WaitBeforeStarting 40
+			WaitBetweenSpawns 5
+			WaitForAllDead "stage4b"
+			TotalCurrency 300
+			FirstSpawnOutput
+			{
+				Target tele_forward_relay_trigger1
+				Action Trigger
+			}
+			DoneOutput
+			{
+				Target tele_forward_relay_disable1
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Heavyweapons
+				Name "Heavy Mittens"
+				Skill Hard
+				ClassIcon heavy
+				WeaponRestrictions MeleeOnly
+				Health 200
+				Item "The Holiday Punch"
+				ItemAttributes
+				{
+					ItemName "The Holiday Punch"
+					"damage bonus" 1.33
+					"critboost on kill" 5
+					"move speed bonus" 1.3
+					"cancel falling damage" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5_p2"
+			Where spawnbot_portal
+			TotalCount 36
+			MaxActive 9
+			SpawnCount 3
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 4
+			WaitForAllDead "stage5_p1"
+			TotalCurrency 300
+			FirstSpawnOutput
+			{
+				Target tele_forward_relay_trigger2
+				Action Trigger
+			}
+			DoneOutput
+			{
+				Target tele_forward_relay_disable2
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Pyro
+				Name "Jetpack Pyro"
+				WeaponRestrictions SecondaryOnly
+				Skill Normal
+				Item "The Thermal Thruster"
+				Item "Lollichop Licker"
+				Item "Binoculus"
+				Attributes AlwaysCrit
+				Tag flank_front
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_FLAMETHROWER"
+					"is_passive_weapon" 1
+				}
+				CharacterAttributes
+				{
+					"move speed bonus" 1.2
+					"cancel falling damage" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage5_p3"
+			Where spawnbot_portal
+			TotalCount 36
+			MaxActive 9
+			SpawnCount 9
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 8
+			WaitForAllDead "stage5_p2"
+			TotalCurrency 300
+			FirstSpawnOutput
+			{
+				Target tele_forward_relay_trigger4
+				Action Trigger
+			}
+			DoneOutput
+			{
+				Target tele_forward_relay_disable4
+				Action Trigger
+			}
+			TFBot
+			{
+				Class Heavy
+				Skill Normal
+				Tag flank_front
+				Attributes AlwaysCrit
+				Item "Lollichop Licker"
+				Item "Binoculus"
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_1"
+			WaitForAllDead "stage5_p3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			StartWaveOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_enable_logic
+				Action Trigger
+			}
+			FirstSpawnWarningSound "vo\mvm_wave_end07.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage5_p3"
+			WaitBeforeStarting 0.2
+			FirstSpawnOutput
+			{
+				Target bombpath_choose_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stagebreak_3"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage5_p3"
+			WaitBeforeStarting 16
+			FirstSpawnWarningSound "vo\mvm_final_wave_start08.mp3"
+			FirstSpawnOutput
+			{
+				Target bombpath_arrows_clear_relay
+				Action Trigger
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6a"
+			Where spawnbot_main
+			Where spawnbot_titan
+			TotalCount 20
+			MaxActive 14
+			SpawnCount 2
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 6
+			WaitForAllDead "stage5_p3"
+			TotalCurrency 300
+			RandomSpawn 1
+			FirstSpawnOutput
+			{
+				Target upgrade_station_forward_disable_logic
+				Action Trigger
+			}
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Pyro
+					Item "Binoculus"
+					Item "Burly Beast"
+					Item "Old Guadalajara"
+					Item "Upgradeable TF_WEAPON_FLAMETHROWER"
+					ItemAttributes
+					{
+						ItemName "Upgradeable TF_WEAPON_FLAMETHROWER"
+						"damage bonus" 1.5
+						"lunchbox adds minicrits" 2
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SYRINGEGUN_MEDIC"
+						"damage penalty" 1
+						"mad milk syringes" 1
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6b"
+			Where spawnbot_secondary
+			TotalCount 36
+			MaxActive 6
+			SpawnCount 3
+			WaitBeforeStarting 38
+			WaitBetweenSpawns 4
+			WaitForAllDead "stage5_p3"
+			TotalCurrency 300
+			TFBot
+			{
+				Class Demoman
+				Skill Hard
+				Attributes HoldFireUntilFullReload
+				Attributes AlwaysCrit
+				Item "The Magical Mercenary"
+				WeaponRestrictions PrimaryOnly
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"damage bonus" 1.5
+					"faster reload rate" 0.5
+					"fire rate bonus" 0.5
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6b"
+			Where spawnbot_secondary
+			TotalCount 15
+			MaxActive 15
+			SpawnCount 3
+			WaitBeforeStarting 12
+			WaitBetweenSpawns 12
+			WaitForAllSpawned "stage6a"
+			TotalCurrency 300
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman
+				Item "The Snapped Pupil"
+				Item "Spiky Viking"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"damage bonus" 1.5
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6c"
+			Where spawnbot_titan
+			TotalCount 10
+			MaxActive 10
+			SpawnCount 2
+			WaitBeforeStarting 2
+			WaitBetweenSpawns 15
+			WaitForAllDead "stage6b"
+			TotalCurrency 200
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer
+					Item "The Magical Mercenary"
+					Item "Lollichop Licker"
+					ClassIcon soldier_burstfire
+					CharacterAttributes
+					{
+						"fire rate bonus with reduced health" 0.5
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic
+					ItemAttributes
+					{
+						ItemName "The Quick-Fix"
+						"uber duration bonus" -7
+					}
+					Item "The Steam Pipe"
+					Item "The Gauzed Gaze"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6d"
+			Where spawnbot
+			TotalCount 50
+			MaxActive 10
+			SpawnCount 5
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 4
+			WaitForAllDead "stage6b"
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+				Skill Expert
+				Name "Graveyard Gang"
+				Item "Mo'Horn"
+				Item "The Stereoscopic Shades"
+				Skin 1
+				UseCustomModel "models/bots/skeleton_sniper/skeleton_sniper.mdl"	[$SIGSEGV]
+				UseMeleeThreatPrioritization 1	[$SIGSEGV]
+				UseHumanAnimations 1	[$SIGSEGV]
+				ItemAttributes
+				{
+					ItemName "The Huntsman"
+					"damage bonus" 1.2
+					"faster reload rate" 0.2
+				}
+				CharacterAttributes
+				{
+					"voice pitch scale" 0.1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6d"
+			Where spawnbot
+			TotalCount 10
+			MaxActive 10
+			SpawnCount 2
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 10
+			WaitForAllSpawned "stage6c"
+			TotalCurrency 200
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				Item "The Manneater"
+				Item "Big Steel Jaw of Summer Fun"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_MINIGUN"
+					"damage bonus" 1.5
+					"bullets per shot bonus" 2
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "stage6d"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			StartWaveOutput
+			{
+				Target intel_event
+				Action ForceResetSilent
+			}
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6e"
+			Where spawnbot_mission_spy
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage6d"
+			TotalCurrency 0
+			StartWaveWarningSound "vo\halloween_boss\knight_spawn.mp3"
+			FirstSpawnWarningSound "ambient\halloween\mysterious_perc_01.wav"
+			DoneWarningSound "vo\halloween_boss\knight_laugh01.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_Boneking
+						ClassIcon deader
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "snd_bk"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage6e"
+			WaitBeforeStarting 3
+			FirstSpawnWarningSound "misc\halloween\gotohell.wav"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6f"
+			Where spawnbot_mission_spy
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage6e"
+			TotalCurrency 0
+			FirstSpawnWarningSound "ambient\halloween\mysterious_perc_01.wav"
+			DoneWarningSound "vo\halloween_boss\knight_laugh04.mp3"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						Template T_Boneking
+						ClassIcon deader
+						Tag iamthelord
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "snd_bk2"
+			TotalCount 0
+			SpawnCount 0
+			Support limited
+			WaitForAllDead "stage6f"
+			WaitBeforeStarting 3
+			FirstSpawnWarningSound "misc\halloween\gotohell.wav"
+			RandomChoice
+			{
+				RandomChoice
+				{
+					TFBot
+					{
+						ClassIcon sniper
+					}
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6g"
+			Where spawnbot_mission_spy
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 0
+			WaitForAllDead "stage6f"
+			TotalCurrency 0
+			FirstSpawnWarningSound "ambient\halloween\mysterious_perc_01.wav"
+			DoneWarningSound "vo\halloween_boss\knight_death02.mp3"
+			TFBot
+			{
+				Template T_Boneking_B
+				ClassIcon dead
+				Tag iamthelord
+			}
+		}
+		WaveSpawn
+		{
+			Name "stage6tank"
+			TotalCount 1
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 40
+			WaitForAllSpawned "stage6b"
+			TotalCurrency 0
+			FirstSpawnWarningSound "MVM.TankStart"
+			Tank
+			{
+				Health 27000
+				Speed 50
+				Name "tankboss"
+				StartingPathTrackNode "tank_path_air_1"
+				OnKilledOutput
+				{
+					Target boss_dead_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+				SpawnTemplate "PlaneTank"	[$SIGSEGV]
+				DisableSmokestack 1	[$SIGSEGV]
+				MaxTurnRate 10	[$SIGSEGV]
+				DisableTracks 1	[$SIGSEGV]
+				Model "models/empty.mdl"	[$SIGSEGV]
+				Gravity -0.001	[$SIGSEGV]
+				EngineLoopSound "vehicles\airboat\fan_blade_idle_loop1.wav"	[$SIGSEGV]
+			}
+		}
+	}
+}

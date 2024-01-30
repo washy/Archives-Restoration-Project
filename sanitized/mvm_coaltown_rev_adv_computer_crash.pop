@@ -1,0 +1,6397 @@
+#base robot_giant.pop
+#base robot_standard.pop
+#base robot_D_I_L.pop
+#base robot_giant_red.pop
+#base robot_standard_red.pop
+WaveSchedule
+{
+	StartingCurrency 1000
+	RespawnWaveTime 2
+	CanBotsAttackWhileInSpawnRoom yes
+	ReverseWinConditions 1	[$SIGSEGV]
+	AllowJoinTeamBlueMax 6	[$SIGSEGV]
+	AllowJoinTeamBlue 1	[$SIGSEGV]
+	HumansMustJoinTeam Blue	[$SIGSEGV]
+	SetCreditTeam 3	[$SIGSEGV]
+	CustomUpgradesFile "mvm_upgrades_comp_crash.txt"	[$SIGSEGV]
+	SniperAllowHeadshots 1	[$SIGSEGV]
+	SendBotsToSpectatorImmediately 1	[$SIGSEGV]
+	RobotLimit 26	[$SIGSEGV]
+	BluHumanInfiniteAmmo 1	[$SIGSEGV]
+	FlagCarrierMovementPenalty 0.75	[$SIGSEGV]
+	BluPlayersAreRobots 1	[$SIGSEGV]
+	BluHumanFlagCapture 1	[$SIGSEGV]
+	BluHumanFlagPickup 1	[$SIGSEGV]
+	BotsRandomCrit 0	[$SIGSEGV]
+	PrecacheModel "models/props_mvm/hatch_shield.mdl"	[$SIGSEGV]
+	PrecacheModel "models/props_mvm/mvm_upgrade_blu.mdl"	[$SIGSEGV]
+	RespawnWaveTimeBlue 1	[$SIGSEGV]
+	FixedRespawnWaveTimeBlue 1	[$SIGSEGV]
+	FlagEscortCountOffset 14	[$SIGSEGV]
+	PrecacheModel "models/bots/soldier_boss/bot_soldier_boss_gibby.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/soldier/bot_soldier_gibby.mdl"	[$SIGSEGV]
+	PrecacheModel "models/bots/heavy/bot_heavy_gibby.mdl"	[$SIGSEGV]
+	DisableSound "music.mvm_start_last_wave"	[$SIGSEGV]
+	PrecacheSound "howl_hush_antibirth.mp3"	[$SIGSEGV]
+	PointTemplates	[$SIGSEGV]
+	{
+		corelogic
+		{
+			NoFixup 1
+			logic_auto
+			{
+				"origin" "0 0 0"
+				"targetname" "mainrelay"
+				"OnMapSpawn" "gate1_alarm*,Kill,,0,-1"
+				"OnMapSpawn" "item_ammopack*,Kill,,0,-1"
+				"OnMapSpawn" "move_rope,Kill,,0,-1"
+				"OnMapSpawn" "keyframe_rope,Kill,,0,-1"
+				"OnMapSpawn" "wave_start_relay*,AddOutput,OnTrigger spawnbarrier*:Disable:0:-1"
+				"OnMapSpawn" "wave_start_relay*,AddOutput,OnTrigger bombpath_left_relay:Trigger:0:-1"
+				"OnMapSpawn" "wave_finished_relay,AddOutput,OnTrigger spawnbarrier*:Enable:0:-1"
+				"OnMapSpawn" "hint,AddOutput,display_text test,10,-1"
+				"OnMapSpawn" "wave_start_relay_classic,AddOutput,OnTrigger hint:Show:0:-1"
+			}
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "kill_relay"
+				"OnTrigger" "obj_dispenser,RemoveHealth,5000,0,-1"
+				"OnTrigger" "obj_sentrygun,RemoveHealth,5000,0,-1"
+				"OnTrigger" "obj_teleporter,RemoveHealth,5000,0,-1"
+				"OnTrigger" "player,SetHealth,-10000,0,-1"
+			}
+			NoFixup 1
+			logic_relay
+			{
+				"origin" "0 0 0"
+				"targetname" "redwin_relay"
+				"OnTrigger" "bots_win_red,RoundWin,,0,-1"
+				"OnTrigger" "pit_explosion_wav,PlaySound,,0,-1"
+				"OnTrigger" "failuresound,PlaySound,,0,-1"
+			}
+			NoFixup 1
+			game_round_win
+			{
+				"origin" "0 0 0"
+				"TeamNum" "2"
+				"targetname" "bots_win_red"
+				"switch_teams" "0"
+				"force_map_reset" "1"
+				"classname" "game_round_win"
+			}
+			NoFixup 1
+			logic_relay
+			{
+				"targetname" "red_tank_relay"
+				"OnTrigger" "tankbossred,Setteam,2,0.25,-1"
+				"OnTrigger" "tankbossred,AddCaptureDestroyPostfix,destroy_mvm_cactus_valley3,0.5,-1"
+			}
+			NoFixup 1
+			trigger_multiple
+			{
+				"targetname" "thirdperson"
+				"StartDisabled" "1"
+				"spawnflags" "3"
+				"origin" "1542.488770 739.029175 -143.968689"
+				"maxs" "50 50 50"
+				"mins" "-50 -50 -50"
+				"filtername" "filter_blue"
+				"OnStartTouch" "!activator,setforcedtauntcam,1,0.1,-1"
+				"OnStartTouch" "!activator,SetHUDVisibility,0,0.1,-1"
+				"OnStartTouch" "!activator,DisableDamageForces,,0,-1"
+				"OnEndTouch" "!activator,setforcedtauntcam,0,0,-1"
+				"OnEndTouch" "!activator,SetHUDVisibility,1,0,-1"
+				"OnEndTouch" "!activator,EnableDamageForces,,0,-1"
+			}
+			NoFixup 1
+			ambient_generic
+			{
+				"targetname" "failuresound"
+				"health" "10"
+				"message" "vo/announcer_failure.mp3"
+				"pitch" "100"
+				"pitchstart" "100"
+				"radius" "20000"
+				"spawnflags" "49"
+				"origin" "0 0 0"
+			}
+			func_nav_prerequisite
+			{
+				"targetname" "HatchNav"
+				"mins" "-1000 -1000 -1000"
+				"maxs" "750 1000 1800"
+				"Entity" "HatchNav"
+				"filtername" "filter_hatch"
+				"origin" "0 -2000 500"
+				"spawnflags" "1"
+				"start_disabled" "0"
+				"StartDisabled" "0"
+				"Task" "2"
+				"Value" "-1"
+			}
+			func_nav_prerequisite
+			{
+				"targetname" "ToHatchNav"
+				"mins" "-350 -1000 -1000"
+				"maxs" "350 1000 1800"
+				"Entity" "HatchNav"
+				"filtername" "filter_hatch"
+				"origin" "1500 -2000 500"
+				"spawnflags" "1"
+				"start_disabled" "0"
+				"StartDisabled" "0"
+				"Task" "2"
+				"Value" "-1"
+			}
+			func_nav_prerequisite
+			{
+				"targetname" "ToHatchNav"
+				"mins" "-350 -1000 -1000"
+				"maxs" "350 1000 1800"
+				"Entity" "HatchNav"
+				"filtername" "filter_hatch"
+				"origin" "-1500 -2000 500"
+				"spawnflags" "1"
+				"start_disabled" "0"
+				"StartDisabled" "0"
+				"Task" "2"
+				"Value" "-1"
+			}
+			filter_tf_bot_has_tag
+			{
+				"Negated" "0"
+				"require_all_tags" "1"
+				"tags" "bot_hatch"
+				"targetname" "filter_hatch"
+			}
+		}
+		barriers
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"disablereceiveshadows" "0"
+				"origin" "0 0 0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"renderfx" "0"
+				"rendermode" "10"
+				"TeamNum" "2"
+				"targetname" "spawnbarrierA1"
+				"mins" "-300 -200 -300"
+				"maxs" "300 200 2000"
+				"StartDisabled" "0"
+			}
+		}
+		forcefield_hatch
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"targetname" "barrier_hatch"
+				"origin" "-0.6 -1927 350"
+				"TeamNum" "2"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"renderfx" "0"
+				"rendermode" "0"
+				"disablereceiveshadows" "0"
+				"mins" "-148 -148 -101"
+				"maxs" "148 148 101"
+			}
+			logic_relay
+			{
+				"targetname" "hatch_reveal_relay"
+				"OnTrigger" "barrier_hatch,Disable,,0.01,-1"
+				"OnTrigger" "skull,Disable,,0,-1"
+				"OnTrigger" "annotation_deploy,Show,,0.01,-1"
+				"OnTrigger" "func_flagdetection,Disable,,0,-1"
+			}
+			prop_dynamic
+			{
+				"angles" "0 0 0"
+				"model" "models/props_mvm/hatch_shield.mdl"
+				"modelscale" "1"
+				"skin" "0"
+				"solid" "6"
+				"spawnflags" "0"
+				"targetname" "skull"
+				"origin" "-0.6 -1927 350"
+			}
+			training_annotation
+			{
+				"display_text" "Deploy The Bomb!"
+				"lifetime" "5"
+				"origin" "-0.6 -1927 350"
+				"targetname" "annotation_deploy"
+			}
+		}
+		station
+		{
+			func_upgradestation
+			{
+				"mins" "-105 -100 0"
+				"maxs" "105 100 242"
+				"solid" "0"
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				"targetname" "upgradestation"
+				"angles" "0 0 0"
+				"DisableBoneFollowers" "0"
+				"disablereceiveshadows" "0"
+				"disableshadows" "1"
+				"ExplodeDamage" "0"
+				"ExplodeRadius" "0"
+				"fademaxdist" "0"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"maxdxlevel" "0"
+				"MinAnimTime" "5"
+				"mindxlevel" "0"
+				"model" "models/props_mvm/mvm_upgrade_blu.mdl"
+				"modelscale" "1"
+				"PerformanceMode" "0"
+				"pressuredelay" "0"
+				"RandomAnimation" "0"
+				"renderamt" "255"
+				"renderfx" "0"
+				"rendermode" "0"
+				"SetBodyGroup" "0"
+				"skin" "0"
+				"solid" "0"
+				"spawnflags" "0"
+				"origin" "0 0 0"
+			}
+			func_upgradestation
+			{
+				"mins" "-100 -100 0"
+				"maxs" "90 60 100"
+				"parentname" "upgradestation"
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				"targetname" "shopcollision"
+				"angles" "0 -90 0"
+				"DisableBoneFollowers" "1"
+				"disablereceiveshadows" "1"
+				"model" "models/props_vehicles/train_flatcar_container.mdl"
+				"disableshadows" "1"
+				"ExplodeDamage" "0"
+				"ExplodeRadius" "0"
+				"fademaxdist" "0"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"maxdxlevel" "0"
+				"MinAnimTime" "5"
+				"mindxlevel" "0"
+				"modelscale" "1"
+				"PerformanceMode" "0"
+				"pressuredelay" "0"
+				"RandomAnimation" "0"
+				"renderamt" "0"
+				"renderfx" "0"
+				"rendermode" "10"
+				"SetBodyGroup" "0"
+				"skin" "0"
+				"CollisionGroup" "5"
+				"solid" "6"
+				"spawnflags" "0"
+				"StartDisabled" "0"
+				"origin" "0 0 0"
+			}
+		}
+		blocker
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"disablereceiveshadows" "0"
+				"origin" "0 0 0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"renderfx" "0"
+				"rendermode" "10"
+				"TeamNum" "2"
+				"targetname" "blocker"
+				"mins" "-300 -300 -300"
+				"maxs" "300 300 1100"
+				"StartDisabled" "0"
+			}
+		}
+		respawnroom
+		{
+			func_respawnroom
+			{
+				"targetname" "respawnroom_custom"
+				"TeamNum" "3"
+				"origin" "1164 2155 470"
+				"mins" "-150 -150 -200"
+				"maxs" "170 250 200"
+			}
+		}
+		fence1
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"model" "models/props_coalmines/wood_fence_short_128.mdl"
+				"solid" "6"
+			}
+		}
+		fence2
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"model" "models/props_coalmines/wood_fence_256.mdl"
+				"solid" "6"
+			}
+		}
+		stair
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"model" "models/props_farm/stairs_wood001a.mdl"
+				"solid" "6"
+			}
+		}
+		block
+		{
+			NoFixup 1
+			prop_dynamic
+			{
+				"model" "models/props_farm/concrete_block001.mdl"
+				"solid" "6"
+			}
+		}
+		fenceSet
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "1065 -438 810"
+				"TeamNum" "2"
+				"targetname" "fenceset1"
+				"mins" "-370 -10 -300"
+				"maxs" "200 10 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "506 0 810"
+				"TeamNum" "2"
+				"targetname" "fenceset2"
+				"mins" "-10 -300 -300"
+				"maxs" "10 380 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "296 373 810"
+				"TeamNum" "2"
+				"targetname" "fenceset3"
+				"mins" "-120 -10 -300"
+				"maxs" "190 10 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "200 445 810"
+				"TeamNum" "2"
+				"targetname" "fenceset4"
+				"mins" "-10 -35 -300"
+				"maxs" "10 35 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "17 500 810"
+				"TeamNum" "2"
+				"targetname" "fenceset5"
+				"mins" "-210 -10 -300"
+				"maxs" "155 10 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "-180 445 810"
+				"TeamNum" "2"
+				"targetname" "fenceset6"
+				"mins" "-10 -35 -300"
+				"maxs" "10 35 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "-286 378 810"
+				"TeamNum" "2"
+				"targetname" "fenceset7"
+				"mins" "-180 -10 -300"
+				"maxs" "120 10 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "623 -526 810"
+				"TeamNum" "2"
+				"targetname" "fenceset8"
+				"mins" "-10 -50 -300"
+				"maxs" "10 50 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"origin" "1468 -290 810"
+				"TeamNum" "2"
+				"targetname" "fenceset9"
+				"mins" "-50 -10 -300"
+				"maxs" "50 10 1100"
+				"StartDisabled" "0"
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_256x288.mdl"	[$SIGSEGV]
+				origin "1468 -285 807"
+				angles "0 0 0"
+				targetname "fenceset10"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x152.mdl"	[$SIGSEGV]
+				origin "628 -526 807"
+				angles "0 90 0"
+				targetname "fenceset11"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "-330 382 805"
+				angles "0 0 0"
+				targetname "fenceset12"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x120.mdl"	[$SIGSEGV]
+				origin "-185 407 740"
+				angles "0 90 0"
+				targetname "fenceset13"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x120.mdl"	[$SIGSEGV]
+				origin "190 407 740"
+				angles "0 -90 0"
+				targetname "fenceset14"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "0 500 805"
+				angles "0 0 0"
+				targetname "fenceset15"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "330 379 805"
+				angles "0 0 0"
+				targetname "fenceset16"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 -148 810"
+				angles "0 -90 0"
+				targetname "fenceset17"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 204 810"
+				angles "0 -90 0"
+				targetname "fenceset18"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 -148 630"
+				angles "0 -90 0"
+				targetname "fenceset19"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x152.mdl"	[$SIGSEGV]
+				origin "1054 -433 590"
+				angles "0 0 0"
+				targetname "fenceset20"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "1050 -433 860"
+				angles "0 0 0"
+				targetname "fenceset21"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "810 -433 860"
+				angles "0 0 0"
+				targetname "fenceset22"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_256x288.mdl"	[$SIGSEGV]
+				origin "1468 -285 807"
+				angles "0 180 0"
+				targetname "fenceset23"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x152.mdl"	[$SIGSEGV]
+				origin "628 -526 807"
+				angles "0 270 0"
+				targetname "fenceset24"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "-330 382 805"
+				angles "0 180 0"
+				targetname "fenceset25"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x120.mdl"	[$SIGSEGV]
+				origin "-185 407 740"
+				angles "0 270 0"
+				targetname "fenceset26"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x120.mdl"	[$SIGSEGV]
+				origin "190 407 740"
+				angles "0 -270 0"
+				targetname "fenceset27"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "0 500 805"
+				angles "0 180 0"
+				targetname "fenceset28"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "330 379 805"
+				angles "0 180 0"
+				targetname "fenceset29"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 -148 810"
+				angles "0 -270 0"
+				targetname "fenceset30"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 204 810"
+				angles "0 -270 0"
+				targetname "fenceset31"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "506 -148 630"
+				angles "0 -270 0"
+				targetname "fenceset32"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_176x152.mdl"	[$SIGSEGV]
+				origin "1054 -433 590"
+				angles "0 180 0"
+				targetname "fenceset33"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "1050 -433 860"
+				angles "0 180 0"
+				targetname "fenceset34"
+				disableshadows 1
+			}
+			NoFixup 1
+			prop_dynamic
+			{
+				modelscale 1
+				model "models/props_mvm/reversemvm_redwall_352x256.mdl"	[$SIGSEGV]
+				origin "810 -433 860"
+				angles "0 180 0"
+				targetname "fenceset35"
+				disableshadows 1
+			}
+		}
+		midspawnblocker1
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"targetname" "midspawnblocker"
+				"TeamNum" "2"
+				"origin" "9 430 513"
+				"mins" "-150 -70 -200"
+				"maxs" "150 70 150"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"targetname" "midspawnblocker"
+				"TeamNum" "2"
+				"origin" "-433 175 513"
+				"mins" "-70 -150 -200"
+				"maxs" "70 150 150"
+			}
+			NoFixup 1
+			func_forcefield
+			{
+				"targetname" "midspawnblocker"
+				"TeamNum" "2"
+				"origin" "-884 925 529"
+				"mins" "-150 -150 -200"
+				"maxs" "150 150 150"
+			}
+			NoFixup 1
+			trigger_hurt
+			{
+				"targetname" "midspawnblocker"
+				"damage" "0"
+				"damagetype" "0"
+				"origin" "9 430 513"
+				"mins" "-150 -350 -200"
+				"maxs" "150 70 150"
+			}
+			NoFixup 1
+			trigger_hurt
+			{
+				"targetname" "midspawnblocker"
+				"damage" "0"
+				"damagetype" "0"
+				"origin" "-433 175 513"
+				"mins" "-300 -150 -200"
+				"maxs" "70 150 150"
+			}
+			NoFixup 1
+			trigger_hurt
+			{
+				"targetname" "midspawnblocker"
+				"damage" "0"
+				"damagetype" "0"
+				"origin" "-884 925 529"
+				"mins" "-150 -150 -200"
+				"maxs" "150 150 150"
+			}
+		}
+		spawnIndicators
+		{
+			NoFixup 1
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 0 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "2ndLeftG"
+				"origin" "-1420 386 640"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 180 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "2ndRight"
+				"origin" "1436 871 576"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "2ndMid"
+				"origin" "0 350 450"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 -90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "2ndMid"
+				"origin" "-860 1053 465"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rd"
+				"origin" "1469 -1599 706"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rd"
+				"origin" "-1392 -1480 640"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 180 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rd"
+				"origin" "1270 -2334 472"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rd"
+				"origin" "-877 -2115 355"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 0 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rdSide"
+				"origin" "-1167 -2005 640"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 180 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.0"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "3rdSide"
+				"origin" "1470 -2000 702"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+			entity
+			{
+				"id" "6"
+				"classname" "prop_dynamic"
+				"angles" "0 90 0"
+				"DefaultAnim" "idle"
+				"fademindist" "-1"
+				"fadescale" "1"
+				"MaxAnimTime" "10"
+				"MinAnimTime" "5"
+				"model" "models/props_mvm/robot_spawnpoint.mdl"
+				"modelscale" "1.15"
+				"renderamt" "255"
+				"rendercolor" "255 255 255"
+				"skin" "0"
+				"solid" "6"
+				"targetname" "REDVIP"
+				"origin" "0 -2505 513"
+				editor
+				{
+					"color" "220 30 220"
+					"visgroupshown" "1"
+					"visgroupautoshown" "1"
+					"logicalpos" "[0 0]"
+				}
+			}
+		}
+		textualtimerW1
+		{
+			OnSpawnOutput
+			{
+				Param 5
+				Target minutehand
+				Action SetValue
+			}
+			OnSpawnOutput
+			{
+				Param 50
+				Target secondhand
+				Action SetValue
+			}
+			logic_relay
+			{
+				"targetname" "loserelay"
+				"startdisabled" "1"
+				"ontrigger" "bots_win_red,RoundWin,,2,-1"
+				"ontrigger" "realtimer,cancelpending,,2,-1"
+				"onspawn" "wave_start_Relay,addoutput,ontrigger realtimer:trigger::0:-1,0,-1"
+				"onspawn" "wave_finish*,addoutput,ontrigger realtimer:cancelpending::0:-1,0,-1"
+				"onspawn" "wave_finish*,addoutput,ontrigger loserelay:cancelpending::0:-1,0,-1"
+			}
+			NoFixup 1
+			math_counter
+			{
+				"targetname" "minutehand"
+				"max" "9999"
+				"outvalue" "timerformat,$setkey$case01,,0,-1"
+				"onhitmin" "loserelay,enable,,1,-1"
+			}
+			math_counter
+			{
+				"targetname" "secondhand"
+				"max" "60"
+				"outvalue" "timerformat,$setkey$case02,,0,-1"
+				"outvalue" "zerocompare,setvaluecompare,,0,-1"
+				"onhitmin" "loserelay,trigger,,0,-1"
+				"onhitmin" "!self,setvalue,60,1,-1"
+				"onhitmin" "minutehand,subtract,1,1,-1"
+			}
+			logic_compare
+			{
+				"targetname" "zerocompare"
+				"comparevalue" "9"
+				"onequalto" "timerformat,$setkey$case16,%:0%,0,-1"
+				"ongreaterthan" "timerformat,$setkey$case16,%:%,0,-1"
+			}
+			logic_case
+			{
+				"targetname" "timerformat"
+				"case16" "%:%"
+				"ondefault" "timertext,$setkey$message,,0,-1"
+				"ondefault" "timertext,display,0,0,-1"
+			}
+			game_text
+			{
+				"targetname" "timertext"
+				"color" "255 255 255"
+				"holdtime" "2"
+				"spawnflags" "1"
+				"x" "0.7"
+				"y" "0.9"
+			}
+			logic_relay
+			{
+				"targetname" "realtimer"
+				"spawnflags" "2"
+				"ontrigger" "timerformat,$format,,0.01,-1"
+				"ontrigger" "secondhand,subtract,1,0,-1"
+				"ontrigger" "!self,trigger,,1,-1"
+			}
+			game_round_win
+			{
+				"teamnum" "2"
+				"targetname" "bots_win_red"
+				"force_map_reset" "1"
+			}
+			logic_relay
+			{
+				"targetname" "durationW6"
+				"OnTrigger" "minutehand,SetValue,3,,-1"
+				"OnTrigger" "secondhand,SetValue,29,,-1"
+			}
+			logic_relay
+			{
+				"targetname" "durationW5"
+				"OnTrigger" "minutehand,SetValue,4,,-1"
+				"OnTrigger" "secondhand,SetValue,59,,-1"
+			}
+		}
+		Sentry1
+		{
+			obj_sentrygun
+			{
+				"targetname" "sentry"
+				"teamnum" "2"
+				"SolidToPlayer" "1"
+				"Spawnflags" "8"
+			}
+		}
+		Sentry2
+		{
+			obj_sentrygun
+			{
+				"targetname" "sentry"
+				"teamnum" "2"
+				"SolidToPlayer" "1"
+				"Spawnflags" "8"
+				"defaultupgrade" "1"
+			}
+		}
+		Sentry3
+		{
+			obj_sentrygun
+			{
+				"targetname" "sentry"
+				"teamnum" "2"
+				"SolidToPlayer" "1"
+				"Spawnflags" "8"
+				"defaultupgrade" "2"
+			}
+		}
+		MedHealthKit
+		{
+			NoFixup 1
+			item_healthkit_medium
+			{
+				"classname" "item_healthkit_medium"
+			}
+		}
+		RedAvoidSpawnCamp
+		{
+			NoFixup 1
+			func_forcefield
+			{
+				"targetname" "nored"
+				"TeamNum" "3"
+				"origin" "56 2670 470"
+				"mins" "-500 -600 -400"
+				"maxs" "500 170 400"
+			}
+		}
+		no_uber_can
+		{
+			NoFixup 1
+			trigger_multiple
+			{
+				"filtername" "filter_bomb"
+				"StartDisabled" "0"
+				"targetname" "block"
+				"mins" "-5000 -5000 -5000"
+				"maxs" "5000 5000 5000"
+				"OnTrigger" "@c@!activator,ForceDrop,,0,-1"
+				"origin" "0 -256 643"
+				"spawnflags" "1"
+				"wait" "0.3"
+			}
+			filter_multi
+			{
+				"targetname" "filter_bomb"
+				"Filter01" "filter_uber"
+				"Filter02" "filter_bonk"
+				"Filter03" "filter_uber2"
+				"FilterType" "1"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_uber"
+				"condition" "52"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_uber2"
+				"condition" "5"
+			}
+			filter_tf_condition
+			{
+				"targetname" "filter_bonk"
+				"condition" "14"
+			}
+		}
+	}
+	SpawnTemplate "RedAvoidSpawnCamp"	[$SIGSEGV]
+	SpawnTemplate "corelogic"	[$SIGSEGV]
+	SpawnTemplate "spawnIndicators"	[$SIGSEGV]
+	SpawnTemplate forcefield_hatch	[$SIGSEGV]
+	SpawnTemplate "textualtimerW1"	[$SIGSEGV]
+	SpawnTemplate "fenceset"	[$SIGSEGV]
+	SpawnTemplate "no_uber_can"	[$SIGSEGV]
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "MedHealthKit"
+		"origin" "-345 2284 240"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "MedHealthKit"
+		"origin" "610 2430 230"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "MedHealthKit"
+		"origin" "1470 -250 750"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "MedHealthKit"
+		"origin" "475 -365 750"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "station"
+		"origin" "1350 2510 390"
+		"angles" "0 -180 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "station"
+		"origin" "-1700 2160 230"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "station"
+		"origin" "470 4300 570"
+		"angles" "0 180 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "barriers"
+		"origin" "-10 3042.5 480"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "barriers"
+		"origin" "720 2510 360"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "barriers"
+		"origin" "-720 2410 450"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate "respawnroom"	[$SIGSEGV]
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "blocker"
+		"origin" "-2323 2289 1000"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "blocker"
+		"origin" "-2323 2289 200"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "stair"
+		"origin" "840 2400 430"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "stair"
+		"origin" "758 2400 485"
+		"angles" "0 0 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "fence2"
+		"origin" "-1100 -125 560"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "fence2"
+		"origin" "-20 -841 500"
+		"angles" "0 0 -90"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "fence2"
+		"origin" "-20 -576 500"
+		"angles" "0 0 -90"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "fence2"
+		"origin" "230 -841 500"
+		"angles" "0 0 -90"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "fence2"
+		"origin" "230 -576 500"
+		"angles" "0 0 -90"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2322 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2322 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2322 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2322 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2172 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2172 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2172 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2172 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2022 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2022 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2022 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 2022 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1872 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1872 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1872 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1872 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1722 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1722 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1722 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1722 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1572 380"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1572 455"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1572 530"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "1000 1572 605"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2165 440"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2165 515"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2165 590"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2013 440"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2013 515"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 2013 590"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1863 440"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1863 515"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1863 590"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1713 440"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1713 515"
+		"angles" "0 90 0"
+	}
+	SpawnTemplate	[$SIGSEGV]
+	{
+		Name "block"
+		"origin" "-871 1713 590"
+		"angles" "0 90 0"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "Timer"
+		TeamNum 2	[$SIGSEGV]
+		X "1255"
+		Y "-2349"
+		Z "571"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndLeftG"
+		TeamNum 2	[$SIGSEGV]
+		X "-1420"
+		Y "386"
+		Z "715"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndRight"
+		TeamNum 2	[$SIGSEGV]
+		X "1436"
+		Y "871"
+		Z "652"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndMid"
+		TeamNum 2	[$SIGSEGV]
+		X "0"
+		Y "350"
+		Z "513"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndMid"
+		TeamNum 2	[$SIGSEGV]
+		X "-860"
+		Y "1053"
+		Z "529"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndMidG"
+		TeamNum 2	[$SIGSEGV]
+		X "0"
+		Y "350"
+		Z "513"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rd"
+		TeamNum 2	[$SIGSEGV]
+		X "1469"
+		Y "-1599"
+		Z "780"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rd"
+		TeamNum 2	[$SIGSEGV]
+		X "-1392"
+		Y "-1480"
+		Z "715"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rd"
+		TeamNum 2	[$SIGSEGV]
+		X "1270"
+		Y "-2334"
+		Z "500"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rd"
+		TeamNum 2	[$SIGSEGV]
+		X "-877"
+		Y "-2115"
+		Z "417"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndLeft"
+		TeamNum 2	[$SIGSEGV]
+		X "-1410"
+		Y "-115"
+		Z "645"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndLeft"
+		TeamNum 2	[$SIGSEGV]
+		X "-1470"
+		Y "-115"
+		Z "645"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "2ndLeft"
+		TeamNum 2	[$SIGSEGV]
+		X "-1400"
+		Y "-115"
+		Z "645"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rdSide"
+		TeamNum 2	[$SIGSEGV]
+		X "-1167"
+		Y "-2005"
+		Z "705"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "3rdSide"
+		TeamNum 2	[$SIGSEGV]
+		X "1470"
+		Y "-2000"
+		Z "770"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "RedVip"
+		TeamNum 2	[$SIGSEGV]
+		X "0"
+		Y "-2505"
+		Z "590"
+	}
+	ExtraSpawnPoint	[$SIGSEGV]
+	{
+		Name "HatchHold"
+		TeamNum 2	[$SIGSEGV]
+		X "-3"
+		Y "-1931"
+		Z "418"
+	}
+	ClassLimit	[$SIGSEGV]
+	{
+		Heavyweapons 1
+		Medic 1
+		Sniper 1
+		Engineer 1
+		Spy 1
+	}
+	ItemAttributes
+	{
+		ItemName "The Widowmaker"
+		"fire rate penalty" 1.2
+	}
+	ItemAttributes
+	{
+		ItemName "The Short Circuit"
+		"fire rate penalty" 2.3
+		"mod projectile heat seek power" 1	[$SIGSEGV]
+	}
+	ItemAttributes
+	{
+		ItemName "The Ubersaw"
+		"add uber charge on hit" 0.12
+	}
+	ItemAttributes
+	{
+		ItemName "The Liberty Launcher"
+		"blast radius increased" 1.35
+	}
+	ItemAttributes
+	{
+		ItemName "Bonk! Atomic Punch"
+		"cannot pick up intelligence" 1
+	}
+	PlayerAttributes	[$SIGSEGV]
+	{
+		Pyro
+		{
+			"SET BONUS: dmg from sentry reduced" 0.7
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-400 450 435"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-1030 -451 485"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "1327 -659 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "1287 -859 522"
+			"angles" "0 180 0"
+		}
+		Wavespawn
+		{
+			Name "A"
+			Where "2ndMid"
+			TotalCount 15
+			MaxActive 5
+			SpawnCount 5
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demoman_Knight
+				Attributes DisableDodge
+				Attributes IgnoreFlag
+			}
+		}
+		Wavespawn
+		{
+			Name "A"
+			Where "2ndMid"
+			TotalCount 12
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 3
+			TotalCurrency 12
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demoman
+				Attributes DisableDodge
+				AimTrackingInterval 0.25	[$SIGSEGV]
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "A"
+			Where "2ndMidG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Pyro
+				Action Mobber
+				Attributes DisableDodge
+				Tag special_main_right
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"cannot pick up intelligence" 1
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMidG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 8
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demoman
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 16
+			MaxActive 8
+			SpawnCount 8
+			WaitBeforeStarting 8
+			TotalCurrency 12
+			WaitForAllSpawned "A"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demoman_Knight
+				Attributes DisableDodge
+				Attributes IgnoreFlag
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demoman
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				Tag special_main_left
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 15
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Class Heavyweapons
+				Attributes DisableDodge
+				Skill Hard
+				Action Mobber
+				Tag special_main_left
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AimTrackingInterval 1	[$SIGSEGV]
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"cannot pick up intelligence" 1
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 24
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 0
+			TotalCurrency 24
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Red_Sniper_Huntsman
+				Tag special_main_left
+				Attributes DisableDodge
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"sniper no headshots" 1
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demoman
+				Attributes IgnoreFlag
+				Tag special_main_left
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 3
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Sniper_Huntsman
+				Attributes DisableDodge
+				Tag special_main_left
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"sniper no headshots" 1
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 0
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Class Heavyweapons
+				Attributes DisableDodge
+				Tag special_main_left
+				Skill Hard
+				Action Mobber
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AimTrackingInterval 1	[$SIGSEGV]
+				Tag "bot_mid"
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"cannot pick up intelligence" 1
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 6
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Demoman_Knight
+				Attributes DisableDodge
+				Tag special_main_left
+				Attributes IgnoreFlag
+			}
+		}
+		Wavespawn
+		{
+			Name "VIP"
+			Where "RedVip"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 999
+			TotalCurrency 457
+			RandomSpawn 1
+			WaitForAllSpawned "E"
+			TFBot
+			{
+				Class Heavyweapons
+				Name "VIP Giant Rapidfire Demoman"
+				Scale 1.8
+				Attributes UseBossHealthBar
+				Health 8600
+				AlwaysGlow 1	[$SIGSEGV]
+				Attributes IgnoreFlag
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"faster reload rate" 0.5
+				}
+				CharacterAttributes
+				{
+					"move speed bonus" 0.65
+					"health from packs decreased" 0.01
+					"airblast vulnerability multiplier" 0.1
+					"override footstep sound set" 4
+					"health regen" 5
+					"heal on kill" 65
+					"force distribute currency on death" 1	[$SIGSEGV]
+					"dmg taken increased" 0.05
+					"dmg from melee increased" 20
+					"dmg from ranged reduced" 20
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action PushToCapturePoint
+					Attributes IgnoreFlag
+					Skill Expert
+					Tag "bot_hatch"
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"dmg penalty vs players" 1.15
+					}
+				}
+				TFBot
+				{
+					Class Soldier
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					AimTrackingInterval 0.25	[$SIGSEGV]
+					Action PushToCapturePoint
+					Attributes IgnoreFlag
+					Skill Hard
+					Tag "bot_hatch"
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rdSide"
+			TotalCount 5
+			MaxActive 3
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Bison
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action PushToCapturePoint
+					Attributes IgnoreFlag
+					Skill Expert
+					Tag "bot_hatch"
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"dmg penalty vs players" 1.15
+					}
+				}
+				TFBot
+				{
+					Class Soldier
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					AimTrackingInterval 0.25	[$SIGSEGV]
+					Action PushToCapturePoint
+					Attributes IgnoreFlag
+					Skill Hard
+					Tag "bot_hatch"
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "W1_Demo_VIP"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demo_Rapidfire
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				Action PushToCapturePoint
+				Tag "bot_hatch"
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "HATCH_HOLD_DEMO"
+			Where "HATCHHOLD"
+			TotalCount 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			RandomSpawn 1
+			TFBot
+			{
+				Class Demoman
+				Skill Expert
+				Scale 1.5
+				Name "Large Demoman"
+				Health 650
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				VoiceCommand	[$SIGSEGV]
+				{
+					Delay 0
+					Repeats 1
+					IfSeeTarget 1
+					Type "Incoming"
+				}
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"move speed penalty" 0.01
+					"crit mod disabled" 0
+					"damage force reduction" 0.01
+					"airblast vulnerability multiplier" 0.01
+					"airblast vertical vulnerability multiplier" 0.01
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "C"
+			Name "done"
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "done"
+			Name "relay"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 9999
+			Support Limited
+			TFBot
+			{
+				Class Scout
+				ClassIcon sentry_gun_red_nys
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			RandomSpawn 1
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Health 10
+				ClassIcon blu2_lite
+				CharacterAttributes
+				{
+					"move speed bonus" 1.4
+					"health regen" -2
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Heavyweight_Champ
+				Action EscortFlag
+				Tag special_main_right
+				CharacterAttributes
+				{
+					"cannot pick up intelligence" 1
+				}
+				ClassIcon blu2_lite
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Class Scout
+				Skill Expert
+				WeaponRestrictions SecondaryOnly
+				Name "Pistol Scout"
+				Action EscortFlag
+				Tag special_main_right
+				CharacterAttributes
+				{
+					"cannot pick up intelligence" 1
+				}
+				ClassIcon blu2_lite
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-400 450 435"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-1030 -451 485"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "-100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "241 -744 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "1327 -659 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "1287 -859 522"
+			"angles" "0 180 0"
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 16
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 12
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Pyro
+				Attributes AlwaysFireWeapon
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 16
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 12
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Pyro
+				Attributes AlwaysFireWeapon
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMidG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Bison
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				ItemAttributes
+				{
+					ItemName "The Righteous Bison"
+					"crit mod disabled" 0
+					"fire rate bonus" 0.35
+					"dmg penalty vs players" 1.25
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndLeftG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 10
+			TotalCurrency 0
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Bison
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				ItemAttributes
+				{
+					ItemName "The Righteous Bison"
+					"crit mod disabled" 0
+					"fire rate bonus" 0.35
+					"dmg penalty vs players" 1.25
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 10
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red
+				Attributes DisableDodge
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 12
+			TotalCurrency 4
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Class Soldier
+				Skill Hard
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 14
+			TotalCurrency 4
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Class Soldier
+				Skill Hard
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 2
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red
+				Attributes DisableDodge
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 2
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red
+				Attributes DisableDodge
+				SKill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Heavyweight_Champ
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Soldier_Extended_Buff_Banner
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "RedBanner2nd"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Soldier_Extended_Buff_Banner
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 7
+			MaxActive 4
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 14
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Demoman_Loads_of_Bombs
+				Attributes DisableDodge
+				ClassIcon demo_scatter_red
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 8
+			WaitBeforeStarting 0
+			TotalCurrency 8
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Heavyweight_Champ
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "F"
+			Where "3rd"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			TotalCurrency 14
+			RandomSpawn 1
+			WaitForAllDead "E"
+			TFBot
+			{
+				Template T_TFBot_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red
+				Attributes DisableDodge
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action EscortFlag
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 10
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Class Soldier
+				Skill Hard
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "VIP"
+			Where "RedVip"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 999
+			TotalCurrency 1052
+			RandomSpawn 1
+			WaitForAllSpawned "E"
+			TFBot
+			{
+				Class Pyro
+				Name "VIP Giant Blast Soldier"
+				Scale 1.8
+				Attributes UseBossHealthBar
+				Health 9900
+				AlwaysGlow 1	[$SIGSEGV]
+				ItemAttributes
+				{
+					ItemName "The Liberty Launcher"
+					"fire rate bonus" 0.2
+				}
+				CharacterAttributes
+				{
+					"move speed bonus" 0.65
+					"health from packs decreased" 0.01
+					"airblast vulnerability multiplier" 0.1
+					"override footstep sound set" 4
+					"health regen" 5
+					"heal on kill" 65
+					"force distribute currency on death" 1	[$SIGSEGV]
+					"dmg taken increased" 0.05
+					"dmg from melee increased" 20
+					"dmg from ranged reduced" 20
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "C"
+			Name "done"
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "done"
+			Name "relay"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red_giant
+				Tag bot_hatch
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 5
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Shotgun
+				Tag bot_hatch
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rdSide"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 6
+			TotalCurrency 4
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Shotgun
+				Tag bot_hatch
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "HATCHHOLD"
+			TotalCount 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Demoman_Bombs_Everywhere
+				ClassIcon demo_scatter_red
+				Scale 1.5
+				Skill Expert
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				VoiceCommand	[$SIGSEGV]
+				{
+					Delay 0
+					Repeats 1
+					IfSeeTarget 1
+					Type "Help"
+				}
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"move speed penalty" 0.01
+					"crit mod disabled" 0
+					"damage force reduction" 0.01
+					"airblast vulnerability multiplier" 0.01
+					"airblast vertical vulnerability multiplier" 0.01
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 9999
+			Support Limited
+			TFBot
+			{
+				Class Scout
+				ClassIcon sentry_gun_red_nys
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			RandomSpawn 1
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Health 10
+				ClassIcon blu2_lite
+				CharacterAttributes
+				{
+					"move speed bonus" 1.4
+					"health regen" -2
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "BluSup"
+			Where spawnbot_giant
+			TotalCount 20
+			MaxActive 4
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 4.5
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Soldier_Shotgun
+				Action EscortFlag
+				Tag special_main_right
+				CharacterAttributes
+				{
+					"cannot pick up intelligence" 1
+				}
+				ClassIcon blu2_lite
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "-400 450 435"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "-1030 -451 485"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "-181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "-100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry1"
+			"origin" "241 -744 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "1327 -659 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "1287 -859 522"
+			"angles" "0 180 0"
+		}
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 7
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Shotgun
+					Skill Hard
+					Attributes DisableDodge
+					ClassIcon heavy_shotgun_red
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 7
+			TotalCurrency 18
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Shotgun
+				ClassIcon heavy_shotgun_red
+				Attributes DisableDodge
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMidG"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Scout_FAN
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndLeftG"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 10
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Scout_FAN
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndleftG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demo_Burst
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 2
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Sandman_FastCharge
+				Attributes DisableDodge
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 4
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Sandman_FastCharge
+				Attributes DisableDodge
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 4
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Sandman_FastCharge
+				Attributes DisableDodge
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Demo_Burst
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst_Spammer
+				ClassIcon demo_burst_red_giant
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 9
+			MaxActive 9
+			SpawnCount 9
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 8
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Shotgun
+				ClassIcon heavy_shotgun_red
+				Skill Hard
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "RedVIP"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 8
+			TotalCurrency 30
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst_Spammer
+				ClassIcon demo_burst_red_giant
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "RedVIP"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 8
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Scout_FAN
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 0
+			TotalCurrency 8
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Fist
+				Attributes DisableDodge
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rdSide"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 4
+			TotalCurrency 8
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Heavyweapons_Fist
+				Attributes DisableDodge
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "VIP"
+			Where "RedVip"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 9999
+			TotalCurrency 483
+			RandomSpawn 1
+			WaitForAllSpawned "E"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Sandman
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Name "VIP Giant Burst Spammer Demoman"
+				Scale 1.8
+				Attributes UseBossHealthBar
+				Health 10300
+				AlwaysGlow 1	[$SIGSEGV]
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"faster reload rate" 0.3
+				}
+				CharacterAttributes
+				{
+					"move speed bonus" 0.65
+					"health from packs decreased" 0.01
+					"airblast vulnerability multiplier" 0.1
+					"override footstep sound set" 4
+					"health regen" 5
+					"heal on kill" 65
+					"force distribute currency on death" 1	[$SIGSEGV]
+					"dmg taken increased" 0.05
+					"dmg from melee increased" 20
+					"dmg from ranged reduced" 20
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 3
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demo_Burst
+				Tag bot_hatch
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rdSide"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 2
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demo_Burst
+				Tag bot_hatch
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 2
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Demo_Burst
+				Tag bot_hatch
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 8
+			TotalCurrency 15
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Aimless
+				ClassIcon heavy_accurate_lite
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Tag bot_hatch
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Gun_Nut_VIP"
+			Where "RedVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 90
+			WaitBetweenSpawns 8
+			TotalCurrency 15
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Aimless
+				ClassIcon heavy_accurate_lite
+				Action Mobber
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "C"
+			Name "done"
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "done"
+			Name "relay"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Where "HATCHHOLD"
+			TotalCount 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Fist
+				Skill Expert
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				VoiceCommand	[$SIGSEGV]
+				{
+					Delay 0
+					Repeats 1
+					IfSeeTarget 1
+					Type "No"
+				}
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"move speed penalty" 0.01
+					"crit mod disabled" 0
+					"damage force reduction" 0.01
+					"airblast vulnerability multiplier" 0.01
+					"airblast vertical vulnerability multiplier" 0.01
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 9999
+			Support Limited
+			TFBot
+			{
+				Class Scout
+				ClassIcon sentry_gun_lvl2_red_lite
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			RandomSpawn 1
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Health 10
+				ClassIcon blu2_lite
+				CharacterAttributes
+				{
+					"move speed bonus" 1.4
+					"health regen" -2
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "BluB"
+			Where spawnbot
+			TotalCount 8
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 7
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Soldier_Mangle_Rapidfire
+				Action EscortFlag
+				Tag special_main_right
+				CharacterAttributes
+				{
+					"cannot pick up intelligence" 1
+				}
+				ClassIcon blu2_lite
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-400 450 435"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-1030 -451 485"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry2"
+			"origin" "241 -744 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "1327 -659 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "1287 -859 522"
+			"angles" "0 180 0"
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 12
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 7
+			TotalCurrency 12
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Soldier_Mangle_Rapidfire
+				Skill Hard
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 12
+			MaxActive 4
+			SpawnCount 4
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 7
+			TotalCurrency 12
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			TFBot
+			{
+				Template T_TFBot_Soldier_Mangle_Rapidfire
+				Attributes DisableDodge
+				Skill Hard
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMidG"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 7
+			TotalCurrency 30
+			RandomSpawn 1
+			WaitForAllSpawned "A"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer_Spread
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					Attributes DisableDodge
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"voice pitch scale" 0
+						"damage force reduction" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+					Attributes DisableDodge
+					Skill Expert
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndleftG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Heavyweapons
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 8
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 2
+			TotalCurrency 6
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Class Heavyweapons
+				Attributes DisableDodge
+				Skill Hard
+				Action Mobber
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AimTrackingInterval 1	[$SIGSEGV]
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "REDVIP"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Mangle_Rapidfire
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				Attributes AlwaysCrit
+				CharacterAttributes
+				{
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Mangle_Rapidfire
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				Attributes AlwaysCrit
+				CharacterAttributes
+				{
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "D"
+			Where "3rd"
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 8
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 8
+			RandomSpawn 1
+			WaitForAllDead "C"
+			TFBot
+			{
+				Class Heavyweapons
+				Attributes DisableDodge
+				Skill Hard
+				Action Mobber
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AimTrackingInterval 1	[$SIGSEGV]
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllDead "D"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Mangle_Rapidfire
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					Attributes DisableDodge
+					Attributes AlwaysCrit
+					CharacterAttributes
+					{
+						"voice pitch scale" 0
+						"damage force reduction" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+					Attributes DisableDodge
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllDead "D"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Mangle_Rapidfire
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					Attributes DisableDodge
+					Attributes AlwaysCrit
+					CharacterAttributes
+					{
+						"voice pitch scale" 0
+						"damage force reduction" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+					Attributes DisableDodge
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "REDVIP"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 30
+			RandomSpawn 1
+			WaitForAllDead "D"
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Red_Giant_Heavyweapons
+					Attributes DisableDodge
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"voice pitch scale" 0
+						"damage force reduction" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+					Attributes DisableDodge
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 4
+			WaitBeforeStarting 0
+			TotalCurrency 4
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Class Heavyweapons
+				Skill Hard
+				Attributes DisableDodge
+				Action Mobber
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AimTrackingInterval 1	[$SIGSEGV]
+				Attributes IgnoreFlag
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "C"
+			Name "done"
+		}
+		WaveSpawn
+		{
+			WaitForAllDead "done"
+			Name "relay"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Name "E"
+			Where "3rd"
+			TotalCount 10
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 0
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllDead "D"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Shortstop
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "VIP"
+			Where "RedVip"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 9999
+			TotalCurrency 733
+			RandomSpawn 1
+			WaitForAllSpawned "E"
+			TFBot
+			{
+				Template T_TFBot_Red_Scout_Shortstop
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Name "VIP Giant Mangler Rapidfire Soldier"
+				Scale 1.8
+				Attributes UseBossHealthBar
+				Health 12000
+				AlwaysGlow 1	[$SIGSEGV]
+				ItemAttributes
+				{
+					ItemName "The Cow Mangler 5000"
+					"fire rate bonus" 0.15
+				}
+				CharacterAttributes
+				{
+					"move speed bonus" 0.65
+					"health from packs decreased" 0.01
+					"airblast vulnerability multiplier" 0.1
+					"override footstep sound set" 4
+					"health regen" 5
+					"heal on kill" 65
+					"force distribute currency on death" 1	[$SIGSEGV]
+					"dmg taken increased" 0.05
+					"dmg from melee increased" 20
+					"dmg from ranged reduced" 20
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 3
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Pyro_Flaregun
+				Tag bot_hatch
+				ClassIcon pyro_flare_red
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rdSide"
+			TotalCount 3
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			TotalCurrency 3
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Pyro_Flaregun
+				Tag bot_hatch
+				ClassIcon pyro_flare_red
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 4
+			MaxActive 4
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 4
+			RandomSpawn 1
+			Support 1
+			TFBot
+			{
+				Template T_TFBot_Red_Pyro_Flaregun
+				Tag bot_hatch
+				ClassIcon pyro_flare_red
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 35
+			RandomSpawn 1
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Unload_Spread_Homing
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Tag bot_hatch
+					Action Mobber
+					Attributes DisableDodge
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"voice pitch scale" 0
+						"damage force reduction" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickFix_RapidUber
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 2
+			WaitBeforeStarting 0
+			TotalCurrency 10
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Scout
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Tag bot_hatch
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "HATCHHOLD"
+			TotalCount 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout
+				Skill Expert
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"move speed penalty" 0.01
+					"crit mod disabled" 0
+					"damage force reduction" 0.01
+					"airblast vulnerability multiplier" 0.01
+					"airblast vertical vulnerability multiplier" 0.01
+					"voice pitch scale" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 9999
+			Support Limited
+			TFBot
+			{
+				Class Scout
+				ClassIcon sentry_gun_lvl3_red_lite
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			RandomSpawn 1
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Health 10
+				ClassIcon blu2_lite
+				CharacterAttributes
+				{
+					"move speed bonus" 1.4
+					"health regen" -2
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "BluSup"
+			Where spawnbot_giant
+			TotalCount 50
+			MaxActive 4
+			SpawnCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			RandomSpawn 1
+			Support 1
+			Squad
+			{
+				TFBot
+				{
+					Class Demoman
+					Skill Expert
+					ClassIcon blu2_lite
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Quickfix
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					ClassIcon blu2_lite
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target durationW5
+				Action Trigger
+			}
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-400 450 435"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-1030 -451 485"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-181 -1719 350"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "-100 -2222 360"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "241 -744 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "1327 -659 737"
+			"angles" "0 90 0"
+		}
+		SpawnTemplate	[$SIGSEGV]
+		{
+			Name "Sentry3"
+			"origin" "1287 -859 522"
+			"angles" "0 180 0"
+		}
+		Checkpoint Yes
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			Deploy the bomb within the time limit to win." Line
+			"
+			{
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMidG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 5
+			TotalCurrency 15
+			WaitForAllSpawned "A"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red_giant
+				Attributes DisableDodge
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 18
+			WaitForAllDead "A"
+			RandomSpawn 1
+			Squad
+			{
+				TFBot
+				{
+					Class Soldier
+					Attributes DisableDodge
+					Skill Hard
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Red_Medic_BigHeal
+					Attributes DisableDodge
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMid"
+			TotalCount 18
+			MaxActive 6
+			SpawnCount 6
+			WaitBetweenSpawns 3
+			WaitBeforeStarting 0
+			TotalCurrency 18
+			WaitForAllDead "A"
+			RandomSpawn 1
+			Squad
+			{
+				TFBot
+				{
+					Class Soldier
+					Skill Hard
+					Attributes DisableDodge
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Red_Medic_BigHeal
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndMidG"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 6
+			TotalCurrency 15
+			WaitForAllDead "A"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_scout_Baseball_Armored
+				ClassIcon scout_stun_armored_red
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "B"
+			Where "2ndLeftG"
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 7
+			WaitBetweenSpawns 6
+			TotalCurrency 15
+			WaitForAllDead "A"
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_scout_Baseball_Armored
+				ClassIcon scout_stun_armored_red
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndleftG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			TotalCurrency 25
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Heavyweapons_Deflector
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMidG"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 10
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Heavyweapons_Shotgun
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndRight"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 2
+			TotalCurrency 15
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Giant_Demoman_Loads_of_Bombs
+				ClassIcon demo_scatter_red_giant
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 12
+			MaxActive 5
+			SpawnCount 3
+			WaitBeforeStarting 2
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Soldier_Extended_Concheror
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "C"
+			Where "2ndMid"
+			TotalCount 12
+			MaxActive 5
+			SpawnCount 3
+			WaitBeforeStarting 2
+			TotalCurrency 10
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Soldier_Extended_Concheror
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "VIP"
+			Where "RedVip"
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 20
+			TotalCurrency 2008
+			RandomSpawn 1
+			TFBot
+			{
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Action Mobber
+				Class Demoman
+				Name "Spam Adept"
+				Skill Expert
+				Health 312000
+				Attributes MiniBoss
+				WeaponRestrictions SecondaryOnly
+				MaxVisionRange 3000
+				ClassIcon demo_burst_stickie_red
+				Attributes IgnoreFlag
+				Scale 1.9
+				Tag bot_hatch
+				Attributes AlwaysFireWeapon
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_INVULNERABLE
+				}
+				VoiceCommand	[$SIGSEGV]
+				{
+					Delay 0
+					Repeats 1
+					IfSeeTarget 1
+					Type "Jeers"
+				}
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"faster reload rate" -0.65
+					"fire rate bonus" 0.65
+					"projectile spread angle penalty" 6.5
+					"Projectile speed increased" 1.33
+					"blast radius increased" 1.33
+					"mult projectile count" 2	[$SIGSEGV]
+					"rocket jump damage reduction" 0.01
+					"is_passive_weapon" 1
+					"fire rate bonus with reduced health" 0.7
+				}
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_PIPEBOMBLAUNCHER"
+					"fire rate bonus" 0.35
+					"projectile spread angle penalty" 100
+					"Projectile speed increased" 1.5
+					"faster reload rate" -0.65
+					"blast radius increased" 1.2
+					"damage bonus" 1.2
+					"stickybomb charge rate" 0.001
+					"max pipebombs increased" 10
+					"fire rate bonus with reduced health" 0.4
+				}
+				CharacterAttributes
+				{
+					"health regen" 100
+					"move speed bonus" 0.52
+					"damage force reduction" 0.1
+					"airblast vulnerability multiplier" 0.2
+					"override footstep sound set" 3
+					"airblast vertical vulnerability multiplier" 0.2
+					"rage giving scale" 0.1
+					"force distribute currency on death" 1	[$SIGSEGV]
+					"dmg taken increased" 0.02
+					"dmg from melee increased" 50
+					"dmg from ranged reduced" 50
+					"voice pitch scale" 0.68
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "RedVIP"
+			TotalCount 3
+			MaxActive 1
+			SpawnCount 1
+			WaitBeforeStarting 120
+			TotalCurrency 20
+			RandomSpawn 1
+			WaitForAllSpawned "B"
+			TFBot
+			{
+				Template T_TFBot_Red_Giant_Heavyweapons_Shotgun
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"crit mod disabled" 0
+					"voice pitch scale" 0
+					"damage force reduction" 0
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 5
+			MaxActive 5
+			SpawnCount 5
+			WaitBeforeStarting 0
+			TotalCurrency 5
+			RandomSpawn 1
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Tag bot_hatch
+					ClassIcon heavy_shotgun_red
+					Skill Expert
+					Attributes AlwaysCrit
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Tag bot_hatch
+					ClassIcon heavy_shotgun_red
+					Skill Expert
+					Attributes AlwaysCrit
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Pistol
+					Tag bot_hatch
+					Skill Hard
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Pistol
+					Tag bot_hatch
+					Skill Hard
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rdSide"
+			TotalCount 6
+			MaxActive 6
+			SpawnCount 6
+			WaitBeforeStarting 0
+			TotalCurrency 6
+			RandomSpawn 1
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Tag bot_hatch
+					ClassIcon heavy_shotgun_red
+					Skill Expert
+					Attributes AlwaysCrit
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Tag bot_hatch
+					ClassIcon heavy_shotgun_red
+					Skill Expert
+					Attributes AlwaysCrit
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Pistol
+					Tag bot_hatch
+					Skill Hard
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Pistol
+					Tag bot_hatch
+					Skill Hard
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "HATCHHOLD"
+			TotalCount 1
+			SpawnCount 1
+			WaitBetweenSpawns 5
+			WaitBeforeStarting 0
+			RandomSpawn 1
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Shotgun
+				ClassIcon heavy_shotgun_red_giant
+				Skill Expert
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				Attributes IgnoreFlag
+				Attributes DisableDodge
+				CharacterAttributes
+				{
+					"move speed penalty" 0.01
+					"crit mod disabled" 0
+					"damage force reduction" 0.01
+					"airblast vulnerability multiplier" 0.01
+					"airblast vertical vulnerability multiplier" 0.01
+				}
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 9999
+			Support Limited
+			TFBot
+			{
+				Class Scout
+				ClassIcon sentry_gun_lvl3_red_lite
+			}
+		}
+		WaveSpawn
+		{
+			Name "relay"
+			FirstSpawnOutput
+			{
+				Target hatch_reveal_relay
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Name "BluA"
+			Where spawnbot
+			TotalCount 1
+			MaxActive 1
+			SpawnCount 1
+			RandomSpawn 1
+			Support Limited
+			TFBot
+			{
+				Template T_TFBot_Scout_Melee
+				Health 10
+				ClassIcon blu2_lite
+				CharacterAttributes
+				{
+					"move speed bonus" 1.4
+					"health regen" -2
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "BluSup"
+			Where spawnbot_giant
+			TotalCount 50
+			MaxActive 3
+			SpawnCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 0
+			RandomSpawn 1
+			WaitForAllDead "BluB"
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Class Scout
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Class Soldier
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Class Pyro
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Class Demoman
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Sniper_Huntsman
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Mangle_Rapidfire
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Scout_Guillotine_FastCharge
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Demoman_Knight
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Shotgun
+					Action EscortFlag
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					Skill Expert
+					ClassIcon blu2_lite
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Quickfix
+					Tag special_main_right
+					CharacterAttributes
+					{
+						"cannot pick up intelligence" 1
+					}
+					ClassIcon blu2_lite
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action trigger
+		}
+		Checkpoint Yes
+		Explanation	[$SIGSEGV]
+		{
+			Line
+			{
+			}
+			We have a few loose ends to tie up before Coaltown is recaptured." Line
+			"
+			{
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target durationW6
+				Action Trigger
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset1
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset2
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset3
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset4
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset5
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset6
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset7
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset8
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset9
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset10
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset11
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset12
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset13
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset14
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset15
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset16
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset17
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset18
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset19
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset20
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset21
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset22
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset23
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset24
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset25
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset26
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset27
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset28
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset29
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset30
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset31
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset32
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset33
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset34
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "2ndMid"
+			TotalCount 1
+			SpawnCount 1
+			Support Limited
+			FirstSpawnOutput
+			{
+				Target fenceset35
+				Action Kill
+			}
+		}
+		Wavespawn
+		{
+			Where "REDVIP"
+			TotalCount 1
+			SpawnCount 1
+			WaitBeforeStarting 0
+			TotalCurrency 0
+			FirstSpawnWarningSound "#howl_hush_antibirth.mp3"
+			RandomSpawn 1
+			FirstSpawnMessage	[$SIGSEGV]
+			{
+			}
+			♫ Now Playing ♫ 
+			{
+			}
+			 : 
+			{
+			}
+			 Howl - Mudeth 
+			{
+			}
+			" TFBot
+			
+			{
+				Template T_TFBot_Giant_Soldier
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_REPROGRAMMED
+				}
+				AddCond	[$SIGSEGV]
+				{
+					Name TF_COND_SODAPOPPER_HYPE
+				}
+				Action Mobber
+				ClassIcon soldier_gib_lite
+				Attributes DisableDodge
+				Attributes UseBossHealthBar
+				Attributes AlwaysFireWeapon
+				WeaponRestrictions PrimaryOnly
+				Item "War Head"
+				Item "The Direct Hit"
+				Item "The Righteous Bison"
+				Item "The Equalizer"
+				Health 96000
+				Name "THE CORRUPTED"
+				Scale 2.15
+				AlwaysGlow 1	[$SIGSEGV]
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					Name "A"
+				}
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					IfHealthBelow 80000
+					Name "B"
+				}
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					IfHealthBelow 64000
+					Name "C"
+				}
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					IfHealthBelow 48000
+					Name "D"
+				}
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					IfHealthBelow 32000
+					Name "E"
+				}
+				ChangeAttributes
+				{
+					Delay 0.1
+					Repeats 1
+					IfHealthBelow 16000
+					Name "F"
+				}
+				UseCustomModel models/bots/soldier_boss/bot_soldier_boss_gibby.mdl	[$SIGSEGV]
+				EventChangeAttributes
+				{
+					A
+					{
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 8	[$SIGSEGV]
+							"fire rate bonus" 1.35
+							"Projectile speed increased" 0.65
+							"projectile spread angle penalty" 12.5
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 20	[$SIGSEGV]
+							"mod projectile heat aim error" 3000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 0.28	[$SIGSEGV]
+							"projectile lifetime" 5	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 8	[$SIGSEGV]
+							"is_passive_weapon" 1
+							"fire rate bonus" 1.5
+							"Projectile speed increased" 0.65
+							"dmg penalty vs players" 0.65
+							"projectile spread angle penalty" 65
+							"mod projectile heat seek power" 18	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 7	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						CharacterAttributes
+						{
+							"move speed bonus" 0.65
+							"damage force reduction" 0.1
+							"airblast vulnerability multiplier" 0.01
+							"override footstep sound set" 3
+							"airblast vertical vulnerability multiplier" 0.01
+							"rage giving scale" 0.05
+							"increased jump height" 2
+							"dmg taken increased" 0.05
+							"dmg from ranged reduced" 20
+							"dmg from melee increased" 20
+							"head scale" 1.2
+							"boots falling stomp" 1
+							"health from healers reduced" 0.1
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+							"voice pitch scale" 0
+						}
+					}
+					B
+					{
+						Skill Expert
+						WeaponRestrictions PrimaryOnly
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 2	[$SIGSEGV]
+							"fire rate bonus" 0.09
+							"Projectile speed increased" 0.65
+							"damage bonus" 1.5
+							"is_passive_weapon" 0
+							"projectile spread angle penalty" 100
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 75	[$SIGSEGV]
+							"mod projectile heat aim error" 4000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 0.45	[$SIGSEGV]
+							"projectile lifetime" 5	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 2	[$SIGSEGV]
+							"fire rate bonus" 0.8
+							"is_passive_weapon" 1
+							"Projectile speed increased" 0.65
+							"dmg penalty vs players" 0.65
+							"projectile spread angle penalty" 65
+							"mod projectile heat seek power" 20	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 7	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+					}
+					C
+					{
+						Skill Expert
+						WeaponRestrictions PrimaryOnly
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 18	[$SIGSEGV]
+							"fire rate bonus" 3
+							"Projectile speed increased" 0.7
+							"is_passive_weapon" 0
+							"projectile spread angle penalty" 20
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 1	[$SIGSEGV]
+							"mod projectile heat aim error" 4000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 4	[$SIGSEGV]
+							"projectile lifetime" 5	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 19	[$SIGSEGV]
+							"fire rate bonus" 2.5
+							"is_passive_weapon" 1
+							"Projectile speed increased" 0.35
+							"dmg penalty vs players" 0.35
+							"projectile spread angle penalty" 40
+							"mod projectile heat seek power" 18	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 5	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+					}
+					D
+					{
+						Skill Expert
+						WeaponRestrictions PrimaryOnly
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 3	[$SIGSEGV]
+							"fire rate bonus" 0.35
+							"Projectile speed increased" 0.65
+							"dmg penalty vs players" 0.65
+							"damage bonus" 1.5
+							"is_passive_weapon" 0
+							"projectile spread angle penalty" 15
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 2	[$SIGSEGV]
+							"mod projectile heat aim error" 4000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 4	[$SIGSEGV]
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 26	[$SIGSEGV]
+							"fire rate bonus" 6
+							"is_passive_weapon" 1
+							"Projectile speed increased" 0.45
+							"projectile spread angle penalty" 70
+							"mod projectile heat seek power" 18	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+					}
+					E
+					{
+						Skill Expert
+						WeaponRestrictions PrimaryOnly
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 1	[$SIGSEGV]
+							"fire rate bonus" 1.35
+							"Projectile speed increased" 1.5
+							"damage bonus" 2.2
+							"is_passive_weapon" 0
+							"projectile spread angle penalty" 1
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 2	[$SIGSEGV]
+							"mod projectile heat aim error" 4000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 4	[$SIGSEGV]
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 1	[$SIGSEGV]
+							"fire rate bonus" 0.07
+							"is_passive_weapon" 1
+							"Projectile speed increased" 0.7
+							"dmg penalty vs players" 0.7
+							"projectile spread angle penalty" 70
+							"mod projectile heat seek power" 18	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+					}
+					F
+					{
+						Skill Expert
+						WeaponRestrictions PrimaryOnly
+						ItemAttributes
+						{
+							ItemName "The Direct Hit"
+							"faster reload rate" -0.65
+							"mult projectile count" 4	[$SIGSEGV]
+							"fire rate bonus" 0.7
+							"Projectile speed increased" 0.65
+							"is_passive_weapon" 0
+							"projectile spread angle penalty" 4
+							"no self blast dmg" 2
+							"mod projectile heat seek power" 10	[$SIGSEGV]
+							"mod projectile heat aim error" 4000	[$SIGSEGV]
+							"projectile trail particle" eyeboss_projectile	[$SIGSEGV]
+							"mod projectile heat aim time" 4	[$SIGSEGV]
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+						ItemAttributes
+						{
+							ItemName "The Righteous Bison"
+							"faster reload rate" -0.65
+							"mult projectile count" 50	[$SIGSEGV]
+							"fire rate bonus" 4
+							"is_passive_weapon" 1
+							"Projectile speed increased" 0.65
+							"dmg penalty vs players" 0.65
+							"projectile spread angle penalty" 75
+							"mod projectile heat seek power" 15	[$SIGSEGV]
+							"mod projectile heat aim error" 1500	[$SIGSEGV]
+							"mod projectile heat aim time" 5	[$SIGSEGV]
+							"set item tint rgb" 15132390
+							"projectile lifetime" 6	[$SIGSEGV]
+							"crit mod disabled" 0
+							"Set DamageType Ignite" 1
+						}
+					}
+				}
+			}
+		}
+		Wavespawn
+		{
+			Name "Sup"
+			Where "3rd"
+			TotalCount 100
+			MaxActive 16
+			SpawnCount 11
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 20
+			TotalCurrency 5
+			RandomSpawn 1
+			Support 1
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Name "CORRUPTED"
+					Health 200
+					ClassIcon heavy_shotgun_red
+					UseCustomModel models/bots/soldier/bot_soldier_gibby.mdl	[$SIGSEGV]
+					Skill Easy
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SHOTGUN_SOLDIER"
+						"bullets per shot bonus" 0.2
+						"faster reload rate" -0.8
+						"fire rate bonus" 0.85
+						"weapon spread bonus" 0.75
+						"fire rate bonus with reduced health" 0.4
+						"panic_attack_negative" 1
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Shotgun
+					Name "CORRUPTED"
+					Health 200
+					ClassIcon heavy_shotgun_red
+					UseCustomModel models/bots/soldier/bot_soldier_gibby.mdl	[$SIGSEGV]
+					Skill Easy
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_SHOTGUN_SOLDIER"
+						"bullets per shot bonus" 0.2
+						"faster reload rate" -0.8
+						"fire rate bonus" 0.85
+						"weapon spread bonus" 0.75
+						"fire rate bonus with reduced health" 0.4
+						"panic_attack_negative" 1
+						"crit mod disabled" 0
+					}
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					WeaponRestrictions MeleeOnly
+					Name "CORRUPTED"
+					ClassIcon heavy_fist_nys
+					UseCustomModel models/bots/heavy/bot_heavy_gibby.mdl	[$SIGSEGV]
+					Skill Expert
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"damage penalty" 0.75
+					}
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					WeaponRestrictions MeleeOnly
+					Name "CORRUPTED"
+					ClassIcon heavy_fist_nys
+					UseCustomModel models/bots/heavy/bot_heavy_gibby.mdl	[$SIGSEGV]
+					Skill Expert
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"damage penalty" 0.75
+					}
+				}
+				TFBot
+				{
+					Class Heavyweapons
+					WeaponRestrictions MeleeOnly
+					Name "CORRUPTED"
+					ClassIcon heavy_fist_nys
+					UseCustomModel models/bots/heavy/bot_heavy_gibby.mdl	[$SIGSEGV]
+					Skill Expert
+					AddCond	[$SIGSEGV]
+					{
+						Name TF_COND_REPROGRAMMED
+					}
+					Action Mobber
+					CharacterAttributes
+					{
+						"crit mod disabled" 0
+						"damage penalty" 0.75
+					}
+				}
+			}
+		}
+	}
+}

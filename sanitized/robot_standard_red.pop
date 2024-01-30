@@ -1,0 +1,981 @@
+WaveSchedule
+{
+	Templates
+	{
+		T_TFBot_Red_Sniper
+		{
+			Class Sniper
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Sniper
+			Skill Hard
+			MaxVisionRange 2500
+		}
+		T_TFBot_Red_Sniper_Razorback
+		{
+			Class Sniper
+			Name "Razorback Sniper"
+			Skill Hard
+			Item "The Razorback"
+			Item "The Tribalman's Shiv"
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Sniper
+			MaxVisionRange 2500
+		}
+		T_TFBot_Red_Sniper_Sydney_Sleeper
+		{
+			Class Sniper
+			Name "Sydney Sniper"
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Sniper
+			Skill Hard
+			ClassIcon sniper_sydneysleeper
+			Item "The Sydney Sleeper"
+			Item "The Bushwacka"
+			MaxVisionRange 2500
+		}
+		T_TFBot_Red_Sniper_Jarate
+		{
+			Class Sniper
+			Name "Jarate Master"
+			Skill Hard
+			ClassIcon sniper_jarate
+			Item "Jarate"
+			Item "Desert Marauder"
+			WeaponRestrictions SecondaryOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Sniper_Huntsman
+		{
+			Class Sniper
+			Name "Bowman"
+			Skill Hard
+			ClassIcon sniper_bow
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Huntsman"
+			ItemAttributes
+			{
+				ItemName "The Huntsman"
+				"damage bonus" 0.5
+			}
+		}
+		T_TFBot_Red_Sniper_Huntsman_Smg
+		{
+			Class Sniper
+			Name "SMG Sniper"
+			Skill Expert
+			UseBestWeapon 1	[$SIGSEGV]
+			ClassIcon sniper_smg_tind
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Huntsman"
+			ItemAttributes
+			{
+				ItemName "The Huntsman"
+				"damage bonus" 0.5
+			}
+		}
+		T_TFBot_Red_Sniper_Huntsman_Jarate
+		{
+			Class Sniper
+			Name "Jarate Sniper"
+			Skill Expert
+			UseBestWeapon 1	[$SIGSEGV]
+			ClassIcon sniper_jarate
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Huntsman"
+			Item "Jarate"
+			ItemAttributes
+			{
+				ItemName "The Huntsman"
+				"damage bonus" 0.5
+			}
+		}
+		T_TFBot_Red_Sniper_Huntsman_Spammer
+		{
+			Class Sniper
+			Name "Bowman Rapid Fire"
+			Item "The Huntsman"
+			ClassIcon sniper_bow_multi
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Skill Hard
+			Health 1200
+			Scale 1.5
+			ItemAttributes
+			{
+				ItemName "The Huntsman"
+				"fire rate bonus" 0.6
+			}
+			CharacterAttributes
+			{
+				"head scale" 0.7
+				"move speed bonus" 0.85
+			}
+		}
+		T_TFBot_Red_Scout_Melee
+		{
+			Class Scout
+			Skill Hard
+			WeaponRestrictions MeleeOnly
+			ClassIcon scout_bat
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Scout_Fish
+		{
+			Class Scout
+			Skill Hard
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Holy Mackerel"
+		}
+		T_TFBot_Red_Scout_SunStick
+		{
+			Class Scout
+			Skill Hard
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "Sun-on-a-Stick"
+			Item "The Bolt Boy"
+			ClassIcon scout_sunstick
+		}
+		T_TFBot_Red_Scout_Bonk
+		{
+			Class Scout
+			Skill Hard
+			Item "Bonk! Atomic Punch"
+			Item "Bonk Helm"
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ClassIcon scout_bonk
+		}
+		T_TFBot_Red_Scout_Sandman
+		{
+			Class Scout
+			Name "Minor League Scout"
+			Skill Hard
+			ClassIcon scout_stun
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Sandman"
+			Item "Batter's Helmet"
+		}
+		T_TFBot_Red_Scout_Sandman_FastCharge
+		{
+			Class Scout
+			Name "Hyper League Scout"
+			Skill Hard
+			ClassIcon scout_stun
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Sandman"
+			Item "Batter's Helmet"
+			ItemAttributes
+			{
+				ItemName "The Sandman"
+				"effect bar recharge rate increased" 0.25
+			}
+		}
+		T_TFBot_Red_Scout_Wrap_Assassin
+		{
+			Class Scout
+			Name "Wrap Assassin"
+			Skill Hard
+			WeaponRestrictions MeleeOnly
+			ExtAttr AlwaysFireWeaponAlt	[$SIGSEGV]
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Wrap Assassin"
+			ItemAttributes
+			{
+				ItemName "The Wrap Assassin"
+				"effect bar recharge rate increased" 0.25
+			}
+		}
+		T_TFBot_Red_Scout_Jumping_Sandman
+		{
+			Class Scout
+			Skill Hard
+			ClassIcon scout_jumping
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Sandman"
+			Item "The Hanger-On Hood"
+			Item "The Flight of the Monarch"
+			Attributes AutoJump
+			AutoJumpMin 5
+			AutoJumpMax 5
+			CharacterAttributes
+			{
+				"increased jump height" 2
+			}
+			ItemAttributes
+			{
+				ItemName "The Sandman"
+				"effect bar recharge rate increased" 0.5
+			}
+		}
+		T_TFBot_Red_Scout_Scattergun_SlowFire
+		{
+			Class Scout
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SCATTERGUN"
+				"fire rate bonus" 1.15
+			}
+		}
+		T_TFBot_Red_Scout
+		{
+			Class Scout
+			Skill Hard
+			UseBestWeapon 1	[$SIGSEGV]
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Scout_FAN
+		{
+			Class Scout
+			Skill Expert
+			ClassIcon scout_fan
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Name "Force-A-Nature Scout"
+			Item "The Fed-Fightin' Fedora"
+			Item "The Bolt Boy"
+			Item "The Force-a-Nature"
+			MaxVisionRange 500
+			ItemAttributes
+			{
+				ItemName "The Force-a-Nature"
+				"faster reload rate" 1.6
+				"scattergun knockback mult" 1.5
+				"damage bonus" 0.65
+			}
+		}
+		T_TFBot_Red_Scout_Shortstop
+		{
+			Class Scout
+			Skill Hard
+			ClassIcon scout_shortstop
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Shortstop"
+			Name "Shortstop Scout"
+			Health 650
+			Scale 1.4
+			CharacterAttributes
+			{
+				"head scale" 0.7
+				"move speed bonus" 1.25
+			}
+		}
+		T_TFBot_Red_Spy
+		{
+			Class Spy
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Skill Expert
+		}
+		T_TFBot_Red_Medic
+		{
+			Class Medic
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Name "Uber Medic"
+			ClassIcon medic_uber
+			Skill Hard
+			Attributes SpawnWithFullCharge
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_MEDIGUN"
+				"ubercharge rate bonus" 2
+			}
+			CharacterAttributes
+			{
+				"heal rate bonus" 5
+			}
+		}
+		T_TFBot_Red_Medic_QuickUber
+		{
+			Class Medic
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Name "Uber Medic"
+			ClassIcon medic_uber
+			Skill Hard
+			Attributes SpawnWithFullCharge
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_MEDIGUN"
+				"ubercharge rate bonus" 5
+				"uber duration bonus" -3
+			}
+			CharacterAttributes
+			{
+				"heal rate bonus" 0.1
+			}
+		}
+		T_TFBot_Red_Medic_BigHeal
+		{
+			Class Medic
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Name "Quick-Fix Medic"
+			Skill Hard
+			Item "The Quick-Fix"
+			ItemAttributes
+			{
+				ItemName "The Quick-Fix"
+				"ubercharge rate bonus" 0.1
+			}
+			CharacterAttributes
+			{
+				"heal rate bonus" 10
+			}
+		}
+		T_TFBot_Red_Medic_QuickFix
+		{
+			Class Medic
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Name "Quick-Fix Medic"
+			Skill Hard
+			Item "The Quick-Fix"
+		}
+		T_TFBot_Red_Medic_SlowRecharge
+		{
+			Class Medic
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Name "Uber Medic"
+			ClassIcon medic_uber
+			Skill Hard
+			Attributes SpawnWithFullCharge
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_MEDIGUN"
+				"ubercharge rate bonus" 0.25
+			}
+			CharacterAttributes
+			{
+				"heal rate bonus" 5
+			}
+		}
+		T_TFBot_Red_Medic_Vaccinator_Bullet
+		{
+			Class Medic
+			Skill Expert
+			Item "The Vaccinator"
+			WeaponRestrictions SecondaryOnly
+			Attributes SpawnWithFullCharge
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Attributes VaccinatorBullets
+			ItemAttributes
+			{
+				ItemName "The Vaccinator"
+				"ubercharge rate bonus" 25
+				"medigun bullet resist passive" 1
+				"medigun bullet resist deployed" 1
+			}
+		}
+		T_TFBot_Red_Medic_Vaccinator_Blast
+		{
+			Class Medic
+			Skill Expert
+			Item "The Vaccinator"
+			WeaponRestrictions SecondaryOnly
+			Attributes SpawnWithFullCharge
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Attributes VaccinatorBlast
+			ItemAttributes
+			{
+				ItemName "The Vaccinator"
+				"ubercharge rate bonus" 25
+				"medigun blast resist passive" 1
+				"medigun blast resist deployed" 1
+			}
+		}
+		T_TFBot_Red_Medic_Vaccinator_Fire
+		{
+			Class Medic
+			Skill Expert
+			Item "The Vaccinator"
+			WeaponRestrictions SecondaryOnly
+			Attributes SpawnWithFullCharge
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Attributes VaccinatorFire
+			ItemAttributes
+			{
+				ItemName "The Vaccinator"
+				"ubercharge rate bonus" 25
+				"medigun fire resist passive" 1
+				"medigun fire resist deployed" 1
+			}
+		}
+		T_TFBot_Red_Heavyweapons_Fist
+		{
+			Class Heavyweapons
+			Name "Steel Gauntlet"
+			Skill Hard
+			ClassIcon heavy_steelfist
+			Health 900
+			Scale 1.5
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "Fists of Steel"
+		}
+		T_TFBot_Red_Heavyweapons_Heavyweight_Champ
+		{
+			Class Heavyweapons
+			Name "Heavyweight Champ"
+			Skill Hard
+			ClassIcon heavy_champ_red
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "the killing gloves of boxing"
+			Item "Pugilist's Protector"
+		}
+		T_TFBot_Red_Heavyweapons_Heavyweight_Champ_Fast
+		{
+			Class Heavyweapons
+			Name "Heavyweight Champ"
+			Skill Hard
+			ClassIcon heavy_urgent
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "Gloves of Running Urgently MvM"
+		}
+		T_TFBot_Red_Heavyweapons_Gnome
+		{
+			Class Heavyweapons
+			Name "Heavy Mittens"
+			Skill Hard
+			ClassIcon heavy_mittens
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Attributes AlwaysCrit
+			Item "The Holiday Punch"
+			ItemAttributes
+			{
+				ItemName "The Holiday Punch"
+				"damage bonus" 0.2
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 1.3
+			}
+		}
+		T_TFBot_Red_Heavyweapons_Shotgun
+		{
+			Class Heavyweapons
+			ClassIcon heavy_shotgun_red
+			Name "Heavy Shotgun"
+			Skill Hard
+			WeaponRestrictions SecondaryOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SHOTGUN_HWG"
+				"faster reload rate" 0.1
+				"fire rate bonus" 2.5
+				"bullets per shot bonus" 3
+				"damage bonus" 0.33
+			}
+		}
+		T_TFBot_Red_Heavy_IronFist_Airblast
+		{
+			Class Heavyweapons
+			Name "Steel Gauntlet Pusher"
+			ClassIcon heavy_steelfist
+			Health 900
+			Scale 1.5
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Skill Expert
+			Item "The carl"
+			Item "Fists of Steel"
+			ItemAttributes
+			{
+				ItemName "Fists of Steel"
+				"damage causes airblast" 1
+				"damage bonus" 1.5
+			}
+		}
+		T_TFBot_Red_Demoman
+		{
+			Class Demoman
+			Skill Expert
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Demoman_Knight
+		{
+			Class Demoman
+			Name "Demoknight"
+			ClassIcon demoknight
+			Skill Hard
+			Item "The Chargin' Targe"
+			Item "The Eyelander"
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ItemAttributes
+			{
+				ItemName "The Eyelander"
+				"critboost on kill" 3
+			}
+		}
+		T_TFBot_Red_Demoman_Samurai
+		{
+			Class Demoman
+			Name "Samurai Demo"
+			ClassIcon demoknight_samurai
+			Skill Expert
+			Item "The Half-Zatoichi"
+			Item "The Splendid Screen"
+			ItemAttributes
+			{
+				ItemName "The Splendid Screen"
+				"Attack not cancel charge" 1
+			}
+			Item "Demo Kabuto"
+			Scale "1.3"
+			Health 650
+			WeaponRestrictions MeleeOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Attributes AirChargeOnly
+			Attributes AutoJump
+			AutoJumpMin 10
+			AutoJumpMax 10
+			CharacterAttributes
+			{
+				"charge time increased" 2
+				"charge recharge rate increased" 7
+				"increased jump height" 2.3
+				"bot custom jump particle" 1
+				"damage bonus" 1.5
+			}
+		}
+		T_TFBot_Red_Demo_Burst
+		{
+			Class Demoman
+			Name "Burst Fire Demo"
+			ClassIcon demo_burst_red
+			Skill Expert
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_GRENADELAUNCHER"
+				"faster reload rate" 1.75
+				"fire rate bonus" 0.05
+				"clip size penalty" 0.5
+				"projectile spread angle penalty" 3
+			}
+		}
+		T_TFBot_Red_Soldier
+		{
+			Class Soldier
+			UseBestWeapon 1	[$SIGSEGV]
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Soldier_Buff_Banner
+		{
+			Class Soldier
+			Name "Buff Soldier"
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ClassIcon soldier_buff
+			Attributes SpawnWithFullCharge
+			Item "The Buff Banner"
+		}
+		T_TFBot_Red_Soldier_Extended_Buff_Banner
+		{
+			Class Soldier
+			Name "Extended Buff Soldier"
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ClassIcon soldier_buff
+			Attributes SpawnWithFullCharge
+			Item "The Buff Banner"
+			CharacterAttributes
+			{
+				"increase buff duration" 9.0
+			}
+		}
+		T_TFBot_Red_Soldier_Extended_Concheror
+		{
+			Class Soldier
+			Name "Extended Conch Soldier"
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ClassIcon soldier_conch
+			Attributes SpawnWithFullCharge
+			Item "The Concheror"
+			CharacterAttributes
+			{
+				"increase buff duration" 9.0
+			}
+		}
+		T_TFBot_Red_Soldier_Extended_Battalion
+		{
+			Class Soldier
+			Name "Extended Backup Soldier"
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ClassIcon soldier_backup
+			Attributes SpawnWithFullCharge
+			Item "The Battalion's Backup"
+			CharacterAttributes
+			{
+				"increase buff duration" 9.0
+			}
+		}
+		T_TFBot_Red_Soldier_RocketPush
+		{
+			Class Soldier
+			Skill Expert
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Item "The Liberty Launcher"
+			Name "Blast Soldier"
+			ClassIcon soldier_libertylauncher
+			Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "The Liberty Launcher"
+				"damage causes airblast" 1
+				"damage bonus" .45
+				"fire rate bonus" 0.001
+				"clip size upgrade atomic" -2
+				"faster reload rate" 1.5
+				"Blast radius decreased" 1.2
+				"projectile spread angle penalty" 2
+			}
+		}
+		T_TFBot_Red_Soldier_RocketShotgun
+		{
+			Class Soldier
+			ClassIcon soldier_blackbox
+			Item "The Black Box"
+			Name "Black Box Soldier"
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "The Black Box"
+				"damage bonus" 0.33
+				"fire rate bonus" 0.001
+				"clip size upgrade atomic" 0
+				"faster reload rate" 0.9
+				"blast radius increased" 1.25
+				"projectile spread angle penalty" 2
+				"heal on hit for rapidfire" 60
+			}
+		}
+		T_TFBot_Red_Pyro
+		{
+			Class Pyro
+			Skill Hard
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Pyro_Expert_Shotgun
+		{
+			Class Pyro
+			Skill Expert
+			UseBestWeapon 1	[$SIGSEGV]
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Pyro_Expert_Flare
+		{
+			Class Pyro
+			Skill Expert
+			Item "The Flare Gun"
+			UseBestWeapon 1	[$SIGSEGV]
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_Pyro_Flaregun
+		{
+			Class Pyro
+			Name "Flare Pyro"
+			Skill Hard
+			ClassIcon pyro_flare
+			Item "The Flare Gun"
+			WeaponRestrictions SecondaryOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+		}
+		T_TFBot_Red_ScorchShot
+		{
+			Class Pyro
+			Name "Pyro Pusher"
+			Skill Expert
+			ClassIcon pyro_flare
+			Item "The Scorch Shot"
+			WeaponRestrictions SecondaryOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Attributes AlwaysCrit
+			ItemAttributes
+			{
+				ItemName "The Scorch Shot"
+				"damage bonus" 1
+				"fire rate bonus" 0.75
+				"faster reload rate" 1.25
+				"Projectile speed increased" 0.35
+			}
+		}
+		T_TFBot_Red_ScorchShot_FastShot
+		{
+			Class Pyro
+			Name "Fast Scorch Shot"
+			Skill Expert
+			ClassIcon pyro_flare
+			Item "The Scorch Shot"
+			WeaponRestrictions SecondaryOnly
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			ItemAttributes
+			{
+				ItemName "The Scorch Shot"
+				"damage bonus" 1
+				"fire rate bonus" 0.75
+				"faster reload rate" 1
+				"Projectile speed increased" 1.3
+			}
+		}
+		T_TFBot_Red_Engineer_Sentry_Teleporter
+		{
+			Class Engineer
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Name Engineer
+			Skill Expert
+			TeleportWhere spawnbot
+			Health 500
+			Attributes TeleportToHint
+		}
+		T_TFBot_Red_Engineer_Sentry_Battle_TeleIn
+		{
+			Class Engineer
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Name Engineer
+			Skill Expert
+			Health 275
+			Attributes TeleportToHint
+		}
+		T_TFBot_Red_Engineer_Sentry_Tele_Battle
+		{
+			Class Engineer
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Name Engineer
+			Skill Expert
+			TeleportWhere spawnbot
+			Health 275
+		}
+		T_TFBot_Red_Engineer_Sentry_Battle
+		{
+			Class Engineer
+			AddCond	[$SIGSEGV]
+			{
+				Name TF_COND_REPROGRAMMED
+			}
+			Action Mobber
+			Name Engineer
+			Skill Expert
+			Health 275
+		}
+	}
+}

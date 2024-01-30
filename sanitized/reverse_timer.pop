@@ -1,0 +1,51 @@
+WaveSchedule
+{
+	PointTemplates	[$SIGSEGV]
+	{
+		timertest
+		{
+			NoFixup 1
+			math_counter
+			{
+				"targetname" "timer_counter"
+				"origin" "0 0 0"
+				"startvalue" "255"
+				"min" "0"
+				"max" "255"
+				"OutValue" "monster_resource,$SetProp$m_iBossHealthPercentageByte,,0,-1"
+				"OnHitMin" "bots_win_red,RoundWin,,0,-1"
+				"OnHitMin" "timer_relay*,CancelPending,,1,-1"
+			}
+			logic_relay
+			{
+				"targetname" "showtimer"
+				"OnTrigger" "monster_resource,$SetProp$m_iBossHealthPercentageByte,255,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "timer_relay"
+				"OnTrigger" "timer_counter,Subtract,1,0,-1"
+				"OnTrigger" "timer_relay2,Trigger,,3.529411764705882,-1"
+			}
+			logic_relay
+			{
+				"targetname" "timer_relay2"
+				"OnTrigger" "timer_relay,Trigger,,0,-1"
+			}
+			logic_relay
+			{
+				"targetname" "timerfail_relay"
+				"OnTrigger" "bots_win_red,RoundWin,,3,-1"
+				"OnTrigger" "player,$DisplayTextCenter,Wave Failed...,3,-1"
+			}
+			game_round_win
+			{
+				"origin" "0 0 0"
+				"TeamNum" "2"
+				"targetname" "bots_win_red"
+				"switch_teams" "0"
+				"force_map_reset" "1"
+			}
+		}
+	}
+}

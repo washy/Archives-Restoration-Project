@@ -1,0 +1,19 @@
+WaveSchedule
+{
+	LuaScriptFile "scripts/custom_canteen.lua"
+	PointTemplates	[$SIGSEGV]
+	{
+		CustomCanteen
+		{
+			OnSpawnOutput
+			{
+				Target "popscript"
+				Action "$CanteenSpawn"
+			}
+		}
+	}
+	PlayerSpawnTemplate	[$SIGSEGV]
+	{
+		Name "CustomCanteen"
+	}
+}

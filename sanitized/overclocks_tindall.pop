@@ -1,0 +1,2954 @@
+WaveSchedule
+{
+	ExtendedUpgrades	[$SIGSEGV]
+	{
+		ModScattergun
+		{
+			Name "Bronze Mod: Rejuvenation"
+			Description "+25% healing from all sources"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Force-a-Nature"
+				ItemName "Festive Force-a-Nature"
+				ItemName "The Shortstop"
+				ItemName "The Soda Popper"
+				ItemName "Baby Face's Blaster"
+				ItemName "The Back Scatter"
+				ItemName "Steel Slugger"
+			}
+			Cost 0
+			Attribute "healing received bonus"
+			Increment 0.25
+			Cap 1.25
+		}
+		ModForceaNature
+		{
+			Name "Platinum Mod: Frigid Blast"
+			Description "+50% slow on hit for 2 seconds; -No knockback"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Force-a-Nature"
+				ItemName "Festive Force-a-Nature"
+			}
+			Cost 0
+			Attribute "slow enemy on hit"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"add attributes on hit" "move speed penalty|0.5|2"	[$SIGSEGV]
+				"scattergun has knockback" -1
+			}
+		}
+		ModShortstop
+		{
+			Name "Silver Mod: Eject Magazine"
+			Description "+No reload speed penalty; +No knockback vulnerability; -25% clip size"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Shortstop"
+			}
+			Cost 0
+			Attribute "reload time increased hidden"
+			Increment -0.5
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage force increase hidden" -0.4
+				"airblast vulnerability multiplier hidden" -0.4
+				"clip size penalty" -0.25
+			}
+		}
+		ModBabyFacesBlaster
+		{
+			Name "Gold Mod: Narrow Barrel"
+			Description "+Boost never decays; +Fall damage immunity; +35% accuracy; -20% damage; -No double jump"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "Baby Face's Blaster"
+			}
+			Cost 0
+			Attribute "weapon spread bonus"
+			Increment -0.35
+			Cap 0.65
+			SecondaryAttributes
+			{
+				"cancel falling damage" 1
+				"hype resets on jump" -75
+				"lose hype on take damage" -4
+				"damage penalty" -0.2
+				"no double jump" 1
+			}
+		}
+		ModBackScatter
+		{
+			Name "Silver Mod: Vicious Spread"
+			Description "+Crits when attacking from behind; -Additional 40% accuracy penalty; -25% fire rate"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Back Scatter"
+			}
+			Cost 0
+			Attribute "crit from behind"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"spread penalty" 0.4
+				"fire rate penalty" 0.25
+				"closerange backattack minicrits" -1
+			}
+		}
+		ModBonkAtomicPunch
+		{
+			Name "Platinum Mod: Ghost"
+			Description "*Drink effect is replaced with invisibility; Attacking removes invisibility"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "Bonk! Atomic Punch"
+				ItemName "Festive Bonk 2014"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.01
+			Cap 1.01
+			SecondaryAttributes
+			{
+				"effect cond override" 64	[$SIGSEGV]
+			}
+		}
+		ModCritaCola
+		{
+			Name "Platinum Mod: Rapid Resilience"
+			Description "*Drink effect is replaced with speed boost and 35% damage resistance"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "Crit-a-Cola"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.01
+			Cap 1.01
+			SecondaryAttributes
+			{
+				"effect cond override" 8234	[$SIGSEGV]
+			}
+		}
+		ModWinger
+		{
+			Name "Silver Mod: Magnum Force"
+			Description "+Mini-crits become crits; +Additional 35% damage bonus; -50% fire rate"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Winger"
+			}
+			Cost 0
+			Attribute "minicrits become crits"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus" 0.35
+				"fire rate penalty" 0.5
+			}
+		}
+		ModPrettyBoysPocketPistol
+		{
+			Name "Silver Mod: Insatiable"
+			Description "+Mad Milk on hit for 4 seconds; -35% damage; -Additional 25% clip size penalty"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "Pretty Boy's Pocket Pistol"
+			}
+			Cost 0
+			Attribute "add cond on hit duration"
+			Increment 4
+			Cap 4
+			SecondaryAttributes
+			{
+				"add cond on hit" 27	[$SIGSEGV]
+				"damage penalty" -0.35
+				"clip size penalty" -0.25
+			}
+		}
+		ModFlyingGuillotine
+		{
+			Name "Bronze Mod: Blazing Steel"
+			Description "+Ignite on hit; +Mark for death on hit"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Flying Guillotine"
+				ItemName "Promo Flying Guillotine"
+			}
+			Cost 0
+			Attribute "Set DamageType Ignite"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mark for death" 1
+			}
+		}
+		ModBat
+		{
+			Name "Platinum Mod: Equilibrium"
+			Description "+Mark for death on hit; +Mad Milk on hit for 6 seconds; -40% damage; -25 max health"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Sandman"
+				ItemName "The Boston Basher"
+				ItemName "The Candy Cane"
+				ItemName "Three-Rune Blade"
+				ItemName "Sun-on-a-Stick"
+				ItemName "The Fan O'War"
+				ItemName "The Atomizer"
+				ItemName "The Wrap Assassin"
+			}
+			Cost 0
+			Attribute "mark for death"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"add cond on hit" 27	[$SIGSEGV]
+				"add cond on hit duration" 6	[$SIGSEGV]
+				"damage penalty" -0.4
+				"max health additive penalty" -25
+			}
+		}
+		ModSandman
+		{
+			Name "Bronze Mod: Flailing Branch"
+			Description "+20% damage; +No max health penalty"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Sandman"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"max health additive penalty" 15
+			}
+		}
+		ModBostonBasher
+		{
+			Name "Gold Mod: Rending Strike"
+			Description "+85% damage; +No self damage on miss; +Mark for death on hit; -60% attack speed"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Boston Basher"
+				ItemName "Three-Rune Blade"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.85
+			Cap 1.85
+			SecondaryAttributes
+			{
+				"hit self on miss" -1
+				"mark for death" 1
+				"fire rate penalty" 0.6
+			}
+		}
+		ModCandyCane
+		{
+			Name "Gold Mod: Steel Fibre"
+			Description "+25 max health; +No blast damage vulnerability; -10% move speed"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Candy Cane"
+			}
+			Cost 0
+			Attribute "dmg taken from blast increased"
+			Increment -0.25
+			Cap 1
+			SecondaryAttributes
+			{
+				"max health additive bonus" 25
+				"move speed penalty" -0.1
+			}
+		}
+		ModSunonaStick
+		{
+			Name "Silver Mod: Volcanic Edge"
+			Description "+200% damage vs burning; +Damages targets via heal beams; -90% damage vs non-burning"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "Sun-on-a-Stick"
+			}
+			Cost 0
+			Attribute "damage all connected"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus vs burning" 3
+				"damage penalty" 0.25
+				"dmg penalty vs nonburning" -0.9
+			}
+		}
+		ModAtomizer
+		{
+			Name "Platinum Mod: Equilibrium"
+			Description "+Mark for death on hit; +Applies Mad Milk on hit for 6 seconds; -40% damage; -25 max health"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Atomizer"
+			}
+			Cost 0
+			Attribute "mark for death"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"dmg penalty vs players" 0.15
+				"add cond on hit" 27	[$SIGSEGV]
+				"add cond on hit duration" 6	[$SIGSEGV]
+				"damage penalty" -0.4
+				"max health additive penalty" -25
+			}
+		}
+		ModWrapAssassin
+		{
+			Name "Silver Mod: Sundering Strike"
+			Description "+Mark for death on hit; -25 max health"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Wrap Assassin"
+			}
+			Cost 0
+			Attribute "mark for death"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"max health additive penalty" -25
+			}
+		}
+		ModRocketLauncher
+		{
+			Name "Silver Mod: Comet Blast"
+			Description "+30% blast radius; -20% reserve ammo"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Direct Hit"
+				ItemName "The Black Box"
+				ItemName "Festive Black Box"
+				ItemName "Rocket Jumper"
+				ItemName "The Liberty Launcher"
+				ItemName "The Cow Mangler 5000"
+				ItemName "The Beggar's Bazooka"
+				ItemName "The Air Strike"
+				ItemName "Psychopath's Seeker"
+				ItemName "Atomic Anguish"
+			}
+			Cost 0
+			Attribute "blast radius increased"
+			Increment 0.3
+			Cap 1.3
+			SecondaryAttributes
+			{
+				"maxammo primary reduced" -0.2
+			}
+		}
+		ModDirectHit
+		{
+			Name "Gold Mod: Fulmination"
+			Description "+Pierces resistances; +15% damage; +50% damage vs Tanks; -Additional 20% blast radius penalty; -25% clip size"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Direct Hit"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus HIDDEN" 0.15
+				"mult dmg vs tanks" 0.5	[$SIGSEGV]
+				"Blast radius decreased" -0.2
+				"clip size penalty" -0.25
+			}
+		}
+		ModBlackBox
+		{
+			Name "Platinum Mod: Metal Auger"
+			Description "+10% damage vs Giant Robots and Tanks; -20% projectile speed; -No heal on hit"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Black Box"
+				ItemName "Festive Black Box"
+			}
+			Cost 0
+			Attribute "mult dmg vs giants"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"mult dmg vs tanks" 0.1	[$SIGSEGV]
+				"Projectile speed decreased" -0.2
+				"health on radius damage" -20
+			}
+		}
+		ModRocketJumper
+		{
+			Name "Bronze Mod: Crash Course"
+			Description "+Ammo draws directly from reserve"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "Rocket Jumper"
+			}
+			Cost 0
+			Attribute "mod no reload DISPLAY ONLY"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mod max primary clip override" -1
+			}
+		}
+		ModLibertyLauncher
+		{
+			Name "Silver Mod: Tainted Clip"
+			Description "+Pierces resistances; +No damage penalty; -No clip size bonus; -25% clip size"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Liberty Launcher"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage penalty" 0.25
+				"clip size bonus" -0.25
+				"clip size penalty" -0.25
+			}
+		}
+		ModCowMangler5000
+		{
+			Name "Bronze Mod: Magma Chamber"
+			Description "+Ignite on hit"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Cow Mangler 5000"
+			}
+			Cost 0
+			Attribute "Set DamageType Ignite"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"set item tint rgb" 13595446
+			}
+		}
+		ModAirStrike
+		{
+			Name "Silver Mod: Ravage"
+			Description "+99% fire rate while blast jumping; -20% reload speed; -4 degrees projectile deviation"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Air Strike"
+			}
+			Cost 0
+			Attribute "rocketjump attackrate bonus"
+			Increment -0.34
+			Cap 0.01
+			SecondaryAttributes
+			{
+				"Reload time increased" 0.2
+				"projectile spread angle penalty" 4
+			}
+		}
+		ModBuffBanner
+		{
+			Name "Bronze Mod: Stretch"
+			Description "+50% banner radius; +40% weapon switch speed"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Buff Banner"
+				ItemName "Festive Buff Banner"
+			}
+			Cost 0
+			Attribute "mod soldier buff range"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"deploy time decreased" -0.4
+				"torso scale" 0.15
+			}
+		}
+		ModGunboats
+		{
+			Name "Gold Mod: Shock Absorbers"
+			Description "+Fall damage immunity; +50% primary reserve ammo; +150% money collect range"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Gunboats"
+			}
+			Cost 0
+			Attribute "cancel falling damage"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"maxammo primary increased" 0.5
+				"mult credit collect range" 1.5	[$SIGSEGV]
+			}
+		}
+		ModBattalionsBackup
+		{
+			Name "Gold Mod: Stretch"
+			Description "+50% banner radius; +Additional 30 max health"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Battalion's Backup"
+			}
+			Cost 0
+			Attribute "mod soldier buff range"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"max health additive bonus" 30
+				"torso scale" 0.15
+			}
+		}
+		ModConcheror
+		{
+			Name "Bronze Mod: Stretch"
+			Description "+50% banner radius"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Concheror"
+			}
+			Cost 0
+			Attribute "mod soldier buff range"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"torso scale" 0.15
+			}
+		}
+		ModMantreads
+		{
+			Name "Gold Mod: Anti-Flak Plating"
+			Description "+35% blast damage resistance; +150% money collect range"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Mantreads"
+			}
+			Cost 0
+			Attribute "dmg taken from blast reduced"
+			Increment -0.35
+			Cap 0.65
+			SecondaryAttributes
+			{
+				"mult credit collect range" 1.5	[$SIGSEGV]
+			}
+		}
+		ModReserveShooter
+		{
+			Name "Platinum Mod: Shotgun Barrage"
+			Description "+Crits while blast jumping; +Can deploy a parachute while airborne; +50% fire rate while blast jumping; +40% accuracy; -35% fire rate; -No random crits"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Reserve Shooter"
+			}
+			Cost 0
+			Attribute "mod crit while airborne"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"provide on active" 1
+				"rocketjump attackrate bonus" -0.5
+				"weapon spread bonus" -0.4
+				"parachute attribute" 1
+				"fire rate penalty" 0.35
+				"crit mod disabled" 0
+			}
+		}
+		ModRighteousBison
+		{
+			Name "Platinum Mod: Vile Acceleration"
+			Description "+Fires hitscan laser; +20% fire rate; +30% reload speed"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Righteous Bison"
+			}
+			Cost 0
+			Attribute "fire rate bonus HIDDEN"
+			Increment -0.2
+			Cap 0.8
+			SecondaryAttributes
+			{
+				"override projectile type" 1
+				"sniper fires tracer HIDDEN" 1
+				"projectile penetration" 1
+				"penetrate teammates" 1	[$SIGSEGV]
+				"no reduced damage rampup" 1	[$SIGSEGV]
+				"bullets per shot bonus" -0.9
+				"weapon spread bonus" -0.9
+				"damage bonus" 14
+				"reload time increased hidden" -0.3
+			}
+		}
+		ModEqualizer
+		{
+			Name "Bronze Mod: Provoked"
+			Description "+25% damage; +35% ranged damage resistance"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Equalizer"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.25
+			Cap 1.25
+			SecondaryAttributes
+			{
+				"dmg from ranged reduced" -0.35
+			}
+		}
+		ModMarketGardener
+		{
+			Name "Gold Mod: Spoiled Strike"
+			Description "+Damages targets via heal beams; +25% damage; +100% damage vs Giant Robots; +50% range; -Additional 15% attack speed penalty"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Market Gardener"
+			}
+			Cost 0
+			Attribute "damage all connected"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus" 0.25
+				"mult dmg vs giants" 1	[$SIGSEGV]
+				"melee range multiplier" 0.5
+				"melee bounds multiplier" 0.3
+				"fire rate penalty" 0.15
+			}
+		}
+		ModDisciplinaryAction
+		{
+			Name "Bronze Mod: Quickening"
+			Description "+Speed boost on hit for 2 seconds"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Disciplinary Action"
+			}
+			Cost 0
+			Attribute "speed_boost_on_hit"
+			Increment 2
+			Cap 2
+		}
+		ModEscapePlan
+		{
+			Name "Silver Mod: Radiant Finish"
+			Description "+50% health from packs while active; -30% attack speed"
+			AllowPlayerClass Soldier
+			AllowedWeapons
+			{
+				ItemName "The Escape Plan"
+			}
+			Cost 0
+			Attribute "health from packs increased"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"fire rate penalty" 0.3
+			}
+		}
+		ModFlameThrower
+		{
+			Name "Silver Mod: Blaze"
+			Description "+Pierces resistances; +15% damage; -Airblast doesn't push enemies"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Backburner"
+				ItemName "Festive Backburner 2014"
+				ItemName "The Degreaser"
+				ItemName "The Phlogistinator"
+				ItemName "The Dragon's Fury"
+				ItemName "Con-man's Compressor"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus HIDDEN" 0.15
+				"bleeding duration" 3
+				"airblast_pushback_disabled" 1
+			}
+		}
+		ModDegreaser
+		{
+			Name "Silver Mod: Wildfire"
+			Description "+Pierces resistances; +15% move speed while active; -10% damage"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Degreaser"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"provide on active" 1
+				"move speed bonus" 0.15
+				"damage penalty" -0.1
+			}
+		}
+		ModPhlogistinator
+		{
+			Name "Platinum Mod: Regen"
+			Description "*MMMPH effect is replaced with mini-crits and Concheror effect"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Phlogistinator"
+			}
+			Cost 0
+			Attribute "reload time increased hidden"
+			Increment 0.01
+			Cap 1.01
+			SecondaryAttributes
+			{
+				"effect cond override" 4893	[$SIGSEGV]
+			}
+		}
+		ModDragonsFury
+		{
+			Name "Silver Mod: Healing Return"
+			Description "+15 health on hit; -10% damage"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Dragon's Fury"
+			}
+			Cost 0
+			Attribute "heal on hit for rapidfire"
+			Increment 15
+			Cap 15
+			SecondaryAttributes
+			{
+				"damage penalty" -0.1
+			}
+		}
+		ModShotgunPyro
+		{
+			Name "Silver Mod: Scattering Inferno"
+			Description "+Ignite on hit; +5 pellets per shot; -20% damage"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Flare Gun"
+				ItemName "Festive Flare Gun"
+				ItemName "The Detonator"
+				ItemName "The Manmelter"
+				ItemName "The Scorch Shot"
+				ItemName "Panic Attack Shotgun"
+				ItemName "The Thermal Thruster"
+				ItemName "The Gas Passer"
+			}
+			Cost 0
+			Attribute "Set DamageType Ignite"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"bullets per shot bonus" 0.5
+				"damage penalty" -0.2
+			}
+		}
+		ModFlareGun
+		{
+			Name "Silver Mod: Target Cracker"
+			Description "+80% damage; -35% projectile speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Flare Gun"
+				ItemName "Festive Flare Gun"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.8
+			Cap 1.8
+			SecondaryAttributes
+			{
+				"Projectile speed decreased" -0.35
+			}
+		}
+		ModDetonator
+		{
+			Name "Bronze Mod: Sure Shot"
+			Description "+Mini-crits on kill for 10 seconds; +No damage penalty"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Detonator"
+			}
+			Cost 0
+			Attribute "minicritboost on kill"
+			Increment 10
+			Cap 10
+			SecondaryAttributes
+			{
+				"damage penalty" 0.25
+			}
+		}
+		ModManmelter
+		{
+			Name "Platinum Mod: Maim"
+			Description "+2 projectiles per shot; -30% damage penalty; -3 degrees projectile deviation"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Manmelter"
+			}
+			Cost 0
+			Attribute "damage penalty"
+			Increment -0.3
+			Cap 0.7
+			SecondaryAttributes
+			{
+				"mult projectile count" 2	[$SIGSEGV]
+				"projectile spread angle penalty" 3
+			}
+		}
+		ModScorchShot
+		{
+			Name "Bronze Mod: Sure Shot"
+			Description "+Mini-crits on kill for 5 seconds; +No damage penalty"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Scorch Shot"
+			}
+			Cost 0
+			Attribute "minicritboost on kill"
+			Increment 5
+			Cap 5
+			SecondaryAttributes
+			{
+				"damage penalty" 0.35
+			}
+		}
+		ModThermalThruster
+		{
+			Name "Bronze Mod: Ammo Stock"
+			Description "+25% primary reserve ammo"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Thermal Thruster"
+			}
+			Cost 0
+			Attribute "maxammo primary increased"
+			Increment 0.25
+			Cap 1.25
+		}
+		ModGasPasser
+		{
+			Name "Platinum Mod: Toxic Blight"
+			Description "*Gas effect is replaced with Jarate; -75% effect duration"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Gas Passer"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.01
+			Cap 1.01
+			SecondaryAttributes
+			{
+				"effect cond override" 24	[$SIGSEGV]
+				"mult effect duration" -0.75	[$SIGSEGV]
+			}
+		}
+		ModFireAxe
+		{
+			Name "Bronze Mod: Speed Holster"
+			Description "+40% weapon switch speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Axtinguisher"
+				ItemName "Festive Axtinguisher"
+				ItemName "The Postal Pummeler"
+				ItemName "The Homewrecker"
+				ItemName "The Maul"
+				ItemName "The Powerjack"
+				ItemName "The Back Scratcher"
+				ItemName "Sharpened Volcano Fragment"
+				ItemName "The Third Degree"
+				ItemName "The Neon Annihilator"
+				ItemName "Promo Neon Annihilator"
+				ItemName "The Hot Hand"
+			}
+			Cost 0
+			Attribute "deploy time decreased"
+			Increment -0.4
+			Cap 0.6
+		}
+		ModAxtinguisher
+		{
+			Name "Silver Mod: Buzz Kill"
+			Description "+Mini-crits become crits; -50% attack speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Axtinguisher"
+				ItemName "Festive Axtinguisher"
+				ItemName "The Postal Pummeler"
+			}
+			Cost 0
+			Attribute "minicrits become crits"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"fire rate penalty" 0.5
+			}
+		}
+		ModHomewrecker
+		{
+			Name "Silver Mod: Counterweight"
+			Description "+75% knockback resistance while active; +35% bullet damage resistance while active; -Additional 25% damage penalty"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Homewrecker"
+				ItemName "The Maul"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage force reduction" -0.75
+				"dmg taken from bullets reduced" -0.35
+				"dmg penalty vs players" -0.25
+			}
+		}
+		ModPowerjack
+		{
+			Name "Silver Mod: Jolt"
+			Description "+Crits on kill for 5 seconds; -20% attack speed; -50% deploy speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Powerjack"
+			}
+			Cost 0
+			Attribute "critboost on kill"
+			Increment 5
+			Cap 5
+			SecondaryAttributes
+			{
+				"fire rate penalty" 0.2
+				"single wep deploy time increased" 0.5
+			}
+		}
+		ModBackScratcher
+		{
+			Name "Gold Mod: Life Strike"
+			Description "+Crits when attacking from behind; +Kills drop small health packs; -No damage bonus; -50% attack speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Back Scratcher"
+			}
+			Cost 0
+			Attribute "crit from behind"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"drop health pack on kill" 1
+				"damage bonus" -0.25
+				"fire rate penalty" 0.5
+			}
+		}
+		ModSharpenedVolcanoFragment
+		{
+			Name "Silver Mod: Volcanic Edge"
+			Description "+25 health on hit; +150% afterburn rate; -Additional 30% damage penalty"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "Sharpened Volcano Fragment"
+			}
+			Cost 0
+			Attribute "heal on hit for rapidfire"
+			Increment 25
+			Cap 25
+			SecondaryAttributes
+			{
+				"mult afterburn delay" 1.5	[$SIGSEGV]
+				"damage penalty" -0.3
+			}
+		}
+		ModThirdDegree
+		{
+			Name "Silver Mod: Shocking Touch"
+			Description "+Drain 10% Ubercharge on hit; -100% deploy speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Third Degree"
+			}
+			Cost 0
+			Attribute "subtract victim medigun charge on hit"
+			Increment 10
+			Cap 10
+			SecondaryAttributes
+			{
+				"single wep deploy time increased" 1
+			}
+		}
+		ModNeonAnnihilator
+		{
+			Name "Silver Mod: Voltaic Strike"
+			Description "+Damages targets via heal beams; +100% damage vs Sappers; -25% attack speed"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Neon Annihilator"
+				ItemName "Promo Neon Annihilator"
+			}
+			Cost 0
+			Attribute "damage all connected"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"dmg bonus vs buildings" 1
+				"fire rate penalty" -0.25
+			}
+		}
+		ModHotHand
+		{
+			Name "Platinum Mod: Runtime"
+			Description "+25 max health; +Mutual speed boost on ally hit for 5 seconds; +70% range; +No damage penalty"
+			AllowPlayerClass Pyro
+			AllowedWeapons
+			{
+				ItemName "The Hot Hand"
+			}
+			Cost 0
+			Attribute "speed buff ally"
+			Increment 5
+			Cap 5
+			SecondaryAttributes
+			{
+				"melee range multiplier" 0.7
+				"melee bounds multiplier" 0.55
+				"damage penalty" 0.2
+				"max health additive bonus" 25
+			}
+		}
+		ModGrenadeLauncher
+		{
+			Name "Silver Mod: Ammo Case"
+			Description "+50% clip size; +87.5% reserve ammo; -20% damage"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Loch-n-Load"
+				ItemName "Ali Baba's Wee Booties"
+				ItemName "The Bootlegger"
+				ItemName "The Loose Cannon"
+				ItemName "The Iron Bomber"
+				ItemName "The B.A.S.E. Jumper"
+				ItemName "Burst of Brimstone"
+				ItemName "Toxic Torid"
+			}
+			Cost 0
+			Attribute "clip size bonus"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"hidden primary max ammo bonus" 0.875
+				"damage penalty" -0.2
+			}
+		}
+		ModLochnLoad
+		{
+			Name "Silver Mod: Fulmination"
+			Description "+Pierces resistances; +15% damage; -No damage bonus vs Buildings; -Additional 25% clip size penalty"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Loch-n-Load"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.15
+			Cap 1.15
+			SecondaryAttributes
+			{
+				"dmg pierces resists absorbs" 1
+				"dmg bonus vs buildings" -0.2
+				"clip size penalty" -0.25
+			}
+		}
+		ModAliBabasWeeBooties
+		{
+			Name "Gold Mod: Shock Absorbers"
+			Description "+Fall damage immunity; +200% money collect range"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "Ali Baba's Wee Booties"
+			}
+			Cost 0
+			Attribute "cancel falling damage"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mult credit collect range" 2	[$SIGSEGV]
+			}
+		}
+		ModBootlegger
+		{
+			Name "Platinum Mod: Anti-Flak Plating"
+			Description "+10% move speed; +35% blast damage resistance; -No charge turn control bonus; -No charge refilled on melee kill"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Bootlegger"
+			}
+			Cost 0
+			Attribute "move speed bonus"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"dmg taken from blast reduced" -0.35
+				"mult charge turn control" -2
+				"kill refills meter" -0.25
+				"move speed bonus shield required" -0.1
+			}
+		}
+		ModLooseCannon
+		{
+			Name "Silver Mod: Napalm Grenades"
+			Description "+Ignite on hit; +25% blast radius; -50% reserve ammo"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Loose Cannon"
+			}
+			Cost 0
+			Attribute "blast radius increased"
+			Increment 0.25
+			Cap 1.25
+			SecondaryAttributes
+			{
+				"Set DamageType Ignite" 1
+				"maxammo primary reduced" -0.5
+			}
+		}
+		ModIronBomber
+		{
+			Name "Platinum Mod: Scattered Justice"
+			Description "+3 projectiles per shot; +No blast radius penalty; -70% damage; -30% fire rate; -30% reload speed; -4 degrees projectile deviation"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Iron Bomber"
+			}
+			Cost 0
+			Attribute "damage penalty"
+			Increment -0.7
+			Cap 0.3
+			SecondaryAttributes
+			{
+				"mult projectile count" 3	[$SIGSEGV]
+				"Blast radius decreased" 0.15
+				"fuse bonus" -0.45
+				"projectile spread angle penalty" 4
+				"fire rate penalty" 0.3
+				"Reload time increased" 0.3
+				"blast dmg to self increased" -0.7
+				"self dmg push force decreased" -0.85
+			}
+		}
+		ModStickybombLauncher
+		{
+			Name "Platinum Mod: Adhesive Blast"
+			Description "+Bombs stick to enemies; +0.1 second faster bomb arm time; -3 max bombs active"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Chargin' Targe"
+				ItemName "Festive Targe 2014"
+				ItemName "The Scottish Resistance"
+				ItemName "Stickybomb Jumper"
+				ItemName "The Splendid Screen"
+				ItemName "The Tide Turner"
+				ItemName "The Quickiebomb Launcher"
+			}
+			Cost 0
+			Attribute "sticky arm time bonus"
+			Increment -0.1
+			Cap -0.1
+			SecondaryAttributes
+			{
+				"stickybomb stick to enemies" 1	[$SIGSEGV]
+				"max pipebombs decreased" -3
+			}
+		}
+		ModCharginTarge
+		{
+			Name "Gold Mod: Enduring Strike"
+			Description "+Afterburn immunity; +0.5 second longer charge"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Chargin' Targe"
+				ItemName "Festive Targe 2014"
+			}
+			Cost 0
+			Attribute "afterburn immunity"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"charge time increased" 0.5
+			}
+		}
+		ModScottishResistance
+		{
+			Name "Silver Mod: Ruinous Extension"
+			Description "+30% blast radius; -10% damage; -2 max bombs active"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Scottish Resistance"
+			}
+			Cost 0
+			Attribute "blast radius increased"
+			Increment 0.3
+			Cap 1.3
+			SecondaryAttributes
+			{
+				"damage penalty" -0.1
+				"max pipebombs increased" -2
+			}
+		}
+		ModStickyJumper
+		{
+			Name "Bronze Mod: Crash Course"
+			Description "+Ammo draws directly from reserve; +95% charge rate"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "Stickybomb Jumper"
+			}
+			Cost 0
+			Attribute "mod no reload DISPLAY ONLY"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mod max primary clip override" -1
+				"stickybomb charge rate" -0.95
+			}
+		}
+		ModSplendidScreen
+		{
+			Name "Gold Mod: Killing Blow"
+			Description "+20% bullet damage resistance; +Additional 30% shield bash damage bonus"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Splendid Screen"
+			}
+			Cost 0
+			Attribute "dmg taken from bullets reduced"
+			Increment -0.2
+			Cap 0.8
+			SecondaryAttributes
+			{
+				"charge impact damage increased" 0.3
+			}
+		}
+		ModTideTurner
+		{
+			Name "Bronze Mod: Blood Rush"
+			Description "+Attacks do not cancel charge; +No charge lost when taking damage"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Tide Turner"
+			}
+			Cost 0
+			Attribute "Attack not cancel charge"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"lose demo charge on damage when charging" -1
+			}
+		}
+		ModQuickiebombLauncher
+		{
+			Name "Gold Mod: Lethal Momentum"
+			Description "+Projectiles defy gravity; +Clip size penalty reduced to 25%; +No damage penalty; -25% blast radius"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Quickiebomb Launcher"
+			}
+			Cost 0
+			Attribute "projectile gravity native"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"clip size penalty" 0.25
+				"damage penalty" 0.15
+				"Blast radius decreased" -0.25
+			}
+		}
+		ModBottle
+		{
+			Name "Silver Mod: Safeguard"
+			Description "+35% damage resistance on kill for 4 seconds; -50% deploy speed"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Eyelander"
+				ItemName "Festive Eyelander"
+				ItemName "The Horseless Headless Horseman's Headtaker"
+				ItemName "Nessie's Nine Iron"
+				ItemName "The Pain Train"
+				ItemName "The Scotsman's Skullcutter"
+				ItemName "The Claidheamohmor"
+				ItemName "The Ullapool Caber"
+				ItemName "The Half-Zatoichi"
+				ItemName "The Persian Persuader"
+				ItemName "The Scottish Handshake"
+			}
+			Cost 0
+			Attribute "add cond on kill duration"
+			Increment 4
+			Cap 4
+			SecondaryAttributes
+			{
+				"add cond on kill" 42	[$SIGSEGV]
+				"single wep deploy time increased" 0.5
+			}
+		}
+		ModEyelander
+		{
+			Name "Bronze Mod: Tempo Royale"
+			Description "+15% damage; -Self damage on holster"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Eyelander"
+				ItemName "Festive Eyelander"
+				ItemName "The Horseless Headless Horseman's Headtaker"
+				ItemName "Nessie's Nine Iron"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.15
+			Cap 1.15
+			SecondaryAttributes
+			{
+				"honorbound" 1
+			}
+		}
+		ModScotsmansSkullcutter
+		{
+			Name "Bronze Mod: Iron Phoenix"
+			Description "+75% knockback resistance while active; -Self damage on holster"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Scotsman's Skullcutter"
+			}
+			Cost 0
+			Attribute "damage force reduction"
+			Increment -0.75
+			Cap 0.25
+			SecondaryAttributes
+			{
+				"honorbound" 1
+			}
+		}
+		ModClaidheamhMor
+		{
+			Name "Bronze Mod: Cleaving Whirlwind"
+			Description "+15% ranged damage resistance while active; +No damage vulnerability; -Self damage on holster"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Claidheamohmor"
+			}
+			Cost 0
+			Attribute "dmg from ranged reduced"
+			Increment -0.15
+			Cap 0.85
+			SecondaryAttributes
+			{
+				"dmg taken increased" -0.15
+				"honorbound" 1
+			}
+		}
+		ModUllapoolCaber
+		{
+			Name "Platinum Mod: Sure Footed"
+			Description "+Reusable bomb; +No self knockback; -50% self blast damage vulnerability"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Ullapool Caber"
+			}
+			Cost 0
+			Attribute "regenerate stickbomb"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"self dmg push force decreased" -3
+				"blast dmg to self increased" 0.5
+			}
+		}
+		ModPersianPersuader
+		{
+			Name "Gold Mod: Vengeful Revenant"
+			Description "+10% damage; +10% move speed; +50% knockback resistance; -Self damage on holster"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Persian Persuader"
+			}
+			Cost 0
+			Attribute "damage bonus HIDDEN"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"move speed bonus" 0.1
+				"damage force reduction" -0.5
+				"honorbound" 1
+			}
+		}
+		ModScottishHandshake
+		{
+			Name "Platinum Mod: Spoiled Strike"
+			Description "+Crits while blast jumping; +Damages targets via heal beams; +25% damage; -35% attack speed; -No random crits"
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Scottish Handshake"
+			}
+			Cost 0
+			Attribute "mod crit while airborne"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage all connected" 1
+				"damage bonus" 0.25
+				"fire rate penalty" 0.35
+				"crit mod disabled" 0
+			}
+		}
+		ModMinigun
+		{
+			Name "Silver Mod: Assault Mode"
+			Description "+10% bullet and blast damage resistance while active; +75% knockback resistance while active; +Can holster while spinning; -15% damage; -35% accuracy"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "Natascha"
+				ItemName "The Brass Beast"
+				ItemName "Tomislav"
+				ItemName "The Huo Long Heatmaker"
+				ItemName "Promo Huo Long Heatmaker"
+				ItemName "Bootleg Deflector"
+				ItemName "Bludger's Barrage"
+			}
+			Cost 0
+			Attribute "mod minigun can holster while spinning"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"provide on active" 1
+				"dmg taken from bullets reduced" -0.1
+				"dmg taken from blast reduced" -0.1
+				"damage force reduction" -0.75
+				"damage penalty" -0.15
+				"spread penalty" 0.35
+			}
+		}
+		ModNatascha
+		{
+			Name "Platinum Mod: Healing Return"
+			Description "+8 health on hit; +Can holster while spinning; -No slow on hit"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "Natascha"
+			}
+			Cost 0
+			Attribute "mod minigun can holster while spinning"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"heal on hit for rapidfire" 8
+				"slow enemy on hit" -1
+			}
+		}
+		ModBrassBeast
+		{
+			Name "Gold Mod: Shred"
+			Description "+Additional 30% damage resistance while spun-up; +50% crit resistance; +No spin-up penalty; +Can holster while spinning; -Cannot move while spun-up; -100% self overheal"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Brass Beast"
+			}
+			Cost 0
+			Attribute "mod minigun can holster while spinning"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"spunup_damage_resistance" -0.3
+				"minigun spinup time increased" -0.5
+				"aiming movespeed decreased" -0.39
+				"dmg taken from crit reduced" -0.5
+				"mult_patient_overheal_penalty_active" -1
+			}
+		}
+		ModTomislav
+		{
+			Name "Silver Mod: Agile Aim"
+			Description "+Can move at full speed while spun-up; +Pierces resistances; +Can holster while spinning; -25% reserve ammo"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "Tomislav"
+			}
+			Cost 0
+			Attribute "mod minigun can holster while spinning"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"dmg pierces resists absorbs" 1
+				"aiming movespeed increased" 1.5
+				"maxammo primary reduced" -0.25
+			}
+		}
+		ModHuoLongHeater
+		{
+			Name "Silver Mod: Combustion Rounds"
+			Description "+Ignite on hit; +300% ring of fire damage; +Can holster while spinning; -Additional 15% damage penalty"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Huo Long Heatmaker"
+				ItemName "Promo Huo Long Heatmaker"
+			}
+			Cost 0
+			Attribute "mod minigun can holster while spinning"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"Set DamageType Ignite" 1
+				"ring of fire while aiming" 36
+				"damage penalty" -0.15
+			}
+		}
+		ModShotgunHeavy
+		{
+			Name "Platinum Mod: Vicious Spread"
+			Description "+20 pellets per shot; +Full clip reload; -33% damage; -100% fire rate; -67% clip size; -75% reserve ammo"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Sandvich"
+				ItemName "Festive Sandvich"
+				ItemName "The Robo-Sandvich"
+				ItemName "The Dalokohs Bar"
+				ItemName "Fishcake"
+				ItemName "The Buffalo Steak Sandvich"
+				ItemName "The Family Business"
+				ItemName "Panic Attack Shotgun"
+				ItemName "The Second Banana"
+				ItemName "Soviet Slammer"
+			}
+			Cost 0
+			Attribute "reload full clip at once"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"bullets per shot bonus" 2
+				"damage penalty" -0.33
+				"clip size penalty" -0.67
+				"maxammo secondary reduced" -0.75
+				"fire rate penalty" 1
+				"Reload time increased" 1
+			}
+		}
+		ModDalokohsBar
+		{
+			Name "Gold Mod: Preparation"
+			Description "+50 max health; -35% health from healers"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Dalokohs Bar"
+				ItemName "Fishcake"
+			}
+			Cost 0
+			Attribute "max health additive bonus"
+			Increment 50
+			Cap 50
+			SecondaryAttributes
+			{
+				"health from healers reduced" -0.35
+			}
+		}
+		ModBuffaloSteakSandvich
+		{
+			Name "Platinum Mod: Adaptation"
+			Description "*Lunchbox effect is replaced with Battalion's Backup effect; Miniguns can be used while the effect is active"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Buffalo Steak Sandvich"
+			}
+			Cost 0
+			Attribute "gesture speed increase"
+			Increment 0.75
+			Cap 1.75
+			SecondaryAttributes
+			{
+				"effect cond override" 26	[$SIGSEGV]
+			}
+		}
+		ModSecondBanana
+		{
+			Name "Gold Mod: Mobilise"
+			Description "+10% move speed; -25 max health"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Second Banana"
+			}
+			Cost 0
+			Attribute "move speed bonus"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"max health additive penalty" -25
+			}
+		}
+		ModFists
+		{
+			Name "Silver Mod: Seismic Palm"
+			Description "+90% slow on hit for 2 seconds; -40% attack speed"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Killing Gloves Of Boxing"
+				ItemName "Gloves of Running Urgently"
+				ItemName "Festive Gloves of Running Urgently"
+				ItemName "The Bread Bite"
+				ItemName "Warrior's Spirit"
+				ItemName "Fists of Steel"
+				ItemName "The Eviction Notice"
+				ItemName "The Holiday Punch"
+			}
+			Cost 0
+			Attribute "slow enemy on hit"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"add attributes on hit" "move speed penalty|0.1|2"	[$SIGSEGV]
+				"fire rate penalty" 0.4
+			}
+		}
+		ModKillingGlovesofBoxing
+		{
+			Name "Silver Mod: Dispatch Overdrive"
+			Description "+50% holster speed; -20% damage"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Killing Gloves Of Boxing"
+			}
+			Cost 0
+			Attribute "switch from wep deploy time decreased"
+			Increment -0.5
+			Cap 0.5
+			SecondaryAttributes
+			{
+				"damage penalty" -0.2
+			}
+		}
+		ModGlovesofRunningUrgently
+		{
+			Name "Bronze Mod: Martial Fury"
+			Description "+No health drain while active; -Mark self for death while active"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "Gloves of Running Urgently"
+				ItemName "Festive Gloves of Running Urgently"
+				ItemName "The Bread Bite"
+			}
+			Cost 0
+			Attribute "self mark for death"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mod_maxhealth_drain_rate" -10
+			}
+		}
+		ModWarriorsSpirit
+		{
+			Name "Silver Mod: Grim Fury"
+			Description "+Mini-crits become crits; +No damage vulnerability; -30% attack speed; -Self damage on holster"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "Warrior's Spirit"
+			}
+			Cost 0
+			Attribute "minicrits become crits"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"dmg taken increased" -0.3
+				"fire rate penalty" 0.3
+				"honorbound" 1
+			}
+		}
+		ModFistsofSteel
+		{
+			Name "Silver Mod: Heavy Trauma"
+			Description "+Additional 40% ranged damage resistance while active; -Additional 100% melee damage vulnerability while active; -20% move speed while active"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "Fists of Steel"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"dmg from ranged reduced" -0.4
+				"dmg from melee increased" 1
+				"move speed penalty" -0.2
+			}
+		}
+		ModEvictionNotice
+		{
+			Name "Bronze Mod: Berserker Fury"
+			Description "+Mini-crits become crits; +No health drain while active"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Eviction Notice"
+			}
+			Cost 0
+			Attribute "minicrits become crits"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"mod_maxhealth_drain_rate" -5
+			}
+		}
+		ModHolidayPunch
+		{
+			Name "Silver Mod: Noble Cadence"
+			Description "+Attacks always crit; -75% deploy speed; -30% attack speed"
+			AllowPlayerClass HeavyWeapons
+			AllowedWeapons
+			{
+				ItemName "The Holiday Punch"
+			}
+			Cost 0
+			Attribute "always crit"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"single wep deploy time increased" 0.75
+				"fire rate penalty" 0.3
+			}
+		}
+		ModShotgunEngineer
+		{
+			Name "Platinum Mod: Fetch"
+			Description "+Can pick up Buildings from any range for 150 metal"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Frontier Justice"
+				ItemName "Festive Frontier Justice"
+				ItemName "The Widowmaker"
+				ItemName "The Pomson 6000"
+				ItemName "The Rescue Ranger"
+				ItemName "Panic Attack Shotgun"
+				ItemName "Veruc"
+			}
+			Cost 0
+			Attribute "engineer building teleporting pickup"
+			Increment 150
+			Cap 150
+		}
+		ModFrontierJustice
+		{
+			Name "Silver Mod: Point Blank"
+			Description "+20% damage; -Additional 17% clip size penalty"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Frontier Justice"
+				ItemName "Festive Frontier Justice"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"clip size penalty" -0.17
+			}
+		}
+		ModWidowmaker
+		{
+			Name "Silver Mod: Fired Up"
+			Description "+10% Sentry Gun damage; -Additional 10 metal cost per shot"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Widowmaker"
+			}
+			Cost 0
+			Attribute "engy sentry damage bonus"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"mod ammo per shot" 10
+			}
+		}
+		ModPomson6000
+		{
+			Name "Platinum Mod: Split Chamber"
+			Description "+3 projectiles per shot; +100% projectile speed; -2 degrees projectile deviation"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Pomson 6000"
+			}
+			Cost 0
+			Attribute "projectile spread angle penalty"
+			Increment 2
+			Cap 2
+			SecondaryAttributes
+			{
+				"Projectile speed increased" 1
+				"mult projectile count" 3	[$SIGSEGV]
+			}
+		}
+		ModRescueRanger
+		{
+			Name "Gold Mod: Repair Kit"
+			Description "+25% Building heal rate; +No self mark for death while carrying a Building; -25 max health"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Rescue Ranger"
+			}
+			Cost 0
+			Attribute "arrow heals buildings"
+			Increment 15
+			Cap 75
+			SecondaryAttributes
+			{
+				"mark for death on building pickup" -1
+				"max health additive penalty" -25
+			}
+		}
+		ModPanicAttackEngineer
+		{
+			Name "Bronze Mod: Calculated Shot"
+			Description "+45% damage vs Sentry Gun target"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "Panic Attack Shotgun"
+			}
+			Cost 0
+			Attribute "damage bonus bullet vs sentry target"
+			Increment 0.45
+			Cap 1.45
+		}
+		ModPistolEngineer
+		{
+			Name "Bronze Mod: Pistol Gambit"
+			Description "+20% damage; +50% Building health"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Wrangler"
+				ItemName "Festive Wrangler"
+				ItemName "The Giger Counter"
+				ItemName "The Short Circuit"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"engy building health bonus" 0.5
+			}
+		}
+		ModWrangler
+		{
+			Name "Silver Mod: Cautious Shot"
+			Description "+90% self blast damage resistance while active; +Fall damage immunity while active; -15% reserve metal"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Wrangler"
+				ItemName "Festive Wrangler"
+				ItemName "The Giger Counter"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"rocket jump damage reduction" -0.9
+				"cancel falling damage" 1
+				"maxammo metal reduced" -0.15
+			}
+		}
+		ModShortCircuit
+		{
+			Name "Platinum Mod: Ion Infusion"
+			Description "+Energy orb no longer moves; +200% damage; +20% Building health; -150% fire rate"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Short Circuit"
+			}
+			Cost 0
+			Attribute "engy building health bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"damage bonus" 2
+				"mod projectile heat seek power" 360	[$SIGSEGV]
+				"fire rate penalty" 1.5
+			}
+		}
+		ModWrench
+		{
+			Name "Bronze Mod: Sinister Reach"
+			Description "+25% Sentry Gun range"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Gunslinger"
+				ItemName "The Southern Hospitality"
+				ItemName "The Jag"
+				ItemName "The Eureka Effect"
+			}
+			Cost 0
+			Attribute "engy sentry radius increased"
+			Increment 0.25
+			Cap 1.25
+		}
+		ModGunslinger
+		{
+			Name "Gold Mod: Sanctuary"
+			Description "+100% faster Building construction rate; +1 Disposable Sentry Gun; +50% Dispenser range; +Canteens cost $20 less"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Gunslinger"
+			}
+			Cost 0
+			Attribute "construction rate increased"
+			Increment 1
+			Cap 2
+			SecondaryAttributes
+			{
+				"engy disposable sentries" 1
+				"engy dispenser radius increased" 0.5
+				"canteen specialist" 2
+			}
+		}
+		ModSouthernHospitality
+		{
+			Name "Silver Mod: Scavenge"
+			Description "+50% metal from packs while active; +No fire damage vulnerability; -15% damage vulnerability while active"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Southern Hospitality"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"metal_pickup_decreased" 0.5
+				"dmg taken from fire increased" -0.2
+				"dmg taken increased" 0.15
+			}
+		}
+		ModEurekaEffect
+		{
+			Name "Gold Mod: Metal Fibre"
+			Description "+Teleporters grant speed boost; +50% Teleporter recharge rate; +No Building construction rate penalty; -20% reserve metal"
+			AllowPlayerClass Engineer
+			AllowedWeapons
+			{
+				ItemName "The Eureka Effect"
+			}
+			Cost 0
+			Attribute "Construction rate decreased"
+			Increment 0.5
+			Cap 1
+			SecondaryAttributes
+			{
+				"mult teleporter recharge rate" -0.5	[$SIGSEGV]
+				"mod teleporter speed boost" 1	[$SIGSEGV]
+				"maxammo metal reduced" -0.2
+			}
+		}
+		ModSyringeGun
+		{
+			Name "Silver Mod: Hydraulic Barrel"
+			Description "+50% damage; -25% clip size; -50% reload speed"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Blutsauger"
+				ItemName "The Crusader's Crossbow"
+				ItemName "Festive Crusader's Crossbow"
+				ItemName "The Overdose"
+				ItemName "Four Part Plan"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.5
+			Cap 1.5
+			SecondaryAttributes
+			{
+				"clip size penalty" -0.25
+				"Reload time increased" 0.5
+			}
+		}
+		ModBlutsauger
+		{
+			Name "Silver Mod: Recover"
+			Description "+20% damage bonus; +Additional 2 health on hit; -25% clip size; -35% reload speed"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Blutsauger"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"heal on hit for rapidfire" 2
+				"clip size penalty" -0.25
+				"Reload time increased" 0.35
+			}
+		}
+		ModCrusadersCrossbow
+		{
+			Name "Silver Mod: Insatiable"
+			Description "+Mad Milk on hit for 5 seconds; -50% damage; -50% reload speed"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Crusader's Crossbow"
+				ItemName "Festive Crusader's Crossbow"
+			}
+			Cost 0
+			Attribute "add cond on hit duration"
+			Increment 5
+			Cap 5
+			SecondaryAttributes
+			{
+				"add cond on hit" 27	[$SIGSEGV]
+				"damage penalty" -0.5
+				"Reload time increased" 0.5
+			}
+		}
+		ModOverdose
+		{
+			Name "Silver Mod: Hydraulic Barrel"
+			Description "+No damage penalty; +20% damage; -25% clip size; -35% reload speed"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Overdose"
+			}
+			Cost 0
+			Attribute "damage penalty"
+			Increment 0.15
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus" 0.2
+				"clip size penalty" -0.25
+				"Reload time increased" 0.35
+			}
+		}
+		ModMediGun
+		{
+			Name "Gold Mod: Vitality"
+			Description "+50 max health; +25% heal rate; +15% Ubercharge build rate on overhealed targets; -50% projectile shield duration; -90% projectile shield damage"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Kritzkrieg"
+				ItemName "The Quick-Fix"
+				ItemName "The Vaccinator"
+			}
+			Cost 0
+			Attribute "heal rate bonus"
+			Increment 0.25
+			Cap 1.25
+			SecondaryAttributes
+			{
+				"ubercharge overheal rate penalty" 0.15
+				"max health additive bonus" 50
+				"increase buff duration" -0.5
+				"dmg penalty vs players" -0.9
+			}
+		}
+		ModKritzkrieg
+		{
+			Name "Silver Mod: Vigour"
+			Description "+25% max overheal; -25 max health"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Kritzkrieg"
+			}
+			Cost 0
+			Attribute "overheal bonus"
+			Increment 0.25
+			Cap 1.25
+			SecondaryAttributes
+			{
+				"max health additive penalty" -25
+			}
+		}
+		ModQuickFix
+		{
+			Name "Platinum Mod: Continuity"
+			Description "+Can heal Buildings; +Additional 35% faster heal rate; -25% overheal fill rate"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Quick-Fix"
+			}
+			Cost 0
+			Attribute "medic machinery beam"
+			Increment 4
+			Cap 4
+			SecondaryAttributes
+			{
+				"heal rate bonus" 0.35
+				"overheal fill rate reduced" -0.25
+			}
+		}
+		ModVaccinator
+		{
+			Name "Silver Mod: Diamond Skin"
+			Description "+Additional 15% passive resistance to selected damage type; -50% projectile shield duration; -90% projectile shield damage"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Vaccinator"
+			}
+			Cost 0
+			Attribute "medigun bullet resist passive"
+			Increment 0.15
+			Cap 0.25
+			SecondaryAttributes
+			{
+				"medigun blast resist passive" 0.15
+				"medigun fire resist passive" 0.15
+				"increase buff duration" -0.5
+				"dmg penalty vs players" -0.9
+			}
+		}
+		ModBonesaw
+		{
+			Name "Bronze Mod: Lightning Rod"
+			Description "+15% Ubercharge on hit"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Ubersaw"
+				ItemName "Festive Ubersaw"
+				ItemName "The Vita-Saw"
+				ItemName "The Amputator"
+			}
+			Cost 0
+			Attribute "add uber charge on hit"
+			Increment 0.15
+			Cap 0.15
+		}
+		ModUbersaw
+		{
+			Name "Gold Mod: Streamlined Form"
+			Description "+10% move speed; -25 max health; -Ubercharge on hit reduced to 20%"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Ubersaw"
+				ItemName "Festive Ubersaw"
+			}
+			Cost 0
+			Attribute "move speed bonus"
+			Increment 0.1
+			Cap 1.1
+			SecondaryAttributes
+			{
+				"max health additive penalty" -25
+				"add uber charge on hit" -0.05
+			}
+		}
+		ModVitaSaw
+		{
+			Name "Platinum Mod: Life Strike"
+			Description "+Kills drop small health packs; +50% health from packs; +15% Ubercharge on hit; -Additional 15 max health penalty"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Vita-Saw"
+			}
+			Cost 0
+			Attribute "add uber charge on hit"
+			Increment 0.15
+			Cap 0.15
+			SecondaryAttributes
+			{
+				"drop health pack on kill" 1
+				"health from packs increased" 0.5
+				"max health additive penalty" -15
+			}
+		}
+		ModAmputator
+		{
+			Name "Platinum Mod: Vital Systems Bypass"
+			Description "+Nearby allies gain 35% damage resistance on hit and on taunt; +10% Ubercharge on hit"
+			AllowPlayerClass Medic
+			AllowedWeapons
+			{
+				ItemName "The Amputator"
+			}
+			Cost 0
+			Attribute "add uber charge on hit"
+			Increment 0.1
+			Cap 0.1
+			SecondaryAttributes
+			{
+				"aoe heal chance" 100	[$SIGSEGV]
+				"effect cond override" 42	[$SIGSEGV]
+				"mult effect duration" 4	[$SIGSEGV]
+			}
+		}
+		ModSniperRifle
+		{
+			Name "Silver Mod: Sharpshooter"
+			Description "+20% headshot damage; -20% bodyshot damage"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				Slot "Primary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Huntsman"
+				ItemName "Festive Huntsman"
+				ItemName "The Fortified Compound"
+				ItemName "The Sydney Sleeper"
+				ItemName "The Bazaar Bargain"
+				ItemName "The Machina"
+				ItemName "Shooting Star"
+				ItemName "The Hitman's Heatmaker"
+				ItemName "The Classic"
+			}
+			Cost 0
+			Attribute "headshot damage increase"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"damage penalty on bodyshot" -0.2
+			}
+		}
+		ModHuntsman
+		{
+			Name "Silver Mod: High Voltage"
+			Description "+Damages targets via heal beams; -20% damage"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Huntsman"
+				ItemName "Festive Huntsman"
+			}
+			Cost 0
+			Attribute "damage all connected"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage penalty" -0.2
+			}
+		}
+		ModSydneySleeper
+		{
+			Name "Silver Mod: Malignant Force"
+			Description "+Applies Jarate to enemies near target on hit; +10% damage; -40% bodyshot damage"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Sydney Sleeper"
+			}
+			Cost 0
+			Attribute "radius sleeper"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"damage bonus HIDDEN" 0.1
+				"damage penalty on bodyshot" -0.4
+			}
+		}
+		ModBazaarBargain
+		{
+			Name "Silver Mod: Sharpshooter"
+			Description "+20% headshot damage; -40% bodyshot damage; -20% reserve ammo"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Bazaar Bargain"
+			}
+			Cost 0
+			Attribute "headshot damage increase"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"damage penalty on bodyshot" -0.4
+				"maxammo primary reduced" -0.2
+			}
+		}
+		ModMachina
+		{
+			Name "Silver Mod: Point Strike"
+			Description "+Pierces resistances; +Additional 15% damage bonus when fully charged; -60% reserve ammo"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Machina"
+				ItemName "Shooting Star"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"sniper full charge damage bonus" 0.15
+				"maxammo primary reduced" -0.6
+			}
+		}
+		ModHitmansHeatmaker
+		{
+			Name "Gold Mod: Depleted Reload"
+			Description "+40% fire rate; -20% damage; -50% explosive headshot damage; -40% reserve ammo"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Hitman's Heatmaker"
+			}
+			Cost 0
+			Attribute "fire rate bonus"
+			Increment -0.4
+			Cap 0.6
+			SecondaryAttributes
+			{
+				"damage penalty" -0.2
+				"mult bleeding dmg" -0.5	[$SIGSEGV]
+				"maxammo primary reduced" -0.4
+			}
+		}
+		ModFortifiedCompound
+		{
+			Name "Platinum Mod: Terminal Velocity"
+			Description "+Arrows ricochet off surfaces; +Arrows seek nearby targets after 2.2 seconds; -30% damage; -Arrows can only penetrate 3 times"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Fortified Compound"
+			}
+			Cost 0
+			Attribute "damage penalty"
+			Increment -0.3
+			Cap 0.7
+			SecondaryAttributes
+			{
+				"reset arrow hits on bounce" 1	[$SIGSEGV]
+				"mod projectile heat aim start time" 2.2	[$SIGSEGV]
+				"mod projectile heat seek power" 360	[$SIGSEGV]
+				"projectile penetration limit" 3	[$SIGSEGV]
+				"grenade bounce speed" 0.6	[$SIGSEGV]
+				"projectile lifetime" 3	[$SIGSEGV]
+			}
+		}
+		ModClassic
+		{
+			Name "Platinum Mod: Speed Trigger"
+			Description "+Can headshot at any charge; +40% fire rate; +No bodyshot damage penalty; -20% damage; -33% explosive headshot damage"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Classic"
+			}
+			Cost 0
+			Attribute "fire rate bonus"
+			Increment -0.4
+			Cap 0.6
+			SecondaryAttributes
+			{
+				"sniper no headshot without full charge" -1
+				"damage penalty on bodyshot" 0.1
+				"damage penalty" -0.2
+				"mult bleeding dmg" -0.33	[$SIGSEGV]
+			}
+		}
+		ModSMG
+		{
+			Name "Silver Mod: Anaemic Agility"
+			Description "+60% fire rate; -25% damage"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "Jarate"
+				ItemName "Festive Jarate"
+				ItemName "The Self-Aware Beauty Mark"
+				ItemName "The Razorback"
+				ItemName "Darwin's Danger Shield"
+				ItemName "The Cozy Camper"
+				ItemName "The Cleaner's Carbine"
+			}
+			Cost 0
+			Attribute "fire rate bonus HIDDEN"
+			Increment -0.6
+			Cap 0.4
+			SecondaryAttributes
+			{
+				"damage penalty" -0.25
+			}
+		}
+		ModRazorback
+		{
+			Name "Gold Mod: Armoured Recovery"
+			Description "+30% bullet damage resistance"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Razorback"
+			}
+			Cost 0
+			Attribute "dmg taken from bullets reduced"
+			Increment -0.3
+			Cap 0.7
+		}
+		ModDarwinsDangerShield
+		{
+			Name "Gold Mod: Blast Shield"
+			Description "+25 max health; +20% blast damage resistance"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "Darwin's Danger Shield"
+			}
+			Cost 0
+			Attribute "dmg taken from blast reduced"
+			Increment -0.2
+			Cap 0.8
+			SecondaryAttributes
+			{
+				"max health additive bonus" 25
+			}
+		}
+		ModCozyCamper
+		{
+			Name "Bronze Mod: Ammo Stock"
+			Description "+20% primary reserve ammo"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Cozy Camper"
+			}
+			Cost 0
+			Attribute "maxammo primary increased"
+			Increment 0.2
+			Cap 1.2
+		}
+		ModCleanersCarbine
+		{
+			Name "Silver Mod: Critical Delay"
+			Description "+Mini-crits become crits; +No fire rate penalty; -Additional 20% clip size penalty"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Cleaner's Carbine"
+			}
+			Cost 0
+			Attribute "minicrits become crits"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"fire rate penalty" -0.25
+				"clip size penalty" -0.2
+			}
+		}
+		ModKukri
+		{
+			Name "Platinum Mod: Proton Snap"
+			Description "+Can damage and remove Sappers; +100% damage vs Sappers"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Tribalman's Shiv"
+				ItemName "The Bushwacka"
+				ItemName "The Shahanshah"
+			}
+			Cost 0
+			Attribute "dmg bonus vs buildings"
+			Increment 1
+			Cap 2
+			SecondaryAttributes
+			{
+				"damage applies to sappers" 1
+			}
+		}
+		ModTribalmansShiv
+		{
+			Name "Gold Mod: Lasting Sting"
+			Description "+Pierces resistances; +100% bleed damage; +Additional 2 seconds bleeding duration"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Tribalman's Shiv"
+			}
+			Cost 0
+			Attribute "dmg pierces resists absorbs"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"bleeding duration" 2
+				"mult bleeding dmg" 1	[$SIGSEGV]
+			}
+		}
+		ModBushwacka
+		{
+			Name "Silver Mod: Tempered Blade"
+			Description "+20% damage; -25 max health"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Bushwacka"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"max health additive penalty" -25
+			}
+		}
+		ModShahanshah
+		{
+			Name "Bronze Mod: Finishing Touch"
+			Description "+No damage penalty while above half health; -20% attack speed"
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ItemName "The Shahanshah"
+			}
+			Cost 0
+			Attribute "dmg penalty while half alive"
+			Increment 0.25
+			Cap 1
+			SecondaryAttributes
+			{
+				"fire rate penalty" 0.2
+			}
+		}
+		ModRevolver
+		{
+			Name "Silver Mod: Dizzying Rounds"
+			Description "+50% slow on hit for 2 seconds; -100% fire rate"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				Slot "Secondary"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Ambassador"
+				ItemName "Festive Ambassador"
+				ItemName "The Enforcer"
+				ItemName "The Diamondback"
+				ItemName "Maggie"
+			}
+			Cost 0
+			Attribute "slow enemy on hit"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"add attributes on hit" "move speed penalty|0.5|2"	[$SIGSEGV]
+				"fire rate penalty" 1
+			}
+		}
+		ModAmbassador
+		{
+			Name "Bronze Mod: Creeping Bullseye"
+			Description "+25% headshot damage"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				ItemName "The Ambassador"
+				ItemName "Festive Ambassador"
+			}
+			Cost 0
+			Attribute "headshot damage increase"
+			Increment 0.25
+			Cap 1.25
+		}
+		ModEnforcer
+		{
+			Name "Bronze Mod: Hollow Point"
+			Description "+20% damage; -No damage bonus while disguised"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				ItemName "The Enforcer"
+			}
+			Cost 0
+			Attribute "damage bonus"
+			Increment 0.2
+			Cap 1.2
+			SecondaryAttributes
+			{
+				"damage bonus while disguised" -0.2
+			}
+		}
+		ModDiamondback
+		{
+			Name "Silver Mod: Quickdraw"
+			Description "+50% deploy speed; +No damage penalty; -67% clip size"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				ItemName "The Diamondback"
+			}
+			Cost 0
+			Attribute "single wep deploy time decreased"
+			Increment -0.5
+			Cap 0.5
+			SecondaryAttributes
+			{
+				"damage penalty" 0.15
+				"clip size penalty" -0.67
+				"crit on hard hit" 1
+			}
+		}
+		ModKnife
+		{
+			Name "Platinum Mod: Adept Surge"
+			Description "+Collecting money grants health; +200% money collect range; -50 max health"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				Slot "Melee"
+			}
+			DisallowedWeapons
+			{
+				ItemName "Conniver's Kunai"
+				ItemName "The Big Earner"
+				ItemName "The Spy-cicle"
+			}
+			Cost 0
+			Attribute "mult credit collect range"
+			Increment 2
+			Cap 3
+			SecondaryAttributes
+			{
+				"health from credits" 20	[$SIGSEGV]
+				"max health additive penalty" -50
+			}
+		}
+		ModSpycicle
+		{
+			Name "Gold Mod: Vicious Frost"
+			Description "+Afterburn immunity while active; +50% fire damage resistance while active; +No longer melts in fire; -25% blast damage vulnerability while active"
+			AllowPlayerClass Spy
+			AllowedWeapons
+			{
+				ItemName "The Spy-cicle"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"afterburn immunity" 1
+				"dmg taken from fire reduced" -0.5
+				"melts in fire" -15
+				"become fireproof on hit by fire" -10
+				"set icicle knife mode" -3
+				"dmg taken from blast increased" 0.25
+			}
+		}
+		ModBASEJumper
+		{
+			Name "Gold Mod: Aviator"
+			Description "+Can redeploy while airborne; +200% turning control while airborne"
+			AllowPlayerClass Soldier
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The B.A.S.E. Jumper"
+			}
+			Cost 0
+			Attribute "parachute redeploy"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"cancel falling damage" 1
+				"increased air control" 2
+			}
+		}
+		ModPainTrain
+		{
+			Name "Silver Mod: Rush"
+			Description "+10% move speed while active; +Bullet damage vulnerability only takes effect while active; -No capture rate bonus"
+			AllowPlayerClass Soldier
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Pain Train"
+			}
+			Cost 0
+			Attribute "provide on active"
+			Increment 1
+			Cap 1
+			SecondaryAttributes
+			{
+				"move speed bonus" 0.1
+				"increase player capture value" -1
+			}
+		}
+		ModHalfZatoichi
+		{
+			Name "Gold Mod: Tranquil Cleave"
+			Description "+50 max health; +40% range; -50% primary and secondary reserve ammo"
+			AllowPlayerClass Soldier
+			AllowPlayerClass Demoman
+			AllowedWeapons
+			{
+				ItemName "The Half-Zatoichi"
+			}
+			Cost 0
+			Attribute "max health additive bonus"
+			Increment 50
+			Cap 50
+			SecondaryAttributes
+			{
+				"maxammo primary reduced" -0.5
+				"maxammo secondary reduced" -0.5
+				"melee range multiplier" 0.4
+				"melee bounds multiplier" 0.3
+			}
+		}
+	}
+}

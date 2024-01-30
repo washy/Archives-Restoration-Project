@@ -1,0 +1,377 @@
+boston
+{
+	LuaScriptFile "scripts/dover2_custom_weapons.lua"
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "projectile penetration"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"Projectile speed increased" 1
+		}
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "Projectile speed increased"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"projectile penetration" 1
+		}
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "projectile penetration"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"explosive bullets" 1	[$SIGSEGV]
+		}
+	}
+	DisallowUpgrade	[$SIGSEGV]
+	{
+		Upgrade "explosive bullets"
+		MaxLevel 0
+		IfUpgradePresent
+		{
+			"projectile penetration" 1
+		}
+	}
+	ExtendedUpgrades	[$SIGSEGV]
+	{
+		MaxUpgradesTier
+		{
+			1 1
+		}
+		misslerushopifyouaskmelol
+		{
+			Name "Unstable Overclock: Swarm Missiles"
+			Description "Tap to fire a barrage of weak missiles +75% ammo capacity +50% firing speed +50% clip size -70% blast radius"
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Shortstop"
+			}
+			Cost 0
+			Attribute "Projectile speed increased"
+			Increment 0.75
+			Cap 1.4
+			SecondaryAttributes
+			{
+				"damage bonus HIDDEN" 1.15
+				"crit mod disabled" -1
+				"hidden primary max ammo bonus" 0.75
+				"override projectile type" 2
+				"auto fires full clip" 1
+				"clip size penalty HIDDEN" 0.5
+				"mini rockets" 1
+				"custom kill icon" "shortstop"	[$SIGSEGV]
+				"Blast radius decreased" -0.7
+				"special item description" "Tap to fire a barrage of weak missiles +75% ammo capacity +50% firing speed +50% clip size -70% blast radius"	[$SIGSEGV]
+				"fire rate bonus HIDDEN" -0.5
+			}
+		}
+		FAN
+		{
+			Name "Unstable Overclock: Explosive Rounds"
+			Attribute "explosive bullets"
+			Cap 130
+			Increment 130
+			Cost 0
+			SecondaryAttributes
+			{
+				"provide on active" 1
+				"scattergun has knockback" -1
+				"dmg taken from self reduced" -0.9	[$SIGSEGV]
+				"self dmg push force increased" 1.8
+				"fire rate penalty HIDDEN" 1
+				"crit mod disabled" -1
+				"damage bonus HIDDEN" 10.5
+				"bullets per shot bonus" -1.1
+				"special item description" "-100% firing speed -10% damage -No special knockback"	[$SIGSEGV]
+				"explosion particle" "rd_robot_explosion_smoke_linger"	[$SIGSEGV]
+			}
+			Description "Fires explosive bullets -100% firing speed -10% damage"
+			Tier 1
+			AllowPlayerClass Scout
+			AllowedWeapons
+			{
+				ItemName "The Force-a-Nature"
+				ItemName "Festive Force-a-Nature"
+			}
+			DisallowedWeapons
+			{
+				ItemName "Super Shotgun"
+			}
+		}
+		Backscatter
+		{
+			Name "Unstable Overclock: Cloaker Tactics"
+			Attribute "crit from behind"
+			Cap 1
+			Increment 1
+			Cost 0
+			SecondaryAttributes
+			{
+				"special item description" "On Kill: 4 seconds of cloak +Crits from behind -46% accurate -25% reload speed -20% firing speed"	[$SIGSEGV]
+				"spread penalty" 0.46
+				"Reload time increased" 0.25
+				"add cond on kill" 66	[$SIGSEGV]
+				"closerange backattack minicrits" -1
+				"fire rate penalty HIDDEN" 0.2
+				"add cond on kill duration" 4	[$SIGSEGV]
+			}
+			Description "On Kill: 4 seconds of cloak +Crits from behind -46% accurate -25% reload speed -20% firing speed"
+			Tier 1
+			AllowedWeapons
+			{
+				ItemName "The Back Scatter"
+			}
+		}
+		PistolCoK
+		{
+			Name "Balanced Overclock: Critical Combo"
+			Attribute "critboost on kill"
+			Cap 5
+			Increment 5
+			Cost 0
+			SecondaryAttributes
+			{
+				"damage bonus" 0.25
+				"hidden secondary max ammo penalty" 1
+				"honorbound" 1
+				"special item description" "On Kill: 5 seconds of critical hits +25% damage +100% ammo capacity -Is honorbound"	[$SIGSEGV]
+			}
+			Description "On Kill: 5 seconds of critical hits +25% damage +100% ammo capacity -Is honorbound"
+			Tier 1
+			AllowPlayerClass Scout
+			AllowPlayerClass Sniper
+			AllowedWeapons
+			{
+				ClassName tf_weapon_handgun_scout_secondary
+				ClassName TF_WEAPON_PISTOL_SCOUT
+				ItemName "The C.A.P.P.E.R"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Winger"
+			}
+		}
+		Winger
+		{
+			Name "Balanced Overclock: Royal Flight"
+			Description "Alt-Fire to dash forward every 3 seconds +400 stomp damage -25% jump height while active"
+			Attribute "cannot giftwrap"
+			Cap 1
+			Increment 1
+			Cost 0
+			Tier 1
+			AllowedWeapons
+			{
+				ItemName "The Winger"
+			}
+			SecondaryAttributes
+			{
+				"special item description" "Alt-Fire to dash forward every 3 seconds +400 stomp damage -25% jump height while active"	[$SIGSEGV]
+				"add cond when active" 46	[$SIGSEGV]
+				"add attributes when active" "boots falling stomp|1|kb fall radius|75|kb fall force|100|kb fall min velocity|150|kb fall damage|400|kb fall stun time|-1"	[$SIGSEGV]
+				"increased jump height from weapon" -0.25
+			}
+			OnApply
+			{
+				Output "popscript,$WingerDashPurchased,,0"
+			}
+			OnDowngrade
+			{
+				Output "popscript,$WingerDashRefunded,,0"
+			}
+		}
+		BonkSoda
+		{
+			Name "Balanced Overclock: Temporary Quick-Fix Uber"
+			Attribute "damage bonus HIDDEN"
+			Increment 0.01
+			Cap 1.01
+			Cost 0
+			Description "Replaces bonk effect with temporary Quick-Fix Uber"
+			Tier 1
+			SecondaryAttributes
+			{
+				"special item description" "Replaces bonk effect with temporary Quick-Fix Uber"	[$SIGSEGV]
+				"effect cond override" 18716	[$SIGSEGV]
+			}
+			AllowedWeapons
+			{
+				ItemName "Bonk! Atomic Punch"
+				ItemName "Festive Bonk 2014"
+			}
+		}
+		Cleaver
+		{
+			Name "Balanced Overclock: 4000 Degrees Knife"
+			Attribute "always crit"
+			Cap 1
+			Increment 1
+			SecondaryAttributes
+			{
+				"special item description" "-30% primary ammo capacity"	[$SIGSEGV]
+				"hidden primary max ammo bonus" -0.3
+			}
+			Cost 0
+			Description "Always deals critical damage -30% primary ammo capacity"
+			Tier 1
+			AllowedWeapons
+			{
+				ItemName "The Flying Guillotine"
+			}
+		}
+		Milk
+		{
+			Name "Unstable Overclock: Spicy Milk"
+			Attribute "Projectile speed increased"
+			Cap 2
+			Increment 1
+			Cost 0
+			Description "Replaces milk effect with a high damage fireball that deals extra damage to giants"
+			Tier 1
+			SecondaryAttributes
+			{
+				"override projectile type extra" "spellfireball"	[$SIGSEGV]
+				"dmg penalty vs players" 0.3
+				"special item description" "Replaces milk effect with a high damage fireball"	[$SIGSEGV]
+				"custom kill icon" "firedeath"	[$SIGSEGV]
+				"mult dmg vs giants" 0.5	[$SIGSEGV]
+			}
+			AllowedWeapons
+			{
+				ItemName "Mad Milk"
+				ItemName "Mutated Milk"
+			}
+		}
+		BatA
+		{
+			Name "Perk: Overkill"
+			Attribute "mult bleeding dmg"
+			Cap 3
+			Increment 3
+			Cost 400
+			Description "+30% base health on kill +500% damage +25% critical damage +300% bleed damage -200% swing speed"
+			Tier 1
+			SecondaryAttributes
+			{
+				"damage bonus" 5
+				"special item description" "+30% base health on kill +500% damage -200% swing speed"	[$SIGSEGV]
+				"fire rate penalty" 2
+				"restore health on kill" 30
+				"crit mod disabled" -1
+				"provide on active" 1
+				"mult crit dmg" 0.25	[$SIGSEGV]
+				"dmg taken from self reduced" -0.8	[$SIGSEGV]
+			}
+			AllowedWeapons
+			{
+				ClassName TF_WEAPON_BAT
+				ItemName "The Holy Mackerel"
+				ItemName "Festive Bat 2011"
+				ItemName "Festive Holy Mackerel"
+			}
+			DisallowedWeapons
+			{
+				ItemName "The Fan O'War"
+				ItemName "The Wrap Assassin"
+				ItemName "The Sandman"
+				ItemName "Sun-on-a-Stick"
+				ItemName "The Candy Cane"
+			}
+		}
+		BatA
+		{
+			Name "Perk: Sun God"
+			Attribute "provide on active"
+			Cap 1
+			Increment 1
+			Cost 400
+			Description "+50% base health on kill +500% damage +Speedboost on kill -200% swing speed -Extinguishes targets"
+			Tier 1
+			SecondaryAttributes
+			{
+				"damage bonus" 5
+				"special item description" "+50% base health on kill +500% damage +Speedboost on kill -200% swing speed -Extinguishes targets"	[$SIGSEGV]
+				"fire rate penalty" 2
+				"restore health on kill" 50
+				"crit mod disabled" -1
+				"add cond on kill" 32	[$SIGSEGV]
+				"add cond on kill duration" 4	[$SIGSEGV]
+				"attack_minicrits_and_consumes_burning" 1
+			}
+			AllowedWeapons
+			{
+				ItemName "Sun-on-a-Stick"
+			}
+		}
+		lolno
+		{
+			Name "Clean Overclock: Shine"
+			Attribute "melee airblast"
+			Cap 1
+			Increment 1
+			Cost 0
+			Description "Attacks reflects projectiles +Blast vulnerability is activated while active +30% blast radius -60% swing speed"
+			Tier 1
+			SecondaryAttributes
+			{
+				"provide on active" 1
+				"Blast radius increased" 0.3
+				"fire rate penalty" 0.6
+				"special item description" "Blast vulnerability is activated while active +30% blast radius -60% swing speed"	[$SIGSEGV]
+				"add attributes when active" "dmg taken from blast increased|1.25"	[$SIGSEGV]
+				"dmg taken from blast increased" -0.25
+			}
+			AllowedWeapons
+			{
+				ItemName "The Candy Cane"
+			}
+		}
+		Wrap
+		{
+			Name "Balanced Overclock: Milky Balls"
+			Attribute "add cond on hit"
+			Cap 27
+			Increment 27
+			Cost 0
+			SecondaryAttributes
+			{
+				"special item description" "Applies milk for 2 seconds -30% health from packs"	[$SIGSEGV]
+				"health from packs decreased" -0.30
+				"add cond on hit duration" 2	[$SIGSEGV]
+			}
+			Description "Applies milk for 2 seconds -30% health from packs"
+			Tier 1
+			AllowedWeapons
+			{
+				ItemName "The Wrap Assassin"
+			}
+		}
+		SandmanA
+		{
+			Name "Clean Overclock: Sportsman Pride"
+			Attribute "self add cond on hit"
+			Cap 29
+			Increment 29
+			Cost 0
+			Description "On Hit: Gain Concheror Effect for 4 seconds +15 max health -40% slower swing speed"
+			Tier 1
+			SecondaryAttributes
+			{
+				"max health additive penalty" 15
+				"self add cond on hit duration" 4	[$SIGSEGV]
+				"special item description" "On Hit: Gain Concheror Effect for 4 seconds +15 max health -40% slower swing speed"	[$SIGSEGV]
+				"fire rate penalty" 0.4
+			}
+			AllowedWeapons
+			{
+				ItemName "The Sandman"
+			}
+		}
+	}
+}

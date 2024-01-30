@@ -1,0 +1,1903 @@
+#base robot_giant.pop
+#base robot_standard.pop
+WaveSchedule
+{
+	StartingCurrency 900
+	RespawnWaveTime 4
+	CanBotsAttackWhileInSpawnRoom No
+	ForceHoliday 2	[$SIGSEGV]
+	EventPopfile Halloween
+	ZombiesNoWave666 1	[$SIGSEGV]
+	Advanced 1
+	Templates
+	{
+		T_TFBot_Sniper_Machina
+		{
+			Class Sniper
+			Name "Black Ops Sniper"
+			Skill Hard
+			Item "The Razorback"
+			Item "The Machina"
+			Item "The Doublecross-Comm"
+			Item "Letch's LED"
+			MaxVisionRange 2500
+		}
+		T_TFBot_Spy_YER
+		{
+			Class Spy
+			Skill Expert
+			Item "Your Eternal Reward"
+			Name "Special Agent Spy"
+			Item "Belltower Spec Ops"
+			ItemAttributes
+			{
+				ItemName "Your Eternal Reward"
+				"mod_disguise_consumes_cloak" 0
+			}
+		}
+		T_TFBot_Pyro_Flaregun_Fast
+		{
+			Class Pyro
+			Name "Flaregun Pyro"
+			Skill Normal
+			ClassIcon pyro_flare
+			Item "The Flare Gun"
+			Item "The Flamboyant Flamenco"
+			WeaponRestrictions SecondaryOnly
+			ItemAttributes
+			{
+				ItemName "The Flare Gun"
+				"projectile speed increased" 1.5
+			}
+		}
+		T_TFBot_Medic_Kritz
+		{
+			Class Medic
+			Skill Expert
+			ClassIcon medic_kritz
+			Name "Kritz Medic"
+			Attributes SpawnWithFullCharge
+			Item "The Kritzkrieg"
+			Item "Titanium Tyrolean"
+			ItemAttributes
+			{
+				ItemName "The Kritzkrieg"
+				"ubercharge rate bonus" 100
+				"uber duration bonus" 200
+			}
+			CharacterAttributes
+			{
+				"bot medic uber health threshold" 200
+			}
+		}
+		T_TFBot_Heavyweapons_Shotgun_Elite
+		{
+			Class Heavyweapons
+			Health 900
+			ClassIcon heavy_shotgun_burst_lite
+			Name "Elite Shotgun Heavy"
+			Item "The Purity Fist"
+			Item "The Eliminators Safeguard"
+			Skill Normal
+			Scale 1.4
+			WeaponRestrictions SecondaryOnly
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_SHOTGUN_HWG"
+				"faster reload rate" 0.5
+				"fire rate bonus" 0.75
+				"clip size bonus" 2
+				"auto fires full clip" 1
+				"auto fires when full" 1
+				"bullets per shot bonus" 1.5
+				"damage bonus" 0.66
+			}
+			ItemAttributes
+			{
+				ItemName "The Eliminators Safeguard"
+				"item style override" 1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.9
+				"health regen" 10
+				"damage force reduction" 0.7
+				"airblast vertical vulnerability multiplier" 0.6
+				"airblast vulnerability multiplier" 0.6
+				"cancel falling damage" 1
+			}
+		}
+		T_TFBot_Medic_Shield
+		{
+			Class Medic
+			Name "Shield Medic"
+			Skill Expert
+			Item "The Quick-Fix"
+			ClassIcon medic_shield_lite
+			WeaponRestrictions SecondaryOnly
+			Attributes SpawnWithFullCharge
+			Attributes ProjectileShield
+			Attributes IgnoreEnemies
+			CharacterAttributes
+			{
+				"generate rage on heal" 2
+				"increase buff duration" 9
+				"health from healers increased" 0
+			}
+		}
+		T_TFBot_Sniper_Huntsman_Spammer_Flame
+		{
+			Class Sniper
+			Name "Rapid Fire Flame Bowman"
+			Item "The Huntsman"
+			Item "The Doublecross-Comm"
+			Item "Letch's LED"
+			ClassIcon sniper_bow_ignite_multi
+			Skill Hard
+			Health 1200
+			Scale 1.5
+			ItemAttributes
+			{
+				ItemName "The Huntsman"
+				"fire rate bonus" 0.6
+				"Set DamageType Ignite" 1
+			}
+			CharacterAttributes
+			{
+				"head scale" 0.7
+				"move speed bonus" 0.85
+				"damage force reduction" 0.7
+				"airblast vertical vulnerability multiplier" 0.6
+				"airblast vulnerability multiplier" 0.6
+				"cancel falling damage" 1
+			}
+		}
+		T_TFBot_Demoman_Knight_Axe
+		{
+			Class Demoman
+			Name "Axe Demoknight"
+			ClassIcon demoknight_skullcutter_lite
+			Skill Expert
+			Item "The Chargin' Targe"
+			Item "The Battery Bandolier"
+			Item "The Bearded Bombardier"
+			Item "The Scotsman's Skullcutter"
+			Item "Ali Baba's Wee Booties"
+			WeaponRestrictions MeleeOnly
+			Attributes AlwaysCrit
+			CharacterAttributes
+			{
+				"charge recharge rate increased" 2.5
+			}
+		}
+		T_TFBot_Soldier_DH
+		{
+			Class Soldier
+			Name "Direct Hit Soldier"
+			Skill Normal
+			Item "The Direct Hit"
+			Item "Honcho's Headgear"
+		}
+		T_TFBot_Heavyweapons_Deflector_Small
+		{
+			Class Heavyweapons
+			Name "Deflector Heavy"
+			ClassIcon heavy_deflector
+			Skill Normal
+			Item "The U-clank-a"
+			Item "Deflector"
+			WeaponRestrictions PrimaryOnly
+			MaxVisionRange 1200
+			ItemAttributes
+			{
+				ItemName "Deflector"
+				"attack projectiles" 1
+			}
+		}
+		T_TFBot_Pyro_Airblast
+		{
+			Name "Airblast Pyro"
+			Skill Expert
+			Class Pyro
+			ClassIcon pyro_reflect_daan
+			Item "The Degreaser"
+			Item "Traffic Cone"
+		}
+		T_TFBot_Scout_Bonk_Primary
+		{
+			Class Scout
+			Skill Normal
+			ClassIcon scout_bonk
+			Name "Bonk! Scout"
+			Item "Bonk! Atomic Punch"
+			Item "Bonk Helm"
+			WeaponRestrictions PrimaryOnly
+		}
+		T_TFBot_Soldier_Extended_Battalion_DH
+		{
+			Class Soldier
+			Name "Extended Battalion Soldier"
+			Skill Normal
+			Item "The Direct Hit"
+			ClassIcon soldier_backup
+			Item "Honcho's Headgear"
+			Attributes SpawnWithFullCharge
+			Item "The Battalion's Backup"
+			CharacterAttributes
+			{
+				"increase buff duration" 100.0
+			}
+		}
+		T_TFBot_Heavyweapons_Flare_GatlingGun
+		{
+			Class Heavyweapons
+			Name "Flare Gatling Gun Heavy"
+			Skill Hard
+			ClassIcon pyro_flare_rain_nys
+			Item "The Eliminators Safeguard"
+			ItemAttributes
+			{
+				ItemName "The Eliminators Safeguard"
+				"item style override" 1
+			}
+			ItemAttributes
+			{
+				ItemName "tf_weapon_minigun"
+				"override projectile type" 6
+				"centerfire projectile" 1
+				"Set DamageType Ignite" 1
+				"fire rate bonus" 1.5
+				"crit vs burning players" 1
+				"crits_become_minicrits" 1
+			}
+		}
+		T_TFBot_Giant_Pyro_Flaregun_RapidFire
+		{
+			Class Pyro
+			Name "Giant Flaregun Pyro"
+			ClassIcon pyro_flare_giant
+			Skill Expert
+			Tag bot_giant
+			Health 3000
+			Item "The Flare Gun"
+			Item "The Last Breath"
+			Item "The Flamboyant Flamenco"
+			WeaponRestrictions SecondaryOnly
+			Attributes MiniBoss
+			ItemAttributes
+			{
+				ItemName "The Flare Gun"
+				"fire rate bonus" 0.3
+				"faster reload rate" 0.75
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.6
+				"airblast vulnerability multiplier" 0.6
+				"override footstep sound set" 6
+			}
+		}
+		T_TFBot_Giant_Scout_FAN_Armored
+		{
+			Class Scout
+			Name "Giant Armored FAN Scout"
+			ClassIcon scout_fan_armored
+			Skill Expert
+			Health 3000
+			Item "The Bolt Boy"
+			Item "The Force-a-Nature"
+			Attributes MiniBoss
+			Tag bot_giant
+			Attributes HoldFireUntilFullReload
+			ItemAttributes
+			{
+				ItemName "The Force-a-Nature"
+				"bullets per shot bonus" 2
+				"fire rate bonus" 0.5
+				"faster reload rate" 1.7
+				"scattergun knockback mult" 6
+				"damage penalty" 0.35
+				"weapon spread bonus" 0.4
+			}
+			CharacterAttributes
+			{
+				"damage force reduction" 0.7
+				"airblast vulnerability multiplier" 0.7
+				"override footstep sound set" 5
+				"move speed penalty" 0.75
+			}
+		}
+		T_TFBot_Giant_Demo_Burst_C
+		{
+			Class Demoman
+			Name "Giant Burst Fire Demo"
+			Item "Scotch Bonnet"
+			ClassIcon demo_burst_giant
+			Health 3300
+			Skill Expert
+			Tag bot_giant
+			WeaponRestrictions PrimaryOnly
+			Attributes MiniBoss
+			Attributes HoldFireUntilFullReload
+			Item "The Iron Bomber"
+			ItemAttributes
+			{
+				ItemName "The Iron Bomber"
+				"faster reload rate" 0.6
+				"fire rate bonus" 0.1
+				"clip size upgrade atomic" 8
+				"projectile spread angle penalty" 5
+				"Projectile speed increased" 1.1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"override footstep sound set" 4
+				"cancel falling damage" 1
+			}
+		}
+		T_TFBot_Giant_Pyro_DF_Spammer
+		{
+			Health 3000
+			Name "Giant Rapid Fire Dragon Pyro"
+			Class Pyro
+			Skill Hard
+			Item "the dragon's fury"
+			Item "The Triclops"
+			Item "The Flamboyant Flamenco"
+			ClassIcon pyro_dragon_fury_swordstone
+			MaxVisionRange 500
+			Attributes MiniBoss
+			Tag bot_giant
+			ItemAttributes
+			{
+				ItemName "the dragon's fury"
+				"item_meter_charge_rate" 0.4
+				"damage bonus" 0.75
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.5
+				"airblast vulnerability multiplier" 0.5
+				"override footstep sound set" 3
+				"cancel falling damage" 1
+			}
+		}
+		T_TFBot_Giant_Soldier_Extended_Concheror_Burst
+		{
+			Class Soldier
+			Name "Giant Burst Fire Conch Soldier"
+			ClassIcon soldier_conch_burstfire
+			Item "The Shogun's Shoulder Guard"
+			Item "Honcho's Headgear"
+			Item "The Concheror"
+			Health 3800
+			Skill Expert
+			Tag bot_giant
+			WeaponRestrictions PrimaryOnly
+			Attributes MiniBoss
+			Attributes HoldFireUntilFullReload
+			Attributes SpawnWithFullCharge
+			ItemAttributes
+			{
+				ItemName "TF_WEAPON_ROCKETLAUNCHER"
+				"move speed bonus" 0.5
+				"faster reload rate" 0.6
+				"fire rate bonus" 0.1
+				"clip size upgrade atomic" 5.0
+				"Projectile speed increased" 0.65
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"override footstep sound set" 3
+				"increase buff duration" 100.0
+			}
+		}
+		T_TFBot_Giant_Demo_Atomic
+		{
+			Class Demoman
+			Name "Giant Atomic Demoman"
+			ClassIcon demo_atomic_mort
+			Item "Scotch Bonnet"
+			Health 3300
+			Skill Expert
+			Item "The Loose Cannon"
+			Tag bot_giant
+			WeaponRestrictions PrimaryOnly
+			Attributes MiniBoss
+			Attributes AlwaysCrit
+			ItemAttributes
+			{
+				ItemName "The Loose Cannon"
+				"grenade launcher mortar mode" 0
+				"faster reload rate" 1.5
+				"fire rate bonus" 0.1
+				"auto fires full clip" 1
+				"auto fires when full" 1
+				"Projectile speed increased" 1.2
+				"projectile spread angle penalty" 5
+				"damage bonus" 3
+				"fuse bonus" 1.2
+				"damage causes airblast" 1
+				"blast radius increased" 2
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.4
+				"airblast vulnerability multiplier" 0.4
+				"override footstep sound set" 3
+				"cancel falling damage" 1
+			}
+		}
+		T_TFBot_Giant_Heavyweapons_BrassBeast_Deflector
+		{
+			Class Heavyweapons
+			Name "Giant Brass Deflector Heavy"
+			ClassIcon heavy_deflector
+			Item "The Brass Beast"
+			Skill Expert
+			Health 5000
+			WeaponRestrictions PrimaryOnly
+			Attributes MiniBoss
+			Item "The Eliminators Safeguard"
+			ItemAttributes
+			{
+				ItemName "The Eliminators Safeguard"
+				"item style override" 1
+			}
+			ItemAttributes
+			{
+				ItemName "The Brass Beast"
+				"damage bonus" 1.8
+				"attack projectiles" 2
+				"spunup_damage_resistance" 1
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.3
+				"airblast vulnerability multiplier" 0.3
+				"override footstep sound set" 2
+			}
+		}
+		T_TFBot_Giant_Heavy_Brass_Beast
+		{
+			Class Heavyweapons
+			Name "Giant Brass Beast Heavy"
+			ClassIcon heavy_brass_nys
+			Item "The Brass Beast"
+			Skill Expert
+			Health 5000
+			WeaponRestrictions PrimaryOnly
+			Attributes MiniBoss
+			Attributes AlwaysCrit
+			ItemAttributes
+			{
+				ItemName "The Eliminators Safeguard"
+				"item style override" 1
+			}
+			ItemAttributes
+			{
+				ItemName "The Brass Beast"
+				"damage bonus" 1.8
+			}
+			CharacterAttributes
+			{
+				"move speed bonus" 0.5
+				"damage force reduction" 0.3
+				"airblast vulnerability multiplier" 0.3
+				"override footstep sound set" 2
+			}
+		}
+	}
+	Mission
+	{
+		Objective Sniper
+		BeginAtWave 5
+		RunForThisManyWaves 1
+		InitialCooldown 25
+		CooldownTime 35
+		DesiredCount 2
+		Where spawnbot_mission_sniper
+		TFBot
+		{
+			Template T_TFBot_Sniper_Machina
+		}
+	}
+	Mission
+	{
+		Where spawnbot_mission_spy
+		Objective Spy
+		BeginAtWave 2
+		RunForThisManyWaves 1
+		InitialCooldown 40
+		CooldownTime 55
+		DesiredCount 2
+		TFBot
+		{
+			Template T_TFBot_Spy
+		}
+	}
+	Mission
+	{
+		Where spawnbot_mission_spy
+		Objective Spy
+		BeginAtWave 4
+		RunForThisManyWaves 1
+		InitialCooldown 40
+		CooldownTime 40
+		DesiredCount 2
+		TFBot
+		{
+			Template T_TFBot_Spy_YER
+		}
+	}
+	Mission
+	{
+		Where spawnbot_mission_sentrybuster
+		Objective DestroySentries
+		BeginAtWave 1
+		RunForThisManyWaves 5
+		CooldownTime 35
+		DesiredCount 1
+		TFBot
+		{
+			Template T_TFBot_SentryBuster
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name wave1a
+			SpawnCount 1
+			MaxActive 6
+			TotalCount 20
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 75
+			Where spawnbot_alt
+			TFBot
+			{
+				Class Demoman
+				Item "Scotch Bonnet"
+				Tag nav_flank_routeother
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1a
+			SpawnCount 1
+			MaxActive 6
+			TotalCount 18
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			TotalCurrency 75
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Pyro_Flaregun_Fast
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1a
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 10
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Heater
+					Name "Giant Heater Heavy"
+					Item "The Eliminators Safeguard"
+					ItemAttributes
+					{
+						ItemName "The Eliminators Safeguard"
+						"item style override" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Shield
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Shield
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1b-1
+			WaitForAllDead wave1a
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 100
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_Flaregun_RapidFire
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1b-1
+			WaitForAllDead wave1a
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 100
+			Where spawnbot_side
+			TFBot
+			{
+				Template T_TFBot_Giant_Pyro_Flaregun_RapidFire
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1b
+			WaitForAllDead wave1b-1
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			TotalCurrency 100
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_RocketShotgun
+				Item "Honcho's Headgear"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1b
+			WaitForAllDead wave1a
+			SpawnCount 8
+			MaxActive 8
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 75
+			Where spawnbot
+			TFBot
+			{
+				Class Soldier
+				Skill Normal
+				Item "Honcho's Headgear"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1b
+			WaitForAllDead wave1b-1
+			SpawnCount 1
+			MaxActive 6
+			TotalCount 16
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0.5
+			TotalCurrency 75
+			Where spawnbot_invasion
+			TFBot
+			{
+				Class Demoman
+				Item "Scotch Bonnet"
+				Skill Normal
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1c-1
+			WaitForAllDead wave1b
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0.5
+			TotalCurrency 75
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Extended_Buff_Banner
+				Item "Honcho's Headgear"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1c
+			WaitForAllSpawned wave1c-1
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 0.5
+			TotalCurrency 75
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Extended_Battalion
+				Item "Honcho's Headgear"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1c
+			WaitForAllDead wave1b
+			SpawnCount 2
+			MaxActive 8
+			TotalCount 20
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 4
+			TotalCurrency 50
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Shotgun_Elite
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Quickfix
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave1c
+			WaitForAllDead wave1b
+			SpawnCount 1
+			MaxActive 6
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 100
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Pyro_Flaregun_Fast
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name wave2a
+			SpawnCount 1
+			MaxActive 8
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 100
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Demoman_Knight_Axe
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2pyro
+			SpawnCount 3
+			MaxActive 6
+			TotalCount 30
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 4
+			TotalCurrency 100
+			Where spawnbot
+			TFBot
+			{
+				Class Pyro
+				Skill Easy
+				Item "Ghastly Gibus 2011"
+				Tag nav_flank_routeother
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2a
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 30
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot_airdrop1
+			FirstSpawnOutput
+			{
+				Target air_warning_relay
+				Action Trigger
+			}
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer_Reload
+				Item "Honcho's Headgear"
+				Attributes Parachute
+				Item "The B.A.S.E. Jumper"
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2a
+			SpawnCount 1
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 12
+			TotalCurrency 100
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer_Reload
+				Item "Honcho's Headgear"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2tank
+			WaitForAllDead wave2a
+			TotalCount 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			Tank
+			{
+				Health 20000
+				Name "tank"
+				Speed 75
+				StartingPathTrackNode "tank_path_b"
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2b
+			WaitForAllDead wave2a
+			SpawnCount 2
+			MaxActive 12
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Class Soldier
+					Skill Normal
+					Item "Honcho's Headgear"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Quickfix
+					Item "Berliner's Bucket Helm"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2b
+			WaitForAllDead wave2a
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 2
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 15
+			TotalCurrency 100
+			Where spawnbot_side
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_FAN_Armored
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2c-1
+			WaitForAllDead wave2b
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Shotgun
+					Item "The Eliminators Safeguard"
+					ItemAttributes
+					{
+						ItemName "The Eliminators Safeguard"
+						"item style override" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2c-1
+			WaitForAllDead wave2b
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 18
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					Item "Honcho's Headgear"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave2c
+			WaitForAllDead wave2b
+			SpawnCount 1
+			MaxActive 4
+			TotalCount 8
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 4
+			TotalCurrency 50
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman_Spammer_Flame
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name wave3a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 14
+			Where spawnbot_alt
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Burst_C
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3a
+			TotalCurrency 50
+			SpawnCount 2
+			MaxActive 6
+			TotalCount 14
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Deflector_Small
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3sniper
+			TotalCurrency 50
+			SpawnCount 6
+			MaxActive 6
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			Where spawnbot_invasion
+			TFBot
+			{
+				Class Soldier
+				Skill Normal
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3b-tank
+			WaitForAllDead wave3a
+			TotalCount 1
+			SpawnCount 1
+			TotalCurrency 150
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 3.9
+			StartWaveOutput
+			{
+				Target drop_bomb0_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 15000
+				Name "droptank0"
+				Speed 75
+				StartingPathTrackNode "tank_path_drop0_a"
+				OnKilledOutput
+				{
+					Target droptank0_killed_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3shotgunman
+			WaitForAllDead wave3a
+			TotalCurrency 75
+			SpawnCount 1
+			MaxActive 4
+			TotalCount 14
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 6
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Shotgun_Elite
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3b
+			WaitForAllDead wave3a
+			TotalCurrency 75
+			SpawnCount 4
+			MaxActive 8
+			TotalCount 12
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Soldier_DH
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3b
+			WaitForAllDead wave3a
+			TotalCurrency 250
+			SpawnCount 2
+			MaxActive 4
+			TotalCount 4
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 23
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Pyro_DF_Spammer
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Extended_Concheror_Burst
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3c
+			WaitForAllDead wave3b
+			SpawnCount 5
+			MaxActive 5
+			TotalCount 5
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Demo_Burst_C
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Deflector_Small
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Deflector_Small
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Deflector_Small
+				}
+				TFBot
+				{
+					Template T_TFBot_Heavyweapons_Deflector_Small
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3c
+			WaitForAllDead wave3b
+			SpawnCount 2
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 16
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Demo_Burst_C
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					Name "Giant Regen Medic"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave3c-heavy
+			WaitForAllDead wave3b
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 10
+			TotalCount 20
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Soldier_DH
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name wave4a-1
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Deflector
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4a
+			WaitForAllSpawned wave4a-1
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4a
+			TotalCurrency 100
+			SpawnCount 4
+			MaxActive 8
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Demo_Burst
+				Item "Scotch Bonnet"
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 5
+			TotalCount 20
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1
+			Where spawnbot_invasion
+			TFBot
+			{
+				Class Scout
+				Skill Normal
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4b-1
+			WaitForAllDead wave4a
+			TotalCurrency 75
+			SpawnCount 1
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 4
+			WaitBetweenSpawns 17
+			Where spawnbot_side
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Atomic
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4b
+			WaitForAllDead wave4b-1
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 4
+			WaitBetweenSpawns 0
+			TotalCurrency 75
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_SlowBarrage
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4b
+			WaitForAllDead wave4a
+			SpawnCount 2
+			MaxActive 4
+			TotalCount 12
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 75
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Battalion_DH
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Bigheal
+					Item "Berliner's Bucket Helm"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4b
+			WaitForAllDead wave4a
+			SpawnCount 2
+			MaxActive 4
+			TotalCount 12
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 75
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Demo_Burst
+					Item "Scotch Bonnet"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "The Byte'd Beak"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4heavy
+			WaitForAllDead wave4b
+			SpawnCount 2
+			MaxActive 2
+			TotalCount 6
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			TotalCurrency 50
+			Where spawnbot_invasion
+			Squad
+			{
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Normal
+					Item "The Eliminators Safeguard"
+					ItemAttributes
+					{
+						ItemName "The Eliminators Safeguard"
+						"item style override" 1
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_Kritz
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4b
+			WaitForAllDead wave4a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 4
+			TotalCount 18
+			WaitBeforeStarting 6
+			WaitBetweenSpawns 2
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Pyro_Airblast
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4c-1
+			WaitForAllDead wave4b
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_Deflector
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4c
+			WaitForAllDead wave4b
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 2
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_Atomic
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4c
+			WaitForAllDead wave4c-1
+			SpawnCount 5
+			MaxActive 5
+			TotalCount 5
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 5
+			TotalCurrency 50
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_SlowBarrage
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4c
+			WaitForAllDead wave4b
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 5
+			TotalCount 24
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			Where spawnbot
+			TFBot
+			{
+				Template T_TFBot_Scout_Bonk_Primary
+			}
+		}
+		WaveSpawn
+		{
+			Name wave4c
+			WaitForAllDead wave4b
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 5
+			TotalCount 15
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 0
+			Where spawnbot
+			TFBot
+			{
+				Class Heavyweapons
+				Skill Hard
+				Item "The Eliminators Safeguard"
+				ItemAttributes
+				{
+					ItemName "The Eliminators Safeguard"
+					"item style override" 1
+				}
+			}
+		}
+	}
+	Wave
+	{
+		StartWaveOutput
+		{
+			Target wave_start_relay
+			Action Trigger
+		}
+		DoneOutput
+		{
+			Target wave_finished_relay
+			Action Trigger
+		}
+		WaveSpawn
+		{
+			Name wave5a
+			TotalCount 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 0
+			Tank
+			{
+				Health 30000
+				Name "tank"
+				Speed 75
+				StartingPathTrackNode "tank_path_a"
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5a
+			TotalCurrency 100
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 25
+			WaitBetweenSpawns 0
+			Where spawnbot_side
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons_BrassBeast_Deflector
+				Tag nav_flank_routeother
+				CharacterAttributes
+				{
+					"cancel falling damage" 1
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5a
+			TotalCurrency 100
+			SpawnCount 1
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 10
+			Where spawnbot_side
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Fast
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5a
+			TotalCurrency 50
+			SpawnCount 6
+			MaxActive 6
+			TotalCount 18
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 10
+			Where spawnbot
+			TFBot
+			{
+				Class Demoman
+				Item "Scotch Bonnet"
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 5
+			TotalCount 15
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Flare_GatlingGun
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5b-1
+			WaitForAllDead wave5a
+			SpawnCount 3
+			MaxActive 3
+			TotalCount 3
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 16
+			TotalCurrency 50
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic
+					Item "The Byte'd Beak"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5b
+			WaitForAllSpawned wave5b-1
+			SpawnCount 2
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 0
+			TotalCurrency 100
+			Where spawnbot
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Spammer
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic_Regen
+					Name "Giant Regen Medic"
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5b
+			WaitForAllDead wave5a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 7
+			TotalCount 22
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			Where spawnbot_invasion
+			RandomChoice
+			{
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Concheror
+					Item "Honcho's Headgear"
+					ClassIcon soldier_banner_trio
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Buff_Banner
+					Item "Honcho's Headgear"
+					ClassIcon soldier_banner_trio
+				}
+				TFBot
+				{
+					Template T_TFBot_Soldier_Extended_Battalion_DH
+					Item "Honcho's Headgear"
+					ClassIcon soldier_banner_trio
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5b
+			WaitForAllDead wave5a
+			TotalCurrency 50
+			SpawnCount 1
+			MaxActive 5
+			TotalCount 15
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 2
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Heavyweapons_Flare_GatlingGun
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5c
+			WaitForAllDead wave5b
+			TotalCount 1
+			SpawnCount 1
+			TotalCurrency 100
+			WaitBetweenSpawns 0
+			WaitBeforeStarting 3.9
+			StartWaveOutput
+			{
+				Target drop_bomb0_relay
+				Action Trigger
+			}
+			Tank
+			{
+				Health 30000
+				Name "droptank0"
+				Speed 75
+				Skin 1
+				StartingPathTrackNode "tank_path_drop0_b"
+				OnKilledOutput
+				{
+					Target droptank0_killed_relay
+					Action Trigger
+				}
+				OnBombDroppedOutput
+				{
+					Target boss_deploy_relay
+					Action Trigger
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5c
+			WaitForAllDead wave5b
+			SpawnCount 2
+			MaxActive 2
+			TotalCount 2
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 16
+			TotalCurrency 100
+			Where spawnbot_alt
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavy_Brass_Beast
+					Attributes AlwaysCrit
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic
+				}
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5c
+			WaitForAllDead wave5b
+			TotalCurrency 25
+			SpawnCount 1
+			MaxActive 1
+			TotalCount 1
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 1.5
+			Where spawnbot_invasion
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Fast
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5c-robot
+			WaitForAllDead wave5b
+			TotalCurrency 25
+			SpawnCount 1
+			MaxActive 6
+			TotalCount 16
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 1.5
+			Where spawnbot_invasion
+			TFBot
+			{
+				Class Demoman
+				Item "Scotch Bonnet"
+				Attributes AlwaysCrit
+			}
+		}
+		WaveSpawn
+		{
+			Name wave5support
+			WaitForAllDead wave5b
+			Where spawnbot_alt
+			MaxActive 6
+			SpawnCount 1
+			Support 1
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 1
+			TFBot
+			{
+				Class Pyro
+				Skill Easy
+				Item "Ghastly Gibus 2011"
+				Attributes AlwaysCrit
+			}
+		}
+	}
+}
