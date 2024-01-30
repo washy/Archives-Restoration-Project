@@ -5,11 +5,12 @@ Sanitized folder contains .pop files with [$SIGSEGV] tags added and comments rem
 
 Archive folder contains unmodifed .pop files from the archives
 
-# General Keyvalue Parser
+# General Keyvalue Parser (WIP)
  The General Keyvalue Parser is included as a .py file and can be used on all .pop files, including rafmod missions, robot templates, point templates, custom upgrades and custom weapons.
 
 Note that popfiles that contain any non ASCII character (Chinese and Japanese robot names) have been renamed for compatibility
 
+*(A more practical usable version will be developed in the future)*
 # Table
 | File name | [$SIGSEGV] count |
 | ------------- | ------------- |
