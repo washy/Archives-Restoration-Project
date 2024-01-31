@@ -1,496 +1,497 @@
 # Total
 |Name|Count|
 |-|-|
-| "add attributes on hit" | 4 |
-| "add attributes when active" | 4 |
-| "add cond on hit duration" | 47 |
-| "add cond on hit" | 43 |
-| "add cond on kill duration" | 12 |
-| "add cond on kill" | 17 |
-| "add cond when active" | 28 |
-| "add cond when active" | 28 |
-| "add damage type" | 19 |
-| "add give health to teammate on hit" | 3 |
-| "addcond immunity" | 2 |
-| "additional step sound" | 30 |
-| "airblast dashes" | 9 |
-| "airblast functionality flags" | 2 |
-| "allow bunny hop" | 5 |
-| "allow friendly fire" | 3 |
-| "allowed build types" | 1 |
-| "always allow taunt" | 45 |
-| "always crit" | 61 |
-| "always gib" | 5 |
-| "aoe blast on damage" | 2 |
-| "aoe heal chance" | 9 |
-| "arrow hit kill time" | 15 |
-| "arrow ignite" | 3 |
-| "arrow mastery" | 44 |
-| "attachment angles" | 27 |
-| "attachment name" | 30 |
-| "attachment offset" | 26 |
-| "attachment scale" | 26 |
-| "build small sentries" | 1 |
-| "building max level" | 10 |
-| "building scale" | 6 |
-| "burst fire count" | 3 |
-| "burst fire rate mult" | 3 |
-| "can breathe under water" | 3 |
-| "can headshot" | 45 |
-| "cannot be headshot" | 21 |
-| "cannot be sapped" | 89 |
-| "cannot be teleported" | 20 |
-| "cannot be upgraded" | 66 |
-| "cannot headshot" | 13 |
-| "cannot taunt" | 30 |
-| "cannot upgrade bomb" | 5 |
-| "cannot upgrade" | 22 |
-| "collect currency on kill" | 290 |
-| "continous accuracy mult" | 1 |
-| "continous accuracy time" | 1 |
-| "crit on cond" | 2 |
-| "custom dispenser model" | 1 |
-| "custom hit sound" | 70 |
-| "custom impact sound" | 74 |
+
+| AddCond | 4403 |
+| SpawnTemplate | 3020 |
+| TeamNum | 1018 |
+| UseCustomModel | 961 |
+| PrecacheModel | 918 |
+| Model | 864 |
+| "force distribute currency on death" | 757 |
+| DisableSound | 700 |
+| ExtraSpawnPoint | 662 |
+| UseHumanModel | 577 |
+| UseMeleeThreatPrioritization | 568 |
+| StripItemSlot | 567 |
+| FireInput | 498 |
+| "special item description" | 386 |
+| ExtAttr | 372 |
+| StartDisabled | 352 |
 | "custom item model" | 338 |
 | "custom kill icon" | 325 |
-| "custom minigun spin sound" | 4 |
-| "custom projectile size" | 16 |
-| "custom sentry model" | 1 |
-| "custom view model" | 24 |
+| CustomWeapon | 320 |
+| InterruptAction | 301 |
+| PrecacheSound | 301 |
+| AddTemplate | 294 |
+| CustomWeaponModel | 294 |
+| AimAt | 291 |
+| "collect currency on kill" | 290 |
+| AimLeadProjectileSpeed | 277 |
+| AlwaysGlow | 265 |
+| DisallowUpgrade | 265 |
+| VoiceCommand | 261 |
+| Explanation | 257 |
 | "custom weapon fire sound" | 241 |
+| AimTrackingInterval | 234 |
+| CustomEyeGlowColor | 210 |
+| NoIdleSound | 201 |
+| "projectile trail particle" | 196 |
+| Spell | 184 |
+| UseHumanAnimations | 182 |
+| Message | 180 |
+| SentryGun | 178 |
+| ItemModel | 177 |
+| DeathSound | 172 |
+| UseBestWeapon | 172 |
+| PointTemplates | 159 |
+| "mod projectile heat seek power" | 156 |
+| WeaponSwitch | 155 |
+| FirstSpawnMessage | 152 |
+| "is invisible" | 141 |
+| "special item description 2" | 141 |
+| DisableSmokestack | 134 |
+| RocketCustomParticle | 130 |
+| "mod projectile heat aim error" | 109 |
+| "mod projectile heat aim time" | 108 |
+| ExtraTankPath | 108 |
+| NoRomevisionCosmetics | 108 |
+| "mult stun resistance" | 106 |
+| HomingRockets | 99 |
+| "not solid to players" | 93 |
+| Taunt | 92 |
+| NoWaitForFormation | 90 |
+| PlayerItemEquipSpawnTemplate | 90 |
+| "cannot be sapped" | 89 |
+| PingSound | 85 |
+| EngineLoopSound | 82 |
+| IsMiniBoss | 79 |
+| "mult dmg vs giants" | 78 |
+| MaxTurnRate | 78 |
+| NoBombUpgrades | 78 |
+| "melee cleave attack" | 77 |
+| PrecacheGeneric | 76 |
+| DisableTracks | 75 |
+| Gravity | 75 |
+| TextPrintTime | 75 |
+| "custom impact sound" | 74 |
+| WeaponResist | 74 |
+| "effect cond override" | 73 |
+| "mult dmg vs tanks" | 73 |
+| NoFormation | 73 |
+| DisableChildModels | 72 |
+| "mult projectile count" | 71 |
+| "custom hit sound" | 70 |
+| "explosion particle" | 69 |
+| "use robot voice" | 67 |
+| "cannot be upgraded" | 66 |
+| "mult projectile scale" | 65 |
+| DesiredAttackRange | 63 |
+| "always crit" | 61 |
+| AimOffset | 55 |
+| ForceHoliday | 55 |
+| "projectile lifetime" | 54 |
+| PlayerAttributes | 54 |
+| PainSound | 52 |
+| "grenade explode on impact" | 51 |
+| RocketCustomModel | 51 |
+| IsCrit | 49 |
+| PlayerSpawnTemplate | 49 |
+| PointTemplate | 49 |
+| RobotLimit | 48 |
+| "add cond on hit duration" | 47 |
+| "reload full clip at once" | 47 |
+| "use original class weapon animations" | 47 |
+| ItemColor | 47 |
+| ReplaceModelCollisions | 47 |
+| "medic machinery beam" | 46 |
+| DamageAppliesCond | 46 |
+| "always allow taunt" | 45 |
+| "can headshot" | 45 |
+| NoPushaway | 45 |
+| "arrow mastery" | 44 |
+| "mult crit dmg" | 44 |
+| ShootTemplate | 44 |
+| "add cond on hit" | 43 |
+| UpgradeStationKeepWeapons | 43 |
+| ZombiesNoWave666 | 43 |
+| "mult bleeding dmg" | 42 |
+| NoThrillerTaunt | 42 |
+| Sequence | 41 |
+| StripItem | 41 |
+| "wet immunity" | 40 |
+| SniperAllowHeadshots | 40 |
+| "dmg taken mult from special damage type 1" | 39 |
+| "fire input on hit" | 39 |
+| "projectile gravity" | 39 |
+| FastUpdate | 39 |
+| NoCritPumpkin | 39 |
+| SendBotsToSpectatorImmediately | 38 |
+| AddAttribute | 36 |
+| WaveStartCountdown | 36 |
+| "mult smack time" | 35 |
+| "penetrate teammates" | 35 |
+| "mod minigun can holster while spinning" | 34 |
+| "mult dispenser rate" | 34 |
+| "no damage falloff" | 34 |
+| ImprovedAirblast | 34 |
+| "projectile no deflect" | 33 |
+| "set turn to ice" | 33 |
+| CustomMaxWaveNumber | 33 |
+| ForceRomeVision | 32 |
+| "is miniboss" | 31 |
+| "mvm sentry ammo" | 31 |
+| "special damage type" | 31 |
+| "additional step sound" | 30 |
+| "attachment name" | 30 |
+| "cannot taunt" | 30 |
+| "mod projectile heat follow crosshair" | 30 |
+| HideIcon | 30 |
+| SpellDropRateCommon | 30 |
+| ExtraLoadoutItems | 29 |
+| "add cond when active" | 28 |
+| "add cond when active" | 28 |
+| MedigunShieldDamage | 28 |
+| OverrideSounds | 28 |
+| "attachment angles" | 27 |
+| "mult teleporter recharge rate" | 27 |
+| "stomp player force" | 27 |
+| DropWeapon | 27 |
+| SentryBusterFriendlyFire | 27 |
+| "attachment offset" | 26 |
+| "attachment scale" | 26 |
+| "explosive bullets" | 26 |
+| "projectile acceleration" | 26 |
+| AllowJoinTeamBlue | 26 |
+| BluHumanFlagCapture | 25 |
+| BluHumanFlagPickup | 25 |
+| BluPlayersAreRobots | 25 |
+| BodyPartScaleSpeed | 25 |
+| ExtendedUpgrades | 25 |
+| HumansMustJoinTeam | 25 |
+| NoCrushDamage | 25 |
+| ReverseWinConditions | 25 |
+| "custom view model" | 24 |
+| FixSetCustomModelInput | 24 |
+| SetCreditTeam | 24 |
+| "model scale" | 23 |
+| AllowJoinTeamBlueMax | 23 |
+| NoMvMDeathTune | 23 |
+| PlayerShootTemplate | 23 |
+| RocketJump | 23 |
+| UseBusterModel | 23 |
+| "cannot upgrade" | 22 |
+| FixedRespawnWaveTimeBlue | 22 |
+| RemoveAttribute | 22 |
+| RespawnWaveTimeBlue | 22 |
+| "cannot be headshot" | 21 |
+| "mult dmgtaken from melee" | 21 |
+| ClassLimit | 21 |
+| DoneMessage | 21 |
+| FlagResetTime | 21 |
+| StartSound | 21 |
+| "cannot be teleported" | 20 |
+| "dmg taken mult from special damage type 2" | 20 |
+| "override projectile type extra" | 20 |
+| "passive reload" | 20 |
+| "special item description 3" | 20 |
+| BluHumanInfiniteAmmo | 20 |
+| FlagCarrierMovementPenalty | 20 |
+| SuppressTimedFetchFlag | 20 |
+| "add damage type" | 19 |
+| "grenade bounce speed" | 19 |
+| "is suicide counter" | 19 |
+| "use original class player animations" | 19 |
+| CustomNavFile | 19 |
+| "ignored by bots" | 18 |
+| BuildingSpawnTemplate | 18 |
+| DisplayRobotDeathNotice | 18 |
+| MoveBehindEnemy | 18 |
+| NoReanimators | 18 |
+| RingOfFire | 18 |
+| "add cond on kill" | 17 |
 | "custom weapon reload sound" | 17 |
+| "remove damage type" | 17 |
+| "stomp player damage" | 17 |
+| BotsRandomCrit | 17 |
+| FastNPCUpdate | 17 |
+| "custom projectile size" | 16 |
+| "projectile acceleration start time" | 16 |
+| "projectile acceleration time" | 16 |
+| "regenerate stickbomb" | 16 |
+| RedTeamWipeCausesWaveLoss | 16 |
+| RemoveBluVelocityLimit | 16 |
+| SniperHideLasers | 16 |
+| SpellDropRateGiant | 16 |
+| "arrow hit kill time" | 15 |
+| BotsDropSpells | 15 |
+| CustomWaveNumber | 15 |
+| ItemBlacklist | 15 |
+| "disable buildings on hit" | 14 |
+| "mod projectile heat no predict target speed" | 14 |
+| "receive friendly fire" | 14 |
+| "stomp player time" | 14 |
+| NoHolidayPickups | 14 |
+| SoundLoop | 14 |
+| StandableHeads | 14 |
+| "cannot headshot" | 13 |
+| "mult effect duration" | 13 |
+| "mult flag carrier move speed" | 13 |
+| GiantsDropRareSpells | 13 |
+| MaxSpectators | 13 |
+| PreferClass | 13 |
+| SpellDropRateRare | 13 |
+| "add cond on kill duration" | 12 |
+| "health from credits" | 12 |
+| "ignored by enemy sentries" | 12 |
+| "mult medigun range" | 12 |
+| "particle color rainbow" | 12 |
+| BotTeleportUberDuration | 12 |
+| FlagEscortCountOffset | 12 |
+| PrecacheScriptSound | 12 |
+| RotatePitch | 12 |
+| TriggerDestroyBuildingFix | 12 |
+| "projectile sound" | 11 |
+| BotsAreHumans | 11 |
+| BotsUsePlayerTeleporters | 11 |
+| CustomUpgradesFile | 11 |
+| DisableBomb | 11 |
+| NextSpawnerClone | 11 |
+| NoMissionInfo | 11 |
+| PrecacheParticle | 11 |
+| "building max level" | 10 |
+| "ignores other projectiles" | 10 |
+| "projectile detonate time" | 10 |
+| "weapon always gib" | 10 |
+| BluHumanInfiniteCloak | 10 |
+| BluHumanTeleportOnSpawn | 10 |
+| FixHuntsmanDamageBonus | 10 |
+| NoSapUnownedBuildings | 10 |
+| NoScreenShake | 10 |
+| SuppressSentryBusterModel | 10 |
+| "airblast dashes" | 9 |
+| "aoe heal chance" | 9 |
+| "dmg taken mult from special damage type 3" | 9 |
+| "last shot crits" | 9 |
+| "min respawn time" | 9 |
+| "mult afterburn delay" | 9 |
+| "no damage view flinch" | 9 |
+| "no explosion particles" | 9 |
+| "no self effect" | 9 |
+| "stay after regenerate" | 9 |
+| "stickybomb stick to enemies" | 9 |
+| CustomEyeParticle | 9 |
+| NoSkeletonSplit | 9 |
+| RedPlayersAreRobots | 9 |
+| "effect add attributes" | 8 |
+| "fire full clip at once" | 8 |
+| "grenade bounce damage" | 8 |
+| "mod soldier buff range" | 8 |
+| "mult credit collect range" | 8 |
+| "mult crit when health is below percent" | 8 |
+| "mult debuff duration" | 8 |
+| "no resupply" | 8 |
+| BonusRatioHalf | 8 |
+| DeploySound | 8 |
+| EnableDominations | 8 |
+| HalloweenBoss | 8 |
+| SpellBookNormalRoll | 8 |
+| SpellBookRareRoll | 8 |
 | "custom wind down sound" | 7 |
 | "custom wind up sound" | 7 |
-| "damage returns as health" | 1 |
-| "destroy buildings on death" | 4 |
-| "disable buildings on hit" | 14 |
-| "disable wrangler shield" | 1 |
-| "displace touched enemies" | 1 |
-| "dmg current health" | 4 |
-| "dmg max health" | 3 |
-| "dmg taken from self reduced" | 3 |
-| "dmg taken mult from special damage type 1" | 39 |
-| "dmg taken mult from special damage type 2" | 20 |
-| "dmg taken mult from special damage type 3" | 9 |
-| "dont count damage towards crit rate" | 1 |
-| "duck accuracy mult" | 1 |
-| "effect add attributes" | 8 |
-| "effect cond override" | 73 |
-| "explosion particle" | 69 |
-| "explosive bullets" | 26 |
-| "extra damage on hit" | 1 |
-| "fire full clip at once" | 8 |
-| "fire input on attack" | 6 |
-| "fire input on hit name restrict" | 2 |
-| "fire input on hit" | 39 |
 | "fire input on kill" | 7 |
-| "fire input on taunt" | 1 |
-| "fires milk bolt" | 2 |
-| "firing forward pull" | 2 |
-| "flare no crit burning" | 2 |
-| "force distribute currency on death" | 757 |
+| "mult firerocket rate" | 7 |
+| "no reduced damage rampup" | 7 |
+| "parachute redeploy" | 7 |
+| "stomp building damage" | 7 |
+| "stun on damage" | 7 |
+| ActionOverride | 7 |
+| AllowMultipleSappers | 7 |
+| BotPushaway | 7 |
+| FireSound | 7 |
+| ForceRobotBleed | 7 |
+| ItemReplacement | 7 |
+| NoCrouchButtonRelease | 7 |
+| NoGlow | 7 |
+| NoRedBotsRandomCrit | 7 |
+| "building scale" | 6 |
+| "fire input on attack" | 6 |
 | "force fire full clip" | 6 |
-| "fov override" | 5 |
-| "grenade bounce damage" | 8 |
-| "grenade bounce speed" | 19 |
-| "grenade explode on impact" | 51 |
-| "grenade no drag" | 5 |
-| "health from credits" | 12 |
-| "hold fire until full reload" | 1 |
-| "hud overlay" | 3 |
-| "ignore player clip" | 4 |
-| "ignored by bots" | 18 |
-| "ignored by enemy sentries" | 12 |
-| "ignores other projectiles" | 10 |
-| "is invisible" | 141 |
-| "is miniboss" | 31 |
-| "is suicide counter" | 19 |
-| "item color rgb" | 4 |
 | "kb fall damage" | 6 |
+| "medigun keep charged effect" | 6 |
+| "move speed as health decreases" | 6 |
+| "mult airblast primary refire time" | 6 |
+| "mult dmg vs npc" | 6 |
+| "reset arrow hits on bounce" | 6 |
+| "taunt attack time mult" | 6 |
+| "weapon never gib" | 6 |
+| AdditionalStepSound | 6 |
+| AllowBotExtraSlots | 6 |
+| BonusRatioFull | 6 |
+| BuybacksPerWave | 6 |
+| MaxSpeedLimit | 6 |
+| NoBluHumanFootsteps | 6 |
+| SandmanStun | 6 |
+| SolidToBrushes | 6 |
+| StuckTimeMultiplier | 6 |
+| "allow bunny hop" | 5 |
+| "always gib" | 5 |
+| "cannot upgrade bomb" | 5 |
+| "fov override" | 5 |
+| "grenade no drag" | 5 |
 | "kb fall force" | 5 |
 | "kb fall min velocity" | 5 |
 | "kb fall radius" | 5 |
 | "kb fall stun time" | 5 |
-| "last shot crits" | 9 |
 | "max bullet range" | 5 |
-| "medic machinery beam" | 46 |
-| "medigun attack enemy heal mult" | 1 |
-| "medigun attack enemy" | 1 |
-| "medigun keep charged effect" | 6 |
 | "medigun particle" | 5 |
 | "medigun passive attributes" | 5 |
-| "melee airblast" | 4 |
-| "melee cleave attack" | 77 |
-| "min respawn time" | 9 |
-| "minicrit on cond" | 2 |
-| "minigun full movement" | 4 |
-| "mod minigun can holster while spinning" | 34 |
-| "mod projectile heat aim error" | 109 |
 | "mod projectile heat aim start time" | 5 |
-| "mod projectile heat aim time" | 108 |
-| "mod projectile heat follow crosshair" | 30 |
-| "mod projectile heat no predict target speed" | 14 |
-| "mod projectile heat seek power" | 156 |
-| "mod sentry cost" | 3 |
-| "mod soldier buff range" | 8 |
 | "mod teleporter speed boost" | 5 |
-| "model scale" | 23 |
-| "move accuracy mult" | 1 |
-| "move speed as health decreases" | 6 |
-| "mult afterburn delay" | 9 |
-| "mult airblast primary refire time" | 6 |
 | "mult bleeding delay" | 5 |
-| "mult bleeding dmg" | 42 |
-| "mult credit collect range" | 8 |
-| "mult crit dmg" | 44 |
-| "mult crit when health is below percent" | 8 |
-| "mult debuff duration" | 8 |
-| "mult dispenser rate" | 34 |
-| "mult dmg direct hit" | 2 |
-| "mult dmg friendly fire" | 1 |
-| "mult dmg vs giants" | 78 |
-| "mult dmg vs npc" | 6 |
-| "mult dmg vs tanks" | 73 |
-| "mult dmg while midair" | 1 |
-| "mult dmg with reduced health" | 1 |
-| "mult dmgtaken from melee" | 21 |
-| "mult duck speed" | 1 |
-| "mult effect duration" | 13 |
-| "mult firerocket rate" | 7 |
-| "mult flag carrier move speed" | 13 |
-| "mult medigun range" | 12 |
-| "mult projectile count" | 71 |
-| "mult projectile scale" | 65 |
-| "mult reflect velocity" | 2 |
-| "mult sentry rocket projectile speed" | 1 |
-| "mult smack time" | 35 |
-| "mult sniper charge per sec with enemy under crosshair" | 4 |
-| "mult stun resistance" | 106 |
-| "mult teleporter recharge rate" | 27 |
-| "mvm sentry ammo" | 31 |
 | "never gib" | 5 |
 | "no clip" | 5 |
-| "no damage falloff" | 34 |
-| "no damage view flinch" | 9 |
-| "no explosion particles" | 9 |
-| "no reduced damage rampup" | 7 |
-| "no resupply" | 8 |
-| "no revive" | 1 |
-| "no self effect" | 9 |
-| "not solid to players" | 93 |
-| "override projectile type extra" | 20 |
-| "parachute redeploy" | 7 |
-| "particle color rainbow" | 12 |
-| "particle color rgb" | 1 |
-| "passive reload" | 20 |
-| "penetrate teammates" | 35 |
-| "penetration damage penalty" | 1 |
-| "player gravity ballon head" | 1 |
-| "projectile acceleration start time" | 16 |
-| "projectile acceleration time" | 16 |
-| "projectile acceleration" | 26 |
-| "projectile detonate time" | 10 |
-| "projectile gravity native" | 4 |
-| "projectile gravity" | 39 |
-| "projectile lifetime" | 54 |
-| "projectile no deflect" | 33 |
-| "projectile penetration limit" | 3 |
-| "projectile sound" | 11 |
-| "projectile trail particle" | 196 |
-| "radius sleeper" | 3 |
-| "receive friendly fire" | 14 |
-| "reduced damage rampup" | 4 |
 | "reflect keep team" | 5 |
-| "regenerate stickbomb" | 16 |
-| "reload full clip at once" | 47 |
-| "remove cond on hit" | 1 |
-| "remove damage type" | 17 |
-| "reset arrow hits on bounce" | 6 |
-| "self add cond on hit duration" | 2 |
-| "self add cond on hit" | 1 |
+| BlueTeamWipeCausesWaveLoss | 5 |
+| FixedBuybacks | 5 |
+| ForceItem | 5 |
+| NoCreditsVelocity | 5 |
+| "add attributes on hit" | 4 |
+| "add attributes when active" | 4 |
+| "custom minigun spin sound" | 4 |
+| "destroy buildings on death" | 4 |
+| "dmg current health" | 4 |
+| "ignore player clip" | 4 |
+| "item color rgb" | 4 |
+| "melee airblast" | 4 |
+| "minigun full movement" | 4 |
+| "mult sniper charge per sec with enemy under crosshair" | 4 |
+| "projectile gravity native" | 4 |
+| "reduced damage rampup" | 4 |
 | "sentry bullet weapon" | 4 |
-| "sentry rapid fire" | 1 |
-| "sentry rocket weapon" | 1 |
-| "set turn to ice" | 33 |
-| "shoot view punch angle random" | 1 |
-| "shoot view punch angle" | 1 |
 | "sniper beep with enemy under crosshair" | 4 |
-| "special damage type" | 31 |
-| "special item description 2" | 141 |
-| "special item description 3" | 20 |
-| "special item description 4" | 3 |
-| "special item description" | 386 |
-| "stay after regenerate" | 9 |
-| "stickybomb no stick" | 3 |
-| "stickybomb stick to enemies" | 9 |
-| "stomp building damage" | 7 |
-| "stomp player damage" | 17 |
-| "stomp player force" | 27 |
-| "stomp player time" | 14 |
-| "stun on damage" | 7 |
-| "stun on hit type" | 1 |
-| "stun on hit" | 1 |
-| "swimming mastery" | 3 |
-| "taunt attack time mult" | 6 |
 | "teleport instead of die" | 4 |
-| "uber on damage taken" | 1 |
-| "ubercharge ammo" | 1 |
-| "use human voice" | 2 |
-| "use original class player animations" | 19 |
-| "use original class weapon animations" | 47 |
-| "use robot voice" | 67 |
-| "weapon always gib" | 10 |
-| "weapon never gib" | 6 |
-| "wet immunity" | 40 |
-| ActionOverride | 7 |
-| AddAttribute | 36 |
-| AddCond | 4403 |
-| AddTemplate | 294 |
-| AdditionalStepSound | 6 |
-| AimAt | 291 |
-| AimLeadProjectileSpeed | 277 |
-| AimOffset | 55 |
-| AimTrackingInterval | 234 |
+| BluHumanBotTeleporter | 4 |
+| BotHumansHaveEyeGlow | 4 |
+| ExtraBotSlotsNoDeathcam | 4 |
+| MaxEntitySpeed | 4 |
+| SentryHintMinDistanceFromBomb | 4 |
+| StartWaveMessage | 4 |
+| "add give health to teammate on hit" | 3 |
+| "allow friendly fire" | 3 |
+| "arrow ignite" | 3 |
+| "burst fire count" | 3 |
+| "burst fire rate mult" | 3 |
+| "can breathe under water" | 3 |
+| "dmg max health" | 3 |
+| "dmg taken from self reduced" | 3 |
+| "hud overlay" | 3 |
+| "mod sentry cost" | 3 |
+| "projectile penetration limit" | 3 |
+| "radius sleeper" | 3 |
+| "special item description 4" | 3 |
+| "stickybomb no stick" | 3 |
+| "swimming mastery" | 3 |
 | AllowBluPlayerReanimators | 3 |
 | AllowBombBuffsForPlayerCarriers | 3 |
-| AllowBotExtraSlots | 6 |
-| AllowCivilianClass | 2 |
-| AllowJoinTeamBlue | 26 |
-| AllowJoinTeamBlueMax | 23 |
-| AllowMultipleSappers | 7 |
-| AlwaysGlow | 265 |
-| AutoWeaponStrip | 2 |
-| BluHumanBotTeleporter | 4 |
-| BluHumanFlagCapture | 25 |
-| BluHumanFlagPickup | 25 |
-| BluHumanInfiniteAmmo | 20 |
-| BluHumanInfiniteCloak | 10 |
 | BluHumanSpawnNoShoot | 3 |
 | BluHumanSpawnProtection | 3 |
-| BluHumanTeleportOnSpawn | 10 |
-| BluPlayersAreRobots | 25 |
-| BlueTeamWipeCausesWaveLoss | 5 |
-| BodyPartScaleSpeed | 25 |
-| BonusRatioFull | 6 |
-| BonusRatioHalf | 8 |
-| BotHumansHaveEyeGlow | 4 |
-| BotHumansHaveRobotVoice | 2 |
-| BotPushaway | 7 |
-| BotTeleportUberDuration | 12 |
-| BotsAreHumans | 11 |
-| BotsDropSpells | 15 |
-| BotsRandomCrit | 17 |
-| BotsUsePlayerTeleporters | 11 |
-| BuildingSpawnTemplate | 18 |
 | BunnyHop | 3 |
-| BuybacksPerWave | 6 |
-| ClassLimit | 21 |
-| ConchHealthOnHit | 1 |
-| CustomEyeGlowColor | 210 |
-| CustomEyeParticle | 9 |
-| CustomMaxWaveNumber | 33 |
-| CustomNavFile | 19 |
-| CustomScriptSoundFile | 1 |
-| CustomScriptSounds | 1 |
-| CustomUpgradesFile | 11 |
-| CustomWaveNumber | 15 |
-| CustomWeapon | 320 |
-| CustomWeaponModel | 294 |
-| DamageAppliesCond | 46 |
-| DeathPenalty | 2 |
-| DeathSound | 172 |
-| DefaultMiniBossScale | 1 |
-| DeploySound | 8 |
-| DesiredAttackRange | 63 |
-| DisableBomb | 11 |
-| DisableChildModels | 72 |
-| DisableSmokestack | 134 |
-| DisableSound | 700 |
-| DisableTracks | 75 |
-| DisallowUpgrade | 265 |
-| DisplayRobotDeathNotice | 18 |
-| DoneMessage | 21 |
-| DropWeapon | 27 |
-| EnableDominations | 8 |
-| EngineLoopSound | 82 |
 | EngineerPushRange | 3 |
-| Explanation | 257 |
-| ExtAttr | 372 |
-| ExtendedUpgrades | 25 |
 | ExtendedUpgradesOnly | 3 |
-| ExtraBotSlotsNoDeathcam | 4 |
-| ExtraLoadoutItems | 29 |
-| ExtraSpawnPoint | 662 |
-| ExtraTankPath | 108 |
-| FastEntityNameLookup | 1 |
-| FastNPCUpdate | 17 |
-| FastUpdate | 39 |
-| FastWholeMapTriggers | 1 |
-| FireInput | 498 |
-| FireSound | 7 |
-| FirstSpawnMessage | 152 |
-| FixHuntsmanDamageBonus | 10 |
-| FixSetCustomModelInput | 24 |
-| FixWavespawnReserveSlotsOnDisabledSpawnbot | 1 |
-| FixedBuybacks | 5 |
-| FixedRespawnWaveTimeBlue | 22 |
-| FlagCarrierMovementPenalty | 20 |
-| FlagEscortCountOffset | 12 |
-| FlagResetTime | 21 |
-| ForceHoliday | 55 |
-| ForceItem | 5 |
 | ForceRedMoney | 3 |
-| ForceRobotBleed | 7 |
-| ForceRomeVision | 32 |
-| GiantsDropRareSpells | 13 |
-| Gravity | 75 |
+| HHHNoControlPointLogic | 3 |
+| HandModelOverride | 3 |
+| HealOnKillOverhealMelee | 3 |
+| Immobile | 3 |
+| MaxActiveSkeletons | 3 |
+| MaxRedPlayers | 3 |
+| MedievalMode | 3 |
+| NoJoinMidwave | 3 |
+| NoRedSniperBotHeadshots | 3 |
+| PlayerAddCond | 3 |
+| PlayerRobotsUsePlayerAnimation | 3 |
+| RemoveGrapplingHooks | 3 |
+| RespecEnabled | 3 |
+| "addcond immunity" | 2 |
+| "airblast functionality flags" | 2 |
+| "aoe blast on damage" | 2 |
+| "crit on cond" | 2 |
+| "fire input on hit name restrict" | 2 |
+| "fires milk bolt" | 2 |
+| "firing forward pull" | 2 |
+| "flare no crit burning" | 2 |
+| "minicrit on cond" | 2 |
+| "mult dmg direct hit" | 2 |
+| "mult reflect velocity" | 2 |
+| "self add cond on hit duration" | 2 |
+| "use human voice" | 2 |
+| AllowCivilianClass | 2 |
+| AutoWeaponStrip | 2 |
+| BotHumansHaveRobotVoice | 2 |
+| DeathPenalty | 2 |
 | HHHChaseDuration | 2 |
 | HHHChaseRange | 2 |
 | HHHHealthBase | 2 |
 | HHHHealthPerPlayer | 2 |
-| HHHNoControlPointLogic | 3 |
 | HHHNonSolidToPlayers | 2 |
 | HHHQuitRange | 2 |
-| HalloweenBoss | 8 |
-| HandModelOverride | 3 |
-| HealOnKillOverhealMelee | 3 |
-| HideIcon | 30 |
-| HomingRockets | 99 |
-| HumansMustJoinTeam | 25 |
-| Immobile | 3 |
-| ImprovedAirblast | 34 |
-| InterruptAction | 301 |
-| IsCrit | 49 |
-| IsMiniBoss | 79 |
-| ItemBlacklist | 15 |
-| ItemColor | 47 |
-| ItemModel | 177 |
-| ItemReplacement | 7 |
+| RespecLimit | 2 |
+| SpellDropForBotsInTeam | 2 |
+| StealthDamageReduction | 2 |
+| TargetBluSentries | 2 |
+| "allowed build types" | 1 |
+| "build small sentries" | 1 |
+| "continous accuracy mult" | 1 |
+| "continous accuracy time" | 1 |
+| "custom dispenser model" | 1 |
+| "custom sentry model" | 1 |
+| "damage returns as health" | 1 |
+| "disable wrangler shield" | 1 |
+| "displace touched enemies" | 1 |
+| "dont count damage towards crit rate" | 1 |
+| "duck accuracy mult" | 1 |
+| "extra damage on hit" | 1 |
+| "fire input on taunt" | 1 |
+| "hold fire until full reload" | 1 |
+| "medigun attack enemy heal mult" | 1 |
+| "medigun attack enemy" | 1 |
+| "move accuracy mult" | 1 |
+| "mult dmg friendly fire" | 1 |
+| "mult dmg while midair" | 1 |
+| "mult dmg with reduced health" | 1 |
+| "mult duck speed" | 1 |
+| "mult sentry rocket projectile speed" | 1 |
+| "no revive" | 1 |
+| "particle color rgb" | 1 |
+| "penetration damage penalty" | 1 |
+| "player gravity ballon head" | 1 |
+| "remove cond on hit" | 1 |
+| "self add cond on hit" | 1 |
+| "sentry rapid fire" | 1 |
+| "sentry rocket weapon" | 1 |
+| "shoot view punch angle random" | 1 |
+| "shoot view punch angle" | 1 |
+| "stun on hit type" | 1 |
+| "stun on hit" | 1 |
+| "uber on damage taken" | 1 |
+| "ubercharge ammo" | 1 |
+| ConchHealthOnHit | 1 |
+| CustomScriptSoundFile | 1 |
+| CustomScriptSounds | 1 |
+| DefaultMiniBossScale | 1 |
+| FastEntityNameLookup | 1 |
+| FastWholeMapTriggers | 1 |
+| FixWavespawnReserveSlotsOnDisabledSpawnbot | 1 |
 | LastSpawnMessage | 1 |
 | LoseTime | 1 |
-| MaxActiveSkeletons | 3 |
-| MaxEntitySpeed | 4 |
-| MaxRedPlayers | 3 |
-| MaxSpectators | 13 |
-| MaxSpeedLimit | 6 |
-| MaxTurnRate | 78 |
-| MedievalMode | 3 |
-| MedigunShieldDamage | 28 |
-| Message | 180 |
 | MinibossSentrySingleKill | 1 |
-| Model | 864 |
-| MoveBehindEnemy | 18 |
-| NextSpawnerClone | 11 |
-| NoBluHumanFootsteps | 6 |
-| NoBombUpgrades | 78 |
-| NoCreditsVelocity | 5 |
-| NoCritPumpkin | 39 |
-| NoCrouchButtonRelease | 7 |
-| NoCrushDamage | 25 |
-| NoFormation | 73 |
-| NoGlow | 7 |
-| NoHolidayPickups | 14 |
-| NoIdleSound | 201 |
-| NoJoinMidwave | 3 |
-| NoMissionInfo | 11 |
-| NoMvMDeathTune | 23 |
-| NoPushaway | 45 |
-| NoReanimators | 18 |
-| NoRedBotsRandomCrit | 7 |
-| NoRedSniperBotHeadshots | 3 |
-| NoRomevisionCosmetics | 108 |
-| NoSapUnownedBuildings | 10 |
-| NoScreenShake | 10 |
-| NoSkeletonSplit | 9 |
-| NoThrillerTaunt | 42 |
-| NoWaitForFormation | 90 |
-| OverrideSounds | 28 |
-| PainSound | 52 |
-| PingSound | 85 |
-| PlayerAddCond | 3 |
-| PlayerAttributes | 54 |
-| PlayerItemEquipSpawnTemplate | 90 |
-| PlayerRobotsUsePlayerAnimation | 3 |
-| PlayerShootTemplate | 23 |
 | PlayerSpawnOnceTemplate | 1 |
-| PlayerSpawnTemplate | 49 |
-| PointTemplate | 49 |
-| PointTemplates | 159 |
 | PrecacheDecal | 1 |
-| PrecacheGeneric | 76 |
-| PrecacheModel | 918 |
-| PrecacheParticle | 11 |
-| PrecacheScriptSound | 12 |
-| PrecacheSound | 301 |
-| PreferClass | 13 |
-| RedPlayersAreRobots | 9 |
-| RedTeamWipeCausesWaveLoss | 16 |
-| RemoveAttribute | 22 |
-| RemoveBluVelocityLimit | 16 |
-| RemoveGrapplingHooks | 3 |
-| ReplaceModelCollisions | 47 |
-| RespawnWaveTimeBlue | 22 |
-| RespecEnabled | 3 |
-| RespecLimit | 2 |
-| ReverseWinConditions | 25 |
-| RingOfFire | 18 |
-| RobotLimit | 48 |
-| RocketCustomModel | 51 |
-| RocketCustomParticle | 130 |
-| RocketJump | 23 |
-| RotatePitch | 12 |
-| SandmanStun | 6 |
-| SendBotsToSpectatorImmediately | 38 |
-| SentryBusterFriendlyFire | 27 |
-| SentryGun | 178 |
 | SentryHintBombBackwardRange | 1 |
 | SentryHintBombForwardRange | 1 |
-| SentryHintMinDistanceFromBomb | 4 |
-| Sequence | 41 |
-| SetCreditTeam | 24 |
-| ShootTemplate | 44 |
-| SniperAllowHeadshots | 40 |
-| SniperHideLasers | 16 |
-| SolidToBrushes | 6 |
-| SoundLoop | 14 |
-| SpawnTemplate | 3020 |
-| Spell | 184 |
-| SpellBookNormalRoll | 8 |
-| SpellBookRareRoll | 8 |
-| SpellDropForBotsInTeam | 2 |
-| SpellDropRateCommon | 30 |
-| SpellDropRateGiant | 16 |
-| SpellDropRateRare | 13 |
 | SpellsEnabled | 1 |
-| StandableHeads | 14 |
-| StartDisabled | 352 |
-| StartSound | 21 |
-| StartWaveMessage | 4 |
-| StealthDamageReduction | 2 |
-| StripItem | 41 |
-| StripItemSlot | 567 |
-| StuckTimeMultiplier | 6 |
-| SuppressSentryBusterModel | 10 |
-| SuppressTimedFetchFlag | 20 |
-| TargetBluSentries | 2 |
-| Taunt | 92 |
-| TeamNum | 1018 |
-| TextPrintTime | 75 |
-| TriggerDestroyBuildingFix | 12 |
-| UpgradeStationKeepWeapons | 43 |
-| UseBestWeapon | 172 |
-| UseBusterModel | 23 |
-| UseCustomModel | 961 |
-| UseHumanAnimations | 182 |
-| UseHumanModel | 577 |
-| UseMeleeThreatPrioritization | 568 |
 | UseOriginalAnimsForUnintendedClassWeapons | 1 |
-| VoiceCommand | 261 |
-| WaveStartCountdown | 36 |
-| WeaponResist | 74 |
-| WeaponSwitch | 155 |
-| ZombiesNoWave666 | 43 |
 
 ### dover2_bot_logic.pop
 |Name|Count|
