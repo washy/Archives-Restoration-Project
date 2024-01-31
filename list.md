@@ -1,7 +1,6 @@
 # Total
 |Name|Count|
 |-|-|
-
 | AddCond | 4403 |
 | SpawnTemplate | 3020 |
 | TeamNum | 1018 |
